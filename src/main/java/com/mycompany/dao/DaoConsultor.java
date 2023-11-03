@@ -5,6 +5,7 @@
 package com.mycompany.dao;
 
 import com.mycompany.ferramentas.BancoDeDadosMySql;
+import java.sql.ResultSet;
 
 /**
  *
@@ -71,17 +72,17 @@ public class DaoConsultor extends BancoDeDadosMySql{
     }
     
     
-    public Boolean listarTodos(){
+    public ResultSet listarTodos(){
         try{
             sql =
-                    "SELECT                       "+
-                    "   ID AS ID,                 "+
-                    "   NOME AS NOME,             "+
-                    "   TELEFONE AS TELEFONE,     "+
-                    "   EMAIL AS E-MAIL           "+
-                    "FROM                         "+
-                    "   CONSULTOR CON             "+
-                    "ORDER BY 1                   ";
+                "SELECT                       "+
+                "   ID AS ID,                 "+
+                "   NOME AS NOME,             "+
+                "   TELEFONE AS TELEFONE,     "+
+                "   EMAIL AS E-MAIL           "+
+                "FROM                         "+
+                "   CONSULTOR CON             "+
+                "ORDER BY 1                   ";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -89,8 +90,73 @@ public class DaoConsultor extends BancoDeDadosMySql{
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        
+        return getResultado(); 
+    }
+    
+    public ResultSet listarPorId(int id){
+        try{
+            sql = 
+                "SELECT                          "+
+                "   ID AS ID,                    "+
+                "   NOME AS NOME,                "+
+                "   TELEFONE AS TELEFONE,        "+
+                "   EMAIL AS EMAIL               "+
+                "FROM                            "+
+                "   CONSULTOR CON                "+
+                "WHERE ID = ?                    "+
+                "ORDER BY 1                      ";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setInt(1, id);
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         return getResultado();
     }
     
+    
+    public ResultSet listarPorNome(String nome){
+        try{
+            sql = 
+                "SELECT                          "+
+                "   ID AS ID,                    "+
+                "   NOME AS NOME,                "+
+                "   TELEFONE AS TELEFONE,        "+
+                "   EMAIL AS EMAIL               "+
+                "FROM                            "+
+                "   CONSULTOR CON                "+
+                "WHERE CON.NOME LIKE ?               "+
+                "ORDER BY 1                      ";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setString(1, nome + "%");
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return getResultado();
+    }
+    
+    public int buscarProximoId(){
+        int id = -1;
+        
+        try{
+            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM CONSULTOR";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            setResultado(getStatement().executeQuery());
+            
+            getResultado().next();
+            id = getResultado().getInt(1);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
 }

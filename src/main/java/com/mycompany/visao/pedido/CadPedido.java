@@ -84,7 +84,7 @@ public class CadPedido extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Data");
 

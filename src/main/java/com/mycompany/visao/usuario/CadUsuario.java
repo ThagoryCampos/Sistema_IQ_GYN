@@ -37,7 +37,7 @@ public class CadUsuario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel4.setText("Confirmação de Senha");
 

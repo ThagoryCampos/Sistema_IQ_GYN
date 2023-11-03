@@ -21,9 +21,7 @@ public class ModCliente {
     private String celular;
     private String telefone;
 
-    @Override
-    public String toString() {
-        return "ModCliente{" + "id=" + id + ", empresa=" + empresa + ", contato=" + contato + ", cnpj=" + cnpj + ", cidade=" + cidade + ", endereco=" + endereco + ", estado=" + estado + ", cep=" + cep + ", email=" + email + ", celular=" + celular + ", telefone=" + telefone + '}';
+    public ModCliente(){
     }
 
     public int getId() {
@@ -114,18 +112,11 @@ public class ModCliente {
         this.telefone = telefone;
     }
 
-    public ModCliente(int id, String empresa, String contato, String cnpj, String cidade, String endereco, String estado, String cep, String email, String celular, String telefone) {
-        this.id = id;
-        this.empresa = empresa;
-        this.contato = contato;
-        this.cnpj = cnpj;
-        this.cidade = cidade;
-        this.endereco = endereco;
-        this.estado = estado;
-        this.cep = cep;
-        this.email = email;
-        this.celular = celular;
-        this.telefone = telefone;
+    @Override
+    public String toString() {
+        return "ModCliente{" + "id=" + id + ", empresa=" + empresa + ", contato=" + contato + ", cnpj=" + cnpj + ", cidade=" + cidade + ", endereco=" + endereco + ", estado=" + estado + ", cep=" + cep + ", email=" + email + ", celular=" + celular + ", telefone=" + telefone + '}';
     }
+    
+    
 
 }
