@@ -16,35 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clientes`
+-- Table structure for table `cliente`
 --
 
-DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clientes` (
+CREATE TABLE `cliente` (
   `id` int NOT NULL,
   `empresa` varchar(50) NOT NULL,
-  `contato` varchar(30) NOT NULL,
+  `contato` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `cnpj` varchar(20) NOT NULL,
   `cidade` varchar(50) NOT NULL,
   `endereço` varchar(100) NOT NULL,
   `estado` varchar(25) NOT NULL,
   `cep` varchar(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `celular` varchar(15) NOT NULL,
-  `telefone` varchar(15) NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `celular` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `telefone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `clientes`
+-- Dumping data for table `cliente`
 --
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'ACE INDUSTRIA E COMERCIO LTDA\r\n',NULL,'02.400.787/0001-04','Goiania','R 7 N. 46 Q 38 L 02/03 - JARDIM SANTO ANTONIO','Goias','74853-200','',NULL,NULL),(2,'ACTIVE INDUSTRIA DE COSMETICOS S.A.\r\n',NULL,'22.010.816/0003-09\r\n','Aparecida de Goiania','RUA 15 QUADRA 14 LT 2 E N. SN - POLO EMPRESARIAL\r\n','Goias','74985-253\r\n',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -69,6 +70,7 @@ CREATE TABLE `consultor` (
 
 LOCK TABLES `consultor` WRITE;
 /*!40000 ALTER TABLE `consultor` DISABLE KEYS */;
+INSERT INTO `consultor` VALUES (1,'Thagory','44997536985','thagpry@gmail.com'),(2,'Hebert','62996861195','hebert@institutoqualitec.com.br'),(3,'Moabi','00000000000','moabi@institutoqualitec.com.br');
 /*!40000 ALTER TABLE `consultor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +83,7 @@ DROP TABLE IF EXISTS `instituto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `instituto` (
   `id` int NOT NULL,
-  `nome` varchar(30) NOT NULL,
+  `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `cnpj` varchar(15) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -93,6 +95,7 @@ CREATE TABLE `instituto` (
 
 LOCK TABLES `instituto` WRITE;
 /*!40000 ALTER TABLE `instituto` DISABLE KEYS */;
+INSERT INTO `instituto` VALUES (1,'GISELE BADAUY LAURIA SILVA UNIPESSOAL LTDA','18154350000178'),(2,'GISELE BADAUY LAURIA SILVA','22430918000103');
 /*!40000 ALTER TABLE `instituto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,14 +108,14 @@ DROP TABLE IF EXISTS `pedido`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pedido` (
   `id` int NOT NULL,
-  `data` datetime NOT NULL,
+  `data` varchar(12) NOT NULL,
   `numeroPedido` int NOT NULL,
   `vendedor` varchar(45) NOT NULL,
-  `instituto` int NOT NULL,
+  `idInstituto` int NOT NULL,
   `idCliente` int NOT NULL,
-  `numeroProjeto` varchar(45) NOT NULL,
+  `numeroProjeto` int NOT NULL,
   `escopoProjeto` varchar(500) NOT NULL,
-  `prazo` datetime NOT NULL,
+  `prazo` varchar(15) NOT NULL,
   `formaPagamento` varchar(45) NOT NULL,
   `valorProjeto` double NOT NULL,
   `custoFixo` double NOT NULL,
@@ -124,9 +127,9 @@ CREATE TABLE `pedido` (
   PRIMARY KEY (`id`),
   KEY `idCliente` (`idCliente`),
   KEY `idConsultor` (`idConsultor`),
-  KEY `pedido_FK` (`instituto`),
-  CONSTRAINT `pedido_FK` FOREIGN KEY (`instituto`) REFERENCES `instituto` (`id`),
-  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`id`),
+  KEY `pedido_FK` (`idInstituto`),
+  CONSTRAINT `pedido_FK` FOREIGN KEY (`idInstituto`) REFERENCES `instituto` (`id`),
+  CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`id`),
   CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`idConsultor`) REFERENCES `consultor` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -161,6 +164,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'admin','admin'),(2,'Thagory','25052017'),(3,'teste1','12345');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,4 +181,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-01 17:13:40
+-- Dump completed on 2023-11-03 17:28:15
