@@ -5,19 +5,27 @@
 package com.mycompany.visao.cliente;
 
 import com.mycompany.dao.DaoCliente;
+import com.mycompany.ferramentas.BancoDeDadosMySql;
 import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModCliente;
+import java.awt.FlowLayout;
+import java.awt.Panel;
 import java.lang.constant.Constable;
+import java.text.ParseException;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
  * @author thagory.8187
  */
-public class CadCliente extends javax.swing.JFrame {
-
+public class CadCliente extends javax.swing.JFrame{
+    
     /**
      * Creates new form CadCliente
      */
@@ -33,7 +41,7 @@ public class CadCliente extends javax.swing.JFrame {
             }
             
             btnSalvar.setText(Constantes.BTN_SALVAR_TEXT);
-            btnExcluir.setText(Constantes.BTN_EXCLUIR_TEXT);
+            btnExcluir.setVisible(false);
         }else{
             btnSalvar.setText(Constantes.BTN_ALTERAR_TEXT);
             btnExcluir.setVisible(true);
@@ -45,7 +53,7 @@ public class CadCliente extends javax.swing.JFrame {
         
         setExtendedState(MAXIMIZED_BOTH);
     }
-    
+      
     private Boolean existeDadosTemporarios(){
         if(DadosTemporarios.tempObject instanceof ModCliente){
             int id = ((ModCliente) DadosTemporarios.tempObject).getId();
@@ -74,18 +82,39 @@ public class CadCliente extends javax.swing.JFrame {
         
         
            
-                DadosTemporarios.tempObject = null;
+            DadosTemporarios.tempObject = null;
 
-                return true;
+            return true;
         }else
             return false;
     }
     
     private void inserir(){
         DaoCliente daoCliente = new DaoCliente();
+            
+            if(daoCliente.inserir(Integer.parseInt(tfId.getText()), tfEmpresa.getText(), tfContato.getText(), tfCnpj.getText(), tfCidade.getText(), tfEndereco.getText(), tfEstado.getText(), tfCep.getText(), tfEmail.getText(), tfCelular.getText(), tfTelefone.getText())){
+                JOptionPane.showMessageDialog(null, "Cliente Salvo com sucesso");
+
+                tfEmpresa.setText("");
+                tfContato.setText("");
+                tfCnpj.setText("");
+                tfCidade.setText("");
+                tfEndereco.setText("");
+                tfEstado.setText("");
+                tfCep.setText("");
+                tfEmail.setText("");
+                tfCelular.setText("");
+                tfTelefone.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Não foi possível salvar o cliente");
+            }
+    }
+    
+    private void alterar(){
+        DaoCliente daoCliente = new DaoCliente();
         
-        if(daoCliente.inserir(Integer.parseInt(tfId.getText()), tfEmpresa.getText(), tfContato.getText(), tfCnpj.getText(), tfCidade.getText(), tfEndereco.getText(), tfEstado.getText(), tfCep.getText(), tfEmail.getText(), tfCelular.getText(), tfTelefone.getText())){
-            JOptionPane.showMessageDialog(null, "Cliente Salvo com sucesso");
+        if(daoCliente.alterar(Integer.parseInt(tfId.getText()), tfEmpresa.getText(), tfContato.getText(), tfCnpj.getText(), tfCidade.getText(), tfEndereco.getText(), tfEstado.getText(), tfCep.getText(), tfEmail.getText(), tfCelular.getText(), tfTelefone.getText())){
+            JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
             
             tfEmpresa.setText("");
             tfContato.setText("");
@@ -98,14 +127,20 @@ public class CadCliente extends javax.swing.JFrame {
             tfCelular.setText("");
             tfTelefone.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possívle Salvar o cliente");
+            JOptionPane.showMessageDialog(null, "não foi possivel alterar o cliente!");
         }
+        ((ListCliente)Formularios.listCliente).listarTodos();
+        
+        dispose();
     }
     
-    private void alterar(){
+    private void excluir(){
         DaoCliente daoCliente = new DaoCliente();
         
-        if(daoCliente.alterar(Integer.parseInt(tfId.getText()), tfEmpresa.getText(), tfContato.getText(), tfCnpj.getText(), tfCidade.getText(), tfEndereco.getText(), tfEstado.getText(), tfCep.getText(), tfEmail.getText(), tfCelular.getText(), tfTelefone.getText())){
+        if (daoCliente.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "Cliente " + tfEmpresa.getText() + " excluido com sucesso!");
+            
+            tfId.setText("");
             tfEmpresa.setText("");
             tfContato.setText("");
             tfCnpj.setText("");
@@ -117,9 +152,10 @@ public class CadCliente extends javax.swing.JFrame {
             tfCelular.setText("");
             tfTelefone.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Cliente alterado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Não foi possivel excluir o cliente!");
         }
-        ((ListCliente)Formularios.listCliente).listarTodos();
+        
+        ((ListCliente) Formularios.listCliente).listarTodos();
         
         dispose();
     }
@@ -141,25 +177,25 @@ public class CadCliente extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tfContato = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfCnpj = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfCidade = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         tfEndereco = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        tfCep = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        tfCelular = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        tfTelefone = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         btnSalvar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         tfEstado = new javax.swing.JTextField();
+        tfCnpj = new javax.swing.JFormattedTextField();
+        tfCep = new javax.swing.JFormattedTextField();
+        tfTelefone = new javax.swing.JFormattedTextField();
+        tfCelular = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -194,8 +230,42 @@ public class CadCliente extends javax.swing.JFrame {
         jLabel11.setText("Estado");
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
-        btnExcluir.setText("Salvar");
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        try {
+            tfCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            tfCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            tfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            tfCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -209,6 +279,7 @@ public class CadCliente extends javax.swing.JFrame {
                         .addComponent(jSeparator2)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tfEmpresa, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -216,31 +287,12 @@ public class CadCliente extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(146, 146, 146)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(tfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(229, 229, 229))
+                                    .addComponent(tfCnpj))))
                         .addGap(162, 162, 162))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel10))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnExcluir)
-                                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfEndereco, javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,18 +302,34 @@ public class CadCliente extends javax.swing.JFrame {
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel7)
-                                    .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(163, 163, 163))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(235, 235, 235))
+                                    .addComponent(tfCep))))
+                        .addGap(163, 163, 163))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(btnSalvar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnSalvar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExcluir))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,11 +347,10 @@ public class CadCliente extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -293,9 +360,9 @@ public class CadCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7))
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -350,6 +417,30 @@ public class CadCliente extends javax.swing.JFrame {
     private void tfEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEnderecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfEnderecoActionPerformed
+    
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        DaoCliente daoCliente = new DaoCliente();
+       
+        if (btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
+            inserir();
+            
+            tfId.setText(String.valueOf(daoCliente.buscarProximoId()));
+        }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
+            alterar();
+            ((ListCliente) Formularios.listCliente).listarTodos();
+            dispose();
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int escolha = 
+                JOptionPane.showConfirmDialog(
+                        null, 
+                        "Deseja realmente excluir o cliente " + tfEmpresa.getText() + "?");
+        
+        if(escolha == JOptionPane.YES_OPTION)
+            excluir();
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,6 +469,8 @@ public class CadCliente extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -403,16 +496,16 @@ public class CadCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField tfCelular;
-    private javax.swing.JTextField tfCep;
+    private javax.swing.JFormattedTextField tfCelular;
+    private javax.swing.JFormattedTextField tfCep;
     private javax.swing.JTextField tfCidade;
-    private javax.swing.JTextField tfCnpj;
+    private javax.swing.JFormattedTextField tfCnpj;
     private javax.swing.JTextField tfContato;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEmpresa;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfEstado;
     private javax.swing.JTextField tfId;
-    private javax.swing.JTextField tfTelefone;
+    private javax.swing.JFormattedTextField tfTelefone;
     // End of variables declaration//GEN-END:variables
 }

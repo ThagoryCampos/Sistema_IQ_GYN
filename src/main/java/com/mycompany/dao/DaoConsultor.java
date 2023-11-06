@@ -36,7 +36,7 @@ public class DaoConsultor extends BancoDeDadosMySql{
     
     public Boolean alterar(int id, String nome, String telefone, String email){
         try{
-            sql = "UPDATE INTO CONSULTOR SET NOME = ?, TELEFONE = ?, EMAIL = ? WHERE ID = ?";
+            sql = "UPDATE CONSULTOR SET NOME = ?, TELEFONE = ?, EMAIL = ? WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -56,7 +56,7 @@ public class DaoConsultor extends BancoDeDadosMySql{
     
     public Boolean excluir(int id){
         try{
-            sql = "DELETE FROM PESSOA WHERE ID = ?";
+            sql = "DELETE FROM CONSULTOR WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -79,9 +79,9 @@ public class DaoConsultor extends BancoDeDadosMySql{
                 "   ID AS ID,                 "+
                 "   NOME AS NOME,             "+
                 "   TELEFONE AS TELEFONE,     "+
-                "   EMAIL AS E-MAIL           "+
+                "   EMAIL AS EMAIL            "+
                 "FROM                         "+
-                "   CONSULTOR CON             "+
+                "   CONSULTOR                 "+
                 "ORDER BY 1                   ";
             
             setStatement(getConexao().prepareStatement(sql));
@@ -90,10 +90,10 @@ public class DaoConsultor extends BancoDeDadosMySql{
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return getResultado(); 
+        return getResultado();
     }
     
-    public ResultSet listarPorId(int id){
+    public ResultSet listarPorId(int pId){
         try{
             sql = 
                 "SELECT                          "+
@@ -108,7 +108,7 @@ public class DaoConsultor extends BancoDeDadosMySql{
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setInt(1, id);
+            getStatement().setInt(1, pId);
             
             setResultado(getStatement().executeQuery());
         }catch(Exception e){
@@ -118,7 +118,7 @@ public class DaoConsultor extends BancoDeDadosMySql{
     }
     
     
-    public ResultSet listarPorNome(String nome){
+    public ResultSet listarPorNome(String pNome){
         try{
             sql = 
                 "SELECT                          "+
@@ -128,12 +128,12 @@ public class DaoConsultor extends BancoDeDadosMySql{
                 "   EMAIL AS EMAIL               "+
                 "FROM                            "+
                 "   CONSULTOR CON                "+
-                "WHERE CON.NOME LIKE ?               "+
+                "WHERE CON.NOME LIKE ?           "+
                 "ORDER BY 1                      ";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setString(1, nome + "%");
+            getStatement().setString(1, pNome + "%");
             
             setResultado(getStatement().executeQuery());
         }catch(Exception e){
@@ -143,7 +143,7 @@ public class DaoConsultor extends BancoDeDadosMySql{
     }
     
     public int buscarProximoId(){
-        int id = -1;
+        int id = 0;
         
         try{
             sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM CONSULTOR";
@@ -153,6 +153,7 @@ public class DaoConsultor extends BancoDeDadosMySql{
             setResultado(getStatement().executeQuery());
             
             getResultado().next();
+            
             id = getResultado().getInt(1);
         }catch(Exception e){
             System.out.println(e.getMessage());

@@ -21,8 +21,9 @@ public class ListCliente extends javax.swing.JFrame {
      */
     public ListCliente() {
         initComponents();
-        
+      
         setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
         
         listarTodos();
     }
@@ -58,7 +59,7 @@ public class ListCliente extends javax.swing.JFrame {
         }
     }
     
-    public void ListarPorId(){
+    public void ListarPorId(int pId){
         try{
             
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableCliente.getModel();
@@ -67,7 +68,7 @@ public class ListCliente extends javax.swing.JFrame {
             
             DaoCliente daoCliente = new DaoCliente();
             
-            ResultSet resultSet = daoCliente.listarPorId(Integer.parseInt(tfFiltro.getText()));
+            ResultSet resultSet = daoCliente.listarPorId(pId);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
@@ -208,7 +209,7 @@ public class ListCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "RUA", "CEP", "NÚM. RESIDÊNCIA", "NOME", "SOBRENOME", "GENERO", "TELEFONE", "EMAIL", "ESTADO CIVIL" }));
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "EMPRESA", "CIDADE", "CNPJ" }));
 
         tableCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,6 +237,11 @@ public class ListCliente extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableCliente);
+        if (tableCliente.getColumnModel().getColumnCount() > 0) {
+            tableCliente.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tableCliente.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tableCliente.getColumnModel().getColumn(5).setPreferredWidth(400);
+        }
 
         jcbBuscar.setText("Buscar");
         jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -296,29 +302,30 @@ public class ListCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableClienteMouseClicked
-        if (evt.getClickCount() == 2){
-                //Pega os dados da pessoa
-           ModCliente modCliente = new ModCliente();
-           
-            modCliente.setId(Integer.parseInt(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 0))));
-            modCliente.setEmpresa(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 1)));
-            modCliente.setContato(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 2)));
-            modCliente.setCnpj(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 3)));
-            modCliente.setCidade(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 4)));
-            modCliente.setEndereco(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 5)));
-            modCliente.setEstado(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 6)));
-            modCliente.setCep(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 7)));
-            modCliente.setEmail(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 8)));
-            modCliente.setCelular(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 9)));
-            modCliente.setTelefone(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 10)));
-                
-            DadosTemporarios.tempObject = (ModCliente) modCliente;
+        try{
+            if (evt.getClickCount() == 2){
+                    //Pega os dados da pessoa
+               ModCliente modCliente = new ModCliente();
 
-            CadCliente cadCliente = new CadCliente();
-            cadCliente.setVisible(true);
+                modCliente.setId(Integer.parseInt(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 0))));
+                modCliente.setEmpresa(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 1)));
+                modCliente.setContato(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 2)));
+                modCliente.setCnpj(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 3)));
+                modCliente.setCidade(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 4)));
+                modCliente.setEndereco(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 5)));
+                modCliente.setEstado(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 6)));
+                modCliente.setCep(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 7)));
+                modCliente.setEmail(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 8)));
+                modCliente.setCelular(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 9)));
+                modCliente.setTelefone(String.valueOf(tableCliente.getValueAt(tableCliente.getSelectedRow(), 10)));
 
-           
-            
+                DadosTemporarios.tempObject = (ModCliente) modCliente;
+
+                CadCliente cadCliente = new CadCliente();
+                cadCliente.setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_tableClienteMouseClicked
 
@@ -328,7 +335,7 @@ public class ListCliente extends javax.swing.JFrame {
             listarTodos();
             break;
             case 1:
-            ListarPorId();
+            ListarPorId(Integer.parseInt(tfFiltro.getText()));
             break;
             case 2:
             ListarPorEmpresa();

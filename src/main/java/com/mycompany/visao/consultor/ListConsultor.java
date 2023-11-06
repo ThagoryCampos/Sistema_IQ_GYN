@@ -4,6 +4,12 @@
  */
 package com.mycompany.visao.consultor;
 
+import com.mycompany.dao.DaoConsultor;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModConsultor;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author thagory.8187
@@ -15,6 +21,86 @@ public class ListConsultor extends javax.swing.JFrame {
      */
     public ListConsultor() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
+        
+        listarTodos();
+        
+    }
+    
+    
+    public void listarTodos(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
+            
+            tableConsultor.setModel(defaultTableModel);
+            
+            DaoConsultor daoConsultor = new DaoConsultor();
+            
+            ResultSet resultSet = daoConsultor.listarTodos();
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                String telefone = resultSet.getString(3);
+                String email = resultSet.getString(4);
+                
+                defaultTableModel.addRow(new Object[]{id, nome, telefone, email});
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void ListarPorId(int pId){
+        try{
+            
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
+            
+            tableConsultor.setModel(defaultTableModel);
+            
+            DaoConsultor daoConsultor = new DaoConsultor();
+            
+            ResultSet resultSet = daoConsultor.listarPorId(pId);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                String telefone = resultSet.getString(3);
+                String email = resultSet.getString(4);
+                 defaultTableModel.addRow(new Object[]{id, nome, telefone, email});
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void ListarPorNome(){
+        try{
+            
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
+            
+            tableConsultor.setModel(defaultTableModel);
+            
+            DaoConsultor daoConsultor = new DaoConsultor();
+            
+            ResultSet resultSet = daoConsultor.listarPorNome(tfFiltro.getText());
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome = resultSet.getString(2);
+                String telefone = resultSet.getString(3);
+                String email = resultSet.getString(4);
+                
+                defaultTableModel.addRow(new Object[]{id, nome, telefone, email});
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -26,21 +112,118 @@ public class ListConsultor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jcbTipoFiltro = new javax.swing.JComboBox<>();
+        jcbBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableConsultor = new javax.swing.JTable();
+        tfFiltro = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME" }));
+
+        jcbBuscar.setText("Buscar");
+        jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbBuscarActionPerformed(evt);
+            }
+        });
+
+        tableConsultor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "NOME", "TELEFONE", "E-MAIL"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableConsultor.getTableHeader().setReorderingAllowed(false);
+        tableConsultor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableConsultorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableConsultor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFiltro))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jcbBuscar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbBuscar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jcbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+            listarTodos();
+            break;
+            case 1:
+            ListarPorId(Integer.parseInt(tfFiltro.getText()));
+            break;
+            case 2:
+            ListarPorNome();
+            break;
+        }
+    }//GEN-LAST:event_jcbBuscarActionPerformed
+
+    private void tableConsultorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableConsultorMouseClicked
+        try{
+            if (evt.getClickCount() == 2){
+                //Pega os dados da pessoa
+                ModConsultor modConsultor = new ModConsultor();
+
+                modConsultor.setId(Integer.parseInt(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 0))));
+                modConsultor.setNome(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 1)));
+                modConsultor.setTelefone(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 2)));
+                modConsultor.setEmail(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 3)));
+                
+                DadosTemporarios.tempObject = (ModConsultor) modConsultor;
+
+                CadConsultor cadConsultor = new CadConsultor();
+                cadConsultor.setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_tableConsultorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +261,10 @@ public class ListConsultor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jcbBuscar;
+    private javax.swing.JComboBox<String> jcbTipoFiltro;
+    private javax.swing.JTable tableConsultor;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }

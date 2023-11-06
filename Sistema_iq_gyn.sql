@@ -28,7 +28,7 @@ CREATE TABLE `cliente` (
   `contato` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `cnpj` varchar(20) NOT NULL,
   `cidade` varchar(50) NOT NULL,
-  `endereço` varchar(100) NOT NULL,
+  `endereco` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `estado` varchar(25) NOT NULL,
   `cep` varchar(11) NOT NULL,
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'ACE INDUSTRIA E COMERCIO LTDA\r\n',NULL,'02.400.787/0001-04','Goiania','R 7 N. 46 Q 38 L 02/03 - JARDIM SANTO ANTONIO','Goias','74853-200','',NULL,NULL),(2,'ACTIVE INDUSTRIA DE COSMETICOS S.A.\r\n',NULL,'22.010.816/0003-09\r\n','Aparecida de Goiania','RUA 15 QUADRA 14 LT 2 E N. SN - POLO EMPRESARIAL\r\n','Goias','74985-253\r\n',NULL,NULL,NULL);
+INSERT INTO `cliente` VALUES (1,'ACE INDUSTRIA E COMERCIO LTDA\r ','','02.400.787/0001-04','Goiania','R 7 N. 46 Q 38 L 02/03 - JARDIM SANTO ANTONIO','Goias','74853-200','','(  )     -    ','(  )    -    '),(2,'ACTIVE INDUSTRIA DE COSMETICOS S.A.\r ','','22.010.816/0003-09','Aparecida de Goiania','RUA 15 QUADRA 14 LT 2 E N. SN - POLO EMPRESARIAL\r ','Goias','74985-253','','(  )     -    ','(  )    -    '),(3,'teste01','asdf65a4','74.369.639/0001-32','teste','teste','teste','74215-018','teste','(44)99753-6985','(44)3296-8097');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +70,7 @@ CREATE TABLE `consultor` (
 
 LOCK TABLES `consultor` WRITE;
 /*!40000 ALTER TABLE `consultor` DISABLE KEYS */;
-INSERT INTO `consultor` VALUES (1,'Thagory','44997536985','thagpry@gmail.com'),(2,'Hebert','62996861195','hebert@institutoqualitec.com.br'),(3,'Moabi','00000000000','moabi@institutoqualitec.com.br');
+INSERT INTO `consultor` VALUES (1,'Thagory','44997536985','thagpry@gmail.com'),(2,'Hebert','62996861195','hebert@institutoqualitec.com.br'),(3,'Moabi','00000000000','moabi@institutoqualitec.com.br'),(4,'TESTE','(19)19191-9191','TESTE@EMAIL.COM'),(5,'teste02','(45)55555-5555','teste@email.com');
 /*!40000 ALTER TABLE `consultor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,4 +181,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-03 17:28:15
+-- Dump completed on 2023-11-06 17:32:06

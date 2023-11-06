@@ -51,11 +51,7 @@ public class ModConsultor {
         this.email = email;
     }
 
-    public ModConsultor(int id, String nome, String telefone, String email) {
-        this.id = id;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
+    public ModConsultor(){
     }
     
 }

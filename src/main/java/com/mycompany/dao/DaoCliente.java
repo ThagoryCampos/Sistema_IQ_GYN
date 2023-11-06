@@ -60,7 +60,7 @@ public class DaoCliente extends BancoDeDadosMySql{
             getStatement().setString(9, celular);
             getStatement().setString(10, telefone);
             
-            getStatement().executeQuery();
+            getStatement().executeUpdate();
             
             return true;            
         }catch(Exception e){
@@ -89,21 +89,20 @@ public class DaoCliente extends BancoDeDadosMySql{
     public ResultSet listarTodos(){
         try{
             sql = 
-                " SELECT                               "+
+                " SELECT                                 "+
                 "    ID AS ID,                            "+
                 "    EMPRESA AS EMPRESA,                  "+
-                "    CONTATO AS CONTATO,                  "+
+                "    IFNULL(CONTATO,'') AS CONTATO,       "+
                 "    CNPJ AS CNPJ,                        "+
                 "    CIDADE AS CIDADE,                    "+
                 "    ENDERECO AS ENDERECO,                "+
                 "    ESTADO AS ESTADO,                    "+
                 "    CEP AS CEP,                          "+
-                "    EMAIL AS EMAIL,                      "+
-                "    CELULAR AS CELULAR,                  "+
-                "    TELEFONE AS TELEFONE                 "+
+                "    IFNULL(EMAIL, '') AS EMAIL,          "+
+                "    IFNULL(CELULAR, '') AS CELULAR,      "+
+                "    IFNULL(TELEFONE, '') AS TELEFONE     "+
                 " FROM                                    "+
                 "    CLIENTE                              "+
-                " WHERE ID = ?                            "+
                 " ORDER BY 1                              ";
             
             setStatement(getConexao().prepareStatement(sql));
@@ -115,29 +114,29 @@ public class DaoCliente extends BancoDeDadosMySql{
         return getResultado();
     }
     
-    public ResultSet listarPorId(int id){
+    public ResultSet listarPorId(int pId){
         try{
             sql = 
-                " SELECT                               "+
+                " SELECT                                  "+
                 "    ID AS ID,                            "+
                 "    EMPRESA AS EMPRESA,                  "+
-                "    CONTATO AS CONTATO,                  "+
+                "    IFNULL(CONTATO, '') AS CONTATO,      "+
                 "    CNPJ AS CNPJ,                        "+
                 "    CIDADE AS CIDADE,                    "+
                 "    ENDERECO AS ENDERECO,                "+
                 "    ESTADO AS ESTADO,                    "+
                 "    CEP AS CEP,                          "+
-                "    EMAIL AS EMAIL,                      "+
-                "    CELULAR AS CELULAR,                  "+
-                "    TELEFONE AS TELEFONE                 "+
+                "    IFNULL(EMAIL, '') AS EMAIL,          "+
+                "    IFNULL(CELULAR, '') AS CELULAR,      "+
+                "    IFNULL(TELEFONE, '') AS TELEFONE     "+
                 " FROM                                    "+
                 "    CLIENTE  CLI                         "+
-                " WHERE CLI.ID = ?                        "+
+                " WHERE ID = ?                            "+
                 " ORDER BY 1                              ";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setInt(1, id);
+            getStatement().setInt(1, pId);
             
             
             setResultado(getStatement().executeQuery());
@@ -150,26 +149,26 @@ public class DaoCliente extends BancoDeDadosMySql{
      public ResultSet listarPorEmpresa(String empresa){
         try{
             sql = 
-                " SELECT                               "+
+                " SELECT                                  "+
                 "    ID AS ID,                            "+
                 "    EMPRESA AS EMPRESA,                  "+
-                "    CONTATO AS CONTATO,                  "+
+                "    IFNULL(CONTATO, '') AS CONTATO,      "+
                 "    CNPJ AS CNPJ,                        "+
                 "    CIDADE AS CIDADE,                    "+
                 "    ENDERECO AS ENDERECO,                "+
                 "    ESTADO AS ESTADO,                    "+
                 "    CEP AS CEP,                          "+
-                "    EMAIL AS EMAIL,                      "+
-                "    CELULAR AS CELULAR,                  "+
-                "    TELEFONE AS TELEFONE                 "+
+                "    IFNULL(EMAIL, '') AS EMAIL,          "+
+                "    IFNULL(CELULAR, '') AS CELULAR,      "+
+                "    IFNULL(TELEFONE, '') AS TELEFONE     "+
                 " FROM                                    "+
                 "    CLIENTE  CLI                         "+
-                " WHERE CLI.EMPRESA = ?                   "+
+                " WHERE CLI.EMPRESA LIKE ?                "+
                 " ORDER BY 1                              ";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setString(2, empresa + "%");
+            getStatement().setString(1, empresa + "%");
             
             
             setResultado(getStatement().executeQuery());
@@ -182,26 +181,26 @@ public class DaoCliente extends BancoDeDadosMySql{
     public ResultSet listarPorCnpj(String cnpj){
         try{
             sql = 
-                " SELECT                               "+
+                " SELECT                                  "+
                 "    ID AS ID,                            "+
                 "    EMPRESA AS EMPRESA,                  "+
-                "    CONTATO AS CONTATO,                  "+
+                "    IFNULL(CONTATO, '') AS CONTATO,      "+
                 "    CNPJ AS CNPJ,                        "+
                 "    CIDADE AS CIDADE,                    "+
                 "    ENDERECO AS ENDERECO,                "+
                 "    ESTADO AS ESTADO,                    "+
                 "    CEP AS CEP,                          "+
-                "    EMAIL AS EMAIL,                      "+
-                "    CELULAR AS CELULAR,                  "+
-                "    TELEFONE AS TELEFONE                 "+
+                "    IFNULL(EMAIL, '') AS EMAIL,          "+
+                "    IFNULL(CELULAR, '') AS CELULAR,      "+
+                "    IFNULL(TELEFONE, '') AS TELEFONE     "+
                 " FROM                                    "+
                 "    CLIENTE  CLI                         "+
-                " WHERE CLI.CNPJ = ?                      "+
+                " WHERE CLI.CNPJ LIKE ?                   "+
                 " ORDER BY 1                              ";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setString(4, cnpj + "%");
+            getStatement().setString(1, cnpj + "%");
             
             
             setResultado(getStatement().executeQuery());
@@ -214,26 +213,26 @@ public class DaoCliente extends BancoDeDadosMySql{
     public ResultSet listarPorCidade(String cidade){
         try{
             sql = 
-                " SELECT                               "+
+                " SELECT                                  "+
                 "    ID AS ID,                            "+
                 "    EMPRESA AS EMPRESA,                  "+
-                "    CONTATO AS CONTATO,                  "+
+                "    IFNULL(CONTATO, '') AS CONTATO,      "+
                 "    CNPJ AS CNPJ,                        "+
                 "    CIDADE AS CIDADE,                    "+
                 "    ENDERECO AS ENDERECO,                "+
                 "    ESTADO AS ESTADO,                    "+
                 "    CEP AS CEP,                          "+
-                "    EMAIL AS EMAIL,                      "+
-                "    CELULAR AS CELULAR,                  "+
-                "    TELEFONE AS TELEFONE                 "+
+                "    IFNULL(EMAIL, '') AS EMAIL,          "+
+                "    IFNULL(CELULAR, '') AS CELULAR,      "+
+                "    IFNULL(TELEFONE, '') AS TELEFONE     "+
                 " FROM                                    "+
                 "    CLIENTE  CLI                         "+
-                " WHERE CLI.CIDADE = ?                    "+
+                " WHERE CLI.CIDADE LIKE ?                 "+
                 " ORDER BY 1                              ";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setString(5, cidade + "%");
+            getStatement().setString(1, cidade + "%");
             
             
             setResultado(getStatement().executeQuery());
@@ -244,7 +243,7 @@ public class DaoCliente extends BancoDeDadosMySql{
     }
     
     public int buscarProximoId(){
-        int id = -1;
+        int id = 0;
         
         try{
             sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM CLIENTE";
