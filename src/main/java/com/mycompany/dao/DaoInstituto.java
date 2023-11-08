@@ -15,17 +15,17 @@ import java.time.Clock;
 public class DaoInstituto extends BancoDeDadosMySql{
     String sql;
     
-    public Boolean inserir(int id, String nome, String cnpj){
+    public Boolean inserir(int id, String cnpj, String empresa){
         try{
-            sql = "INSERT INTO INSTITUTO (ID, NOME, CNPJ) VALUES (?, ?, ?)";
+            sql = "INSERT INTO INSTITUTO (ID, CNPJ, EMPRESA) VALUES (?, ?, ?)";
             
             setStatement(getConexao().prepareStatement(sql));
             
             getStatement().setInt(1, id);
-            getStatement().setString(2, nome);
-            getStatement().setString(3, cnpj);
+            getStatement().setString(2, cnpj);
+            getStatement().setString(3, empresa);
             
-            getStatement().executeQuery();
+            getStatement().executeUpdate();
             
             return true;
         }catch(Exception e){
@@ -35,17 +35,17 @@ public class DaoInstituto extends BancoDeDadosMySql{
     }
     
     
-    public Boolean alterar(int id, String nome, String cnpj){
+    public Boolean alterar(int id, String cnpj, String empresa){
         try{
-            sql = "UPDATE INSTITUTO SET NOME = ?, CNPJ = ? WHERE ID = ?";
+            sql = "UPDATE INSTITUTO SET CNPJ = ?, EMPRESA = ? WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
             getStatement().setInt(3, id);
-            getStatement().setString(1, nome);
-            getStatement().setString(2, cnpj);
+            getStatement().setString(1, cnpj);
+            getStatement().setString(2, empresa);
             
-            getStatement().executeQuery();
+            getStatement().executeUpdate();
             
             return true;
         }catch(Exception e ){
@@ -62,7 +62,7 @@ public class DaoInstituto extends BancoDeDadosMySql{
             
             getStatement().setInt(1, id);
             
-            getStatement().executeQuery();
+            getStatement().executeUpdate();
             
             return true;
         }catch(Exception e){
@@ -75,12 +75,12 @@ public class DaoInstituto extends BancoDeDadosMySql{
         try{
             sql = 
                 " SELECT                          "+
-                "   ID AD ID,                     "+
-                "   NOME AS NOME,                 "+
-                "   CNPJ AS CNPJ                  "+
-                "FROM                             "+
+                "   ID AS ID,                     "+
+                "   CNPJ AS CNPJ,                 "+
+                "   EMPRESA AS EMPRESA            "+
+                " FROM                            "+
                 "   INSTITUTO INS                 "+
-                "ORDER BY 1                       ";
+                " ORDER BY 1                      ";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -96,11 +96,11 @@ public class DaoInstituto extends BancoDeDadosMySql{
             sql = 
                 " SELECT                          "+
                 "   ID AS ID,                     "+
-                "   NOME AS NOME,                 "+    
-                "   CNPJ AS CNPJ                  "+
+                "   CNPJ AS CNPJ,                 "+
+                "   EMPRESA AS EMPRESA            "+
                 " FROM                            "+
                 "   INSTITUTO INS                 "+
-                " WHERE ID = ?                    "+
+                " WHERE INS.ID = ?                "+
                 " ORDER BY 1                      ";
             
             setStatement(getConexao().prepareStatement(sql));
@@ -114,39 +114,16 @@ public class DaoInstituto extends BancoDeDadosMySql{
         return getResultado();
     }
     
-     public ResultSet listarPorNome(String nome){
+    public ResultSet listarPorCnpj(String cnpj){
         try{
             sql = 
                 " SELECT                          "+
                 "   ID AS ID,                     "+
-                "   NOME AS NOME,                 "+    
-                "   CNPJ AS CNPJ                  "+
+                "   CNPJ AS CNPJ,                 "+
+                "   EMPRESA AS EMPRESA            "+
                 " FROM                            "+
                 "   INSTITUTO INS                 "+
-                " WHERE nome like ?               "+
-                " ORDER BY 1                      ";
-            
-            setStatement(getConexao().prepareStatement(sql));
-            
-            getStatement().setString(1, nome + "%");
-            
-            setResultado(getStatement().executeQuery());
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return getResultado();
-    }
-     
-      public ResultSet listarPorCnpj(String cnpj){
-        try{
-            sql = 
-                " SELECT                          "+
-                "   ID AS ID,                     "+
-                "   NOME AS NOME,                 "+    
-                "   CNPJ AS CNPJ                  "+
-                " FROM                            "+
-                "   INSTITUTO INS                 "+
-                " WHERE nome like ?               "+
+                " WHERE INS.CNPJ LIKE ?           "+
                 " ORDER BY 1                      ";
             
             setStatement(getConexao().prepareStatement(sql));
@@ -159,23 +136,47 @@ public class DaoInstituto extends BancoDeDadosMySql{
         }
         return getResultado();
     }
+    
+     public ResultSet listarPorEmpresa(String empresa){
+        try{
+            sql = 
+                " SELECT                          "+
+                "   ID AS ID,                     "+
+                "   CNPJ AS CNPJ,                 "+
+                "   EMPRESA AS EMPRESA            "+
+                " FROM                            "+
+                "   INSTITUTO INS                 "+
+                " WHERE INS.EMPRESA LIKE ?        "+
+                " ORDER BY 1                      ";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setString(1, empresa + "%");
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return getResultado();
+    }
       
-      public int buscarProximoId(){
-          int id = -1;
-          try{
-              sql = "SELECT IF NULL(MAX(ID), 0) + I FROM INSTITUTO";
-              
-              setStatement(getConexao().prepareStatement(sql));
-              
-              setResultado(getStatement().executeQuery());
-              
-              getResultado().next();
-              
-              id = getResultado().getInt(1);
-          }catch(Exception e){
-              System.out.println(e.getMessage());
-          }
-          return id;
+    public int buscarProximoId(){
+          int id = 0;
+        
+        try{
+            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM CLIENTE";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            setResultado(getStatement().executeQuery());
+            
+            getResultado().next();
+            
+            id = getResultado().getInt(1);
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+        return id;
       }
     
 }

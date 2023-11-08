@@ -92,7 +92,7 @@ public class ListCliente extends javax.swing.JFrame {
         }
     }
     
-    public void ListarPorEmpresa(){
+    public void ListarPorEmpresa(String pEmpresa){
         try{
             
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableCliente.getModel();
@@ -101,7 +101,7 @@ public class ListCliente extends javax.swing.JFrame {
             
             DaoCliente daoCliente = new DaoCliente();
             
-            ResultSet resultSet = daoCliente.listarPorEmpresa(tfFiltro.getText());
+            ResultSet resultSet = daoCliente.listarPorEmpresa(pEmpresa);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
@@ -125,7 +125,7 @@ public class ListCliente extends javax.swing.JFrame {
         }
     }
     
-    public void ListarPorCidade(){
+    public void ListarPorCidade(String pCidade){
         try{
             
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableCliente.getModel();
@@ -134,7 +134,7 @@ public class ListCliente extends javax.swing.JFrame {
             
             DaoCliente daoCliente = new DaoCliente();
             
-            ResultSet resultSet = daoCliente.listarPorCidade(tfFiltro.getText());
+            ResultSet resultSet = daoCliente.listarPorCidade(pCidade);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
@@ -158,7 +158,7 @@ public class ListCliente extends javax.swing.JFrame {
         }
     }
     
-    public void ListarPorCnpj(){
+    public void ListarPorCnpj(String pCnpj){
         try{
             
             DefaultTableModel defaultTableModel = (DefaultTableModel) tableCliente.getModel();
@@ -167,7 +167,7 @@ public class ListCliente extends javax.swing.JFrame {
             
             DaoCliente daoCliente = new DaoCliente();
             
-            ResultSet resultSet = daoCliente.listarPorCnpj(tfFiltro.getText());
+            ResultSet resultSet = daoCliente.listarPorCnpj(pCnpj);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
@@ -338,13 +338,13 @@ public class ListCliente extends javax.swing.JFrame {
             ListarPorId(Integer.parseInt(tfFiltro.getText()));
             break;
             case 2:
-            ListarPorEmpresa();
+            ListarPorEmpresa(tfFiltro.getText());
             break;
             case 3:
-            ListarPorCidade();
+            ListarPorCidade(tfFiltro.getText());
             break;
             case 4:
-            ListarPorCnpj();
+            ListarPorCnpj(tfFiltro.getText());
             break;
         }
     }//GEN-LAST:event_jcbBuscarActionPerformed

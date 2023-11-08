@@ -8,14 +8,13 @@ package com.mycompany.modelo;
  *
  * @author thagory.8187
  */
-public class ModUsario {
+public class ModUsuario {
     private int id;
     private String nome;
     private String senha;
+    private String confirmacaoSenha;
 
-    @Override
-    public String toString() {
-        return "ModUsario{" + "id=" + id + ", nome=" + nome + ", senha=" + senha + '}';
+    public ModUsuario() {
     }
 
     public int getId() {
@@ -42,10 +41,18 @@ public class ModUsario {
         this.senha = senha;
     }
 
-    public ModUsario(int id, String nome, String senha) {
-        this.id = id;
-        this.nome = nome;
-        this.senha = senha;
+    public String getConfirmacaoSenha() {
+        return confirmacaoSenha;
     }
+
+    public void setConfirmacaoSenha(String confirmacaoSenha) {
+        this.confirmacaoSenha = confirmacaoSenha;
+    }
+
+    @Override
+    public String toString() {
+        return "ModUsario{" + "id=" + id + ", nome=" + nome + ", senha=" + senha + ", confirmacaoSenha=" + confirmacaoSenha + '}';
+    }
+ 
     
 }

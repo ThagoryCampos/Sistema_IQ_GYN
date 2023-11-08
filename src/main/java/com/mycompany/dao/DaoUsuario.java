@@ -14,17 +14,18 @@ import java.sql.ResultSet;
 public class DaoUsuario extends BancoDeDadosMySql{
     String sql;
     
-    public Boolean inserir(int id, String nome, String senha){
+    public Boolean inserir(int id, String nome, String senha, String confirmacaoSenha){
         try{
-            sql = "INSERT INTO USUARIO (ID,NOME SENHA) VALUES (?, ?, ?)";
+            sql = "INSERT INTO USUARIO (ID, NOME, SENHA, CONFIRMACAOSENHA) VALUES (?, ?, ?, ?)";
             
             setStatement(getConexao().prepareStatement(sql));
             
             getStatement().setInt(1, id);
             getStatement().setString(2, nome);
             getStatement().setString(3, senha);
+            getStatement().setString(4, confirmacaoSenha);
             
-            getStatement().executeQuery();
+            getStatement().executeUpdate();
             
             return true;
         }catch(Exception e){
@@ -33,15 +34,16 @@ public class DaoUsuario extends BancoDeDadosMySql{
         }
     }
     
-    public Boolean alterar(int id, String nome, String senha){
+    public Boolean alterar(int id, String nome, String senha,  String confirmacaoSenha){
         try{
-            sql = "UPDATE USUARIO SET NOME = ?, SENHA = ? WHERE ID = ?";
+            sql = "UPDATE USUARIO SET NOME = ?, SENHA = ?, CONFIRMACAOSENHA = ? WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setInt(3, id);
+            getStatement().setInt(4, id);
             getStatement().setString(1, nome);
             getStatement().setString(2, senha);
+            getStatement().setString(3, confirmacaoSenha);
             
             getStatement().executeUpdate();
             
@@ -91,12 +93,13 @@ public class DaoUsuario extends BancoDeDadosMySql{
     public ResultSet listarTodos(){
         try{
             sql =
-                    " SELECT                              "+
-                    "   USU.ID AS ID,                     "+
-                    "   USU.NOME AS NOME,                 "+
-                    "   USU.SENHA AS SENHA                "+
-                    " FROM                                "+
-                    "   USUARIO USU                       ";
+                    " SELECT                                     "+
+                    "   USU.ID AS ID,                            "+
+                    "   USU.NOME AS NOME,                        "+
+                    "   USU.SENHA AS SENHA,                       "+
+                    "   USU.CONFIRMACAOSENHA AS CONFIRMACAOSENHA "+
+                    " FROM                                       "+
+                    "   USUARIO USU                              ";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -110,13 +113,15 @@ public class DaoUsuario extends BancoDeDadosMySql{
     public ResultSet listarPorId(int id){
         try{
             sql = 
-                    " SELECT                              "+
-                    "   USU.ID AS ID,                     "+
-                    "   USU.NOME AS NOME,                 "+
-                    "   USU.SENHA AS SENHA                "+
-                    " FROM                                "+
-                    "   USUARIO USU                       "+
-                    "WHERE USU.ID - ?                     ";
+                    " SELECT                                     "+
+                    "   USU.ID AS ID,                            "+
+                    "   USU.NOME AS NOME,                        "+
+                    "   USU.SENHA AS SENHA,                      "+
+                    "   USU.CONFIRMACAOSENHA AS CONFIRMACAOSENHA "+
+                    " FROM                                       "+
+                    "   USUARIO USU                              "+
+                    "WHERE USU.ID = ?                            "+
+                    " ORDER BY 1                                 ";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -132,17 +137,19 @@ public class DaoUsuario extends BancoDeDadosMySql{
     public ResultSet listarPorNome(String nome){
         try{
             sql = 
-                    " SELECT                              "+
-                    "   USU.ID AS ID,                     "+
-                    "   USU.NOME AS NOME,                 "+
-                    "   USU.SENHA AS SENHA                "+
-                    " FROM                                "+
-                    "   USUARIO USU                       "+
-                    "WHERE USU.NOME LIKE ?                ";
+                    " SELECT                                     "+
+                    "   USU.ID AS ID,                            "+
+                    "   USU.NOME AS NOME,                        "+
+                    "   USU.SENHA AS SENHA,                      "+
+                    "   USU.CONFIRMACAOSENHA AS CONFIRMACAOSENHA "+
+                    " FROM                                       "+
+                    "   USUARIO USU                              "+
+                    "WHERE USU.NOME LIKE ?                       "+
+                    " ORDER BY 1                                 ";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setString(1, nome);
+            getStatement().setString(1, nome + "%");
             
             setResultado(getStatement().executeQuery());
         }catch(Exception e){
@@ -176,7 +183,7 @@ public class DaoUsuario extends BancoDeDadosMySql{
         int id = -1;
         
         try{
-            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM PESSOA";
+            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM USUARIO";
             
             setStatement(getConexao().prepareStatement(sql));
             

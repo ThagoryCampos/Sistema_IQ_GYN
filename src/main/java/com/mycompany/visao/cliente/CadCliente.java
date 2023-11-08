@@ -5,20 +5,11 @@
 package com.mycompany.visao.cliente;
 
 import com.mycompany.dao.DaoCliente;
-import com.mycompany.ferramentas.BancoDeDadosMySql;
 import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModCliente;
-import java.awt.FlowLayout;
-import java.awt.Panel;
-import java.lang.constant.Constable;
-import java.text.ParseException;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.text.MaskFormatter;
 
 /**
  *

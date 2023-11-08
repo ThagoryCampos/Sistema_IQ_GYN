@@ -10,12 +10,12 @@ package com.mycompany.modelo;
  */
 public class ModInstituto {
     private int id;
-    private String nome;
     private String cnpj;
+    private String empresa;
 
     @Override
     public String toString() {
-        return "ModInstituto{" + "id=" + id + ", nome=" + nome + ", cnpj=" + cnpj + '}';
+        return "ModInstituto{" + "id=" + id + ", cnpj=" + cnpj + ", empresa=" + empresa + '}';
     }
 
     public int getId() {
@@ -26,14 +26,6 @@ public class ModInstituto {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getCnpj() {
         return cnpj;
     }
@@ -42,10 +34,16 @@ public class ModInstituto {
         this.cnpj = cnpj;
     }
 
-    public ModInstituto(int id, String nome, String cnpj) {
-        this.id = id;
-        this.nome = nome;
-        this.cnpj = cnpj;
+    public String getEmpresa() {
+        return empresa;
     }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
+    public ModInstituto() {
+    }
+
     
 }

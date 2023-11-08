@@ -4,6 +4,12 @@
  */
 package com.mycompany.visao.usuario;
 
+import com.mycompany.dao.DaoUsuario;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModUsuario;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author thagory.8187
@@ -15,6 +21,85 @@ public class ListUsuario extends javax.swing.JFrame {
      */
     public ListUsuario() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
+        
+        listarTodos();
+    }
+    
+    public void listarTodos(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableUsuario.getModel();
+
+            tableUsuario.setModel(defaultTableModel);
+
+            DaoUsuario daoUsuario = new DaoUsuario();
+
+            ResultSet resultSet = daoUsuario.listarTodos();
+
+            defaultTableModel.setRowCount(0);
+            while(resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome =  resultSet.getString(2);
+                String senha = resultSet.getString(3);
+                String confirmacaoSenha = resultSet.getString(4);
+
+                defaultTableModel.addRow(new Object[]{id, nome, senha, confirmacaoSenha});
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void ListarPorId(int pId){
+        try{
+            
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableUsuario.getModel();
+            
+            tableUsuario.setModel(defaultTableModel);
+            
+            DaoUsuario daoUsuario = new DaoUsuario();
+            
+            ResultSet resultSet = daoUsuario.listarPorId(pId);
+            
+            defaultTableModel.setRowCount(0);
+            while(resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome =  resultSet.getString(2);
+                String senha = resultSet.getString(3);
+                String confirmacaoSenha = resultSet.getString(4);
+
+                defaultTableModel.addRow(new Object[]{id, nome, senha, confirmacaoSenha});
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void ListarPorNome(String pNome){
+        try{
+            
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableUsuario.getModel();
+            
+            tableUsuario.setModel(defaultTableModel);
+            
+            DaoUsuario daoUsuario = new DaoUsuario();
+            
+            ResultSet resultSet = daoUsuario.listarPorNome(pNome);
+            
+            defaultTableModel.setRowCount(0);
+            while(resultSet.next()){
+                String id = resultSet.getString(1);
+                String nome =  resultSet.getString(2);
+                String senha = resultSet.getString(3);
+                String confirmacaoSenha = resultSet.getString(4);
+
+                defaultTableModel.addRow(new Object[]{id, nome, senha, confirmacaoSenha});
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -26,21 +111,134 @@ public class ListUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jcbTipoFiltro = new javax.swing.JComboBox<>();
+        tfFiltro = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableUsuario = new javax.swing.JTable();
+        jcbBuscar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "NOME" }));
+
+        tableUsuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "NOME", "SENHA", "CONFIRMACAO DE SENHA"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableUsuario.getTableHeader().setReorderingAllowed(false);
+        tableUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableUsuarioMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableUsuario);
+
+        jcbBuscar.setText("Buscar");
+        jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbBuscarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFiltro))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jcbBuscar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbBuscar)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableUsuarioMouseClicked
+        try{
+            if (evt.getClickCount() == 2){
+                //Pega os dados da pessoa
+                ModUsuario modUsuario = new ModUsuario();
+                
+                modUsuario.setId(Integer.parseInt(String.valueOf(tableUsuario.getValueAt(tableUsuario.getSelectedRow(), 0))));
+                modUsuario.setNome( String.valueOf(tableUsuario.getValueAt(tableUsuario.getSelectedRow(), 1)));
+                
+                DadosTemporarios.tempObject = (ModUsuario) modUsuario;
+                
+                CadUsuario cadUsuario = new CadUsuario();
+                cadUsuario.setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_tableUsuarioMouseClicked
+
+    private void jcbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+            listarTodos();
+            break;
+            case 1:
+            ListarPorId(Integer.parseInt(tfFiltro.getText()));
+            break;
+            case 2:
+            ListarPorNome(tfFiltro.getText());
+            
+        }
+    }//GEN-LAST:event_jcbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +276,11 @@ public class ListUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jcbBuscar;
+    private javax.swing.JComboBox<String> jcbTipoFiltro;
+    private javax.swing.JTable tableUsuario;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }

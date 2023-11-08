@@ -34,7 +34,7 @@ public class Formularios {
     
     //Front End
     //Menu principal
-    public static JFrame menuPrincipalFrontEnd;
+    public static JFrame menuPrincipal;
     
     //Tela de login
     public static JDialog telaLogin;

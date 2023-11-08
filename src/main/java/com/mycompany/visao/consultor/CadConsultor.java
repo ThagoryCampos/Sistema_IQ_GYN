@@ -6,14 +6,14 @@ package com.mycompany.visao.consultor;
 
 import com.mycompany.dao.DaoConsultor;
 import com.mycompany.ferramentas.Constantes;
-import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
+import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.modelo.ModConsultor;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author thagory.8187
+ * @author Thagory
  */
 public class CadConsultor extends javax.swing.JFrame {
 
@@ -27,7 +27,7 @@ public class CadConsultor extends javax.swing.JFrame {
             DaoConsultor daoConsultor = new DaoConsultor();
             
             int id = daoConsultor.buscarProximoId();
-            if(id > 0) {
+            if(id > 0){
                 tfId.setText(String.valueOf(id));
             }
             
@@ -40,6 +40,8 @@ public class CadConsultor extends javax.swing.JFrame {
         
         setLocationRelativeTo(null);
         tfId.setEnabled(false);
+        
+        
     }
     
     private Boolean existeDadosTemporarios(){
@@ -55,7 +57,6 @@ public class CadConsultor extends javax.swing.JFrame {
             tfEmail.setText(email);
             
             DadosTemporarios.tempObject = null;
-            
             return true;
         }else
             return false;
@@ -65,21 +66,21 @@ public class CadConsultor extends javax.swing.JFrame {
         DaoConsultor daoConsultor = new DaoConsultor();
         
         if(daoConsultor.inserir(Integer.parseInt(tfId.getText()), tfNome.getText(), tfTelefone.getText(), tfEmail.getText())){
-            JOptionPane.showMessageDialog(null, "Consultor salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Consultor salvo com sucesso!" );
             
             tfId.setText("");
             tfNome.setText("");
             tfTelefone.setText("");
             tfEmail.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível salvar o consultor!");
+            JOptionPane.showMessageDialog(null, "Não foi possivel salvar o consultor!" );
         }
     }
     
     private void alterar(){
         DaoConsultor daoConsultor = new DaoConsultor();
         
-        if(daoConsultor.inserir(Integer.parseInt(tfId.getText()), tfNome.getText(), tfTelefone.getText(), tfEmail.getText())){
+        if(daoConsultor.alterar(Integer.parseInt(tfId.getText()), tfNome.getText(), tfTelefone.getText(), tfEmail.getText())){
             JOptionPane.showMessageDialog(null, "Consultor alterado com sucesso!");
             
             tfId.setText("");
@@ -87,7 +88,7 @@ public class CadConsultor extends javax.swing.JFrame {
             tfTelefone.setText("");
             tfEmail.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar o consultor!");
+            JOptionPane.showMessageDialog(null, "Não foi possivel alterar o consultor!");
         }
         ((ListConsultor) Formularios.listConsultor).listarTodos();
         
@@ -97,13 +98,15 @@ public class CadConsultor extends javax.swing.JFrame {
     private void excluir(){
         DaoConsultor daoConsultor = new DaoConsultor();
         
-        if(daoConsultor.excluir(Integer.parseInt(tfId.getText())));
-            JOptionPane.showMessageDialog(null, "Consultor excluido com sucesso!");
+        if(daoConsultor.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "Consultor" + tfNome.getText() + " excluido com sucesso!");
             
             tfId.setText("");
-           
+            tfNome.setText("");
+            tfTelefone.setText("");
+            tfEmail.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível excluir o consultor!");
+            JOptionPane.showMessageDialog(null, "Não foi possivel excluir o consultor!");
         }
         
         ((ListConsultor) Formularios.listConsultor).listarTodos();
@@ -122,25 +125,31 @@ public class CadConsultor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        tfId = new javax.swing.JTextField();
         tfNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tfEmail = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfId = new javax.swing.JTextField();
-        btnSalvar = new javax.swing.JButton();
         tfTelefone = new javax.swing.JFormattedTextField();
+        btnSalvar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("ID");
 
-        jLabel2.setText("Telefone");
+        jLabel2.setText("NOME");
 
-        jLabel3.setText("E-mail");
+        jLabel3.setText("TELEFONE");
 
-        jLabel4.setText("ID");
+        jLabel4.setText("E-MAIL");
+
+        try {
+            tfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -148,12 +157,6 @@ public class CadConsultor extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-
-        try {
-            tfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -167,50 +170,48 @@ public class CadConsultor extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfId, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(tfEmail)
-                    .addComponent(tfNome)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1)
+                            .addComponent(tfId)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(tfTelefone)))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(btnSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcluir)
-                .addGap(54, 54, 54))
+                            .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(tfEmail)
+                            .addComponent(tfTelefone)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(btnSalvar)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnExcluir)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnExcluir))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,15 +220,15 @@ public class CadConsultor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -236,23 +237,20 @@ public class CadConsultor extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         DaoConsultor daoConsultor = new DaoConsultor();
         
-        if( btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
+        if(btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
             inserir();
             
             tfId.setText(String.valueOf(daoConsultor.buscarProximoId()));
         }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
             alterar();
-            ((ListConsultor)Formularios.listConsultor).listarTodos();
+            ((ListConsultor) Formularios.listConsultor).listarTodos();
             dispose();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int escolha = 
-                JOptionPane.showConfirmDialog(
-                        null, 
-                        "Deseja realmente excluir o cliente " + tfNome.getText() + "?");
-        
+        int escolha  =
+                JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o consultor " + tfNome.getText() + "?");
         if(escolha == JOptionPane.YES_OPTION)
             excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed

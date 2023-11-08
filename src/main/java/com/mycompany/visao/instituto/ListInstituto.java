@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.visao.instituto;
+import com.mycompany.dao.DaoInstituto;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModInstituto;
+import com.mysql.cj.protocol.Resultset;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,7 +21,108 @@ public class ListInstituto extends javax.swing.JFrame {
      */
     public ListInstituto() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
+        
+        listarTodos();
     }
+    
+    public void listarTodos(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableInsituto.getModel();
+            
+            tableInsituto.setModel(defaultTableModel);
+            
+            DaoInstituto daoInstituto = new DaoInstituto();
+            
+            ResultSet resultSet = daoInstituto.listarTodos();
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cnpj = resultSet.getString(2);
+                String empresa = resultSet.getString(3);
+                
+                defaultTableModel.addRow(new Object[]{id, cnpj, empresa});
+            }
+       }catch(Exception e){
+            System.err.println(e.getMessage());
+       }
+    }
+    
+    public void listarPorId(int pId){
+        try{
+            
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableInsituto.getModel();
+            
+            tableInsituto.setModel(defaultTableModel);
+            
+            DaoInstituto daoInstituto = new DaoInstituto();
+            
+            ResultSet resultSet = daoInstituto.listarPorId(pId);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cnpj = resultSet.getString(2);
+                String empresa = resultSet.getString(3);
+                
+                defaultTableModel.addRow(new Object[]{id, cnpj, empresa});
+            }
+       }catch(Exception e){
+            System.err.println(e.getMessage());
+       }
+    }
+    
+    public void listarPorCnpj( String pCnpj){
+        try{
+            
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableInsituto.getModel();
+            
+            tableInsituto.setModel(defaultTableModel);
+            
+            DaoInstituto daoInstituto = new DaoInstituto();
+            
+            ResultSet resultSet = daoInstituto.listarPorCnpj(pCnpj);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cnpj = resultSet.getString(2);
+                String empresa = resultSet.getString(3);
+                
+                defaultTableModel.addRow(new Object[]{id, cnpj, empresa});
+            }
+       }catch(Exception e){
+            System.err.println(e.getMessage());
+       }
+    }
+    
+    public void listarPorEmpresa(String pEmpresa){
+           try{
+            
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableInsituto.getModel();
+            
+            tableInsituto.setModel(defaultTableModel);
+            
+            DaoInstituto daoInstituto = new DaoInstituto();
+            
+            ResultSet resultSet = daoInstituto.listarPorEmpresa(pEmpresa);
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String cnpj = resultSet.getString(2);
+                String empresa = resultSet.getString(3);
+                
+                defaultTableModel.addRow(new Object[]{id, cnpj, empresa});
+            }
+       }catch(Exception e){
+            System.err.println(e.getMessage());
+       }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,21 +133,138 @@ public class ListInstituto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jcbTipoFiltro = new javax.swing.JComboBox<>();
+        tfFiltro = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableInsituto = new javax.swing.JTable();
+        jcbBuscar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "CNPJ", "EMPRESA" }));
+
+        tableInsituto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "CNPJ", "EMPRESA"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableInsituto.getTableHeader().setReorderingAllowed(false);
+        tableInsituto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableInsitutoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableInsituto);
+
+        jcbBuscar.setText("Buscar");
+        jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbBuscarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFiltro))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jcbBuscar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbBuscar)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableInsitutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableInsitutoMouseClicked
+        try{
+            if (evt.getClickCount() == 2){
+                //Pega os dados da pessoa
+                ModInstituto modInstituto = new ModInstituto();
+
+                modInstituto.setId(Integer.parseInt(String.valueOf(tableInsituto.getValueAt(tableInsituto.getSelectedRow(), 0))));
+                modInstituto.setCnpj(String.valueOf(tableInsituto.getValueAt(tableInsituto.getSelectedRow(), 1)));
+                modInstituto.setEmpresa(String.valueOf(tableInsituto.getValueAt(tableInsituto.getSelectedRow(), 2)));
+
+                DadosTemporarios.tempObject = (ModInstituto) modInstituto;
+
+                CadInstituto cadInstituto = new CadInstituto();
+                cadInstituto.setVisible(true);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_tableInsitutoMouseClicked
+
+    private void jcbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+            listarTodos();
+            break;
+            case 1:
+            listarPorId(Integer.parseInt(tfFiltro.getText()));
+            break;
+            case 2:
+            listarPorCnpj(tfFiltro.getText());
+            break;
+            case 3:
+            listarPorEmpresa(tfFiltro.getText());
+            break;
+        }
+    }//GEN-LAST:event_jcbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +302,11 @@ public class ListInstituto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jcbBuscar;
+    private javax.swing.JComboBox<String> jcbTipoFiltro;
+    private javax.swing.JTable tableInsituto;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }

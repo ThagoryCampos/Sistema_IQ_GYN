@@ -5,7 +5,9 @@
 package com.mycompany.visao.outros;
 
 import com.mycompany.ferramentas.BancoDeDadosMySql;
+
 import com.mycompany.ferramentas.Formularios;
+import com.mycompany.sistemaiq_gyn.SistemaIQ_GYN;
 import com.mycompany.visao.cliente.CadCliente;
 import com.mycompany.visao.cliente.ListCliente;
 import com.mycompany.visao.consultor.CadConsultor;
@@ -38,6 +40,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados. O sistema será finalizado.");
             System.exit(0);
         }
+        
+        int escolha = 
+                JOptionPane.showConfirmDialog(
+                        null, 
+                        "Seja Bem Vindo! \nRealize login para continuar!");
+        
+        if(escolha == JOptionPane.YES_OPTION){
+            if(Formularios.telaLogin == null)
+                Formularios.telaLogin = new TelaLogin();
+            
+            Formularios.telaLogin.setModal(true);
+            Formularios.telaLogin.setVisible(true);
+        }else{
+            System.exit(0);
+        }
+        
+        
     }
 
     /**
@@ -49,6 +68,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         mnCadastro = new javax.swing.JMenu();
         miCadastroUsuario = new javax.swing.JMenuItem();
@@ -66,7 +88,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miConsultaPedidos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SISTEMA DE VENDAS - PROGRAMADOR DE SISTEMAS 2023 | v. 1.0.0.3");
+        setTitle("SISTEMA DE VENDAS  - INSTITUTO QUALITEC | v. 1.0.0.3");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\thagory.8187\\Documents\\qualitec.jpg")); // NOI18N
+
+        jLabel1.setText("Thagory Campos");
+
+        jLabel3.setText("(44) 997 536 985");
 
         mnCadastro.setText("Cadastros");
 
@@ -164,11 +192,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addContainerGap(561, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(451, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -180,7 +221,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         Formularios.cadUsuario.setVisible(true);
     }//GEN-LAST:event_miCadastroUsuarioActionPerformed
-
+       
     private void miConsultaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaUsuarioActionPerformed
         if (Formularios.listUsuario == null)
             Formularios.listUsuario = new ListUsuario();
@@ -280,6 +321,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JMenuBar menuBar;
