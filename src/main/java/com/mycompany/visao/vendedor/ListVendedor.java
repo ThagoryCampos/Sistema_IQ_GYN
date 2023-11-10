@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.visao.consultor;
+package com.mycompany.visao.vendedor;
 
-import com.mycompany.dao.DaoConsultor;
+import com.mycompany.dao.DaoVendedor;
 import com.mycompany.ferramentas.DadosTemporarios;
-import com.mycompany.modelo.ModConsultor;
+import com.mycompany.modelo.ModVendedor;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,12 +14,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author thagory.8187
  */
-public class ListConsultor extends javax.swing.JFrame {
+public class ListVendedor extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListConsultor
+     * Creates new form ListVendedor
      */
-    public ListConsultor() {
+    public ListVendedor() {
         initComponents();
         
         setLocationRelativeTo(null);
@@ -32,13 +32,13 @@ public class ListConsultor extends javax.swing.JFrame {
     
     public void listarTodos(){
         try{
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableVendedor.getModel();
             
-            tableConsultor.setModel(defaultTableModel);
+            tableVendedor.setModel(defaultTableModel);
             
-            DaoConsultor daoConsultor = new DaoConsultor();
+            DaoVendedor daoVendedor = new DaoVendedor();
             
-            ResultSet resultSet = daoConsultor.listarTodos();
+            ResultSet resultSet = daoVendedor.listarTodos();
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
@@ -57,13 +57,13 @@ public class ListConsultor extends javax.swing.JFrame {
     public void ListarPorId(int pId){
         try{
             
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableVendedor.getModel();
             
-            tableConsultor.setModel(defaultTableModel);
+            tableVendedor.setModel(defaultTableModel);
             
-            DaoConsultor daoConsultor = new DaoConsultor();
+            DaoVendedor daoVendedor = new DaoVendedor();
             
-            ResultSet resultSet = daoConsultor.listarPorId(pId);
+            ResultSet resultSet = daoVendedor.listarPorId(pId);
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
@@ -81,13 +81,13 @@ public class ListConsultor extends javax.swing.JFrame {
     public void ListarPorNome(){
         try{
             
-            DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tableVendedor.getModel();
             
-            tableConsultor.setModel(defaultTableModel);
+            tableVendedor.setModel(defaultTableModel);
             
-            DaoConsultor daoConsultor = new DaoConsultor();
+            DaoVendedor daoVendedor = new DaoVendedor();
             
-            ResultSet resultSet = daoConsultor.listarPorNome(tfFiltro.getText());
+            ResultSet resultSet = daoVendedor.listarPorNome(tfFiltro.getText());
             
             defaultTableModel.setRowCount(0);
             while (resultSet.next()){
@@ -115,7 +115,7 @@ public class ListConsultor extends javax.swing.JFrame {
         jcbTipoFiltro = new javax.swing.JComboBox<>();
         jcbBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableConsultor = new javax.swing.JTable();
+        tableVendedor = new javax.swing.JTable();
         tfFiltro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -129,7 +129,7 @@ public class ListConsultor extends javax.swing.JFrame {
             }
         });
 
-        tableConsultor.setModel(new javax.swing.table.DefaultTableModel(
+        tableVendedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -148,13 +148,13 @@ public class ListConsultor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tableConsultor.getTableHeader().setReorderingAllowed(false);
-        tableConsultor.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableVendedor.getTableHeader().setReorderingAllowed(false);
+        tableVendedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableConsultorMouseClicked(evt);
+                tableVendedorMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tableConsultor);
+        jScrollPane1.setViewportView(tableVendedor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,26 +204,26 @@ public class ListConsultor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jcbBuscarActionPerformed
 
-    private void tableConsultorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableConsultorMouseClicked
+    private void tableVendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVendedorMouseClicked
         try{
             if (evt.getClickCount() == 2){
                 //Pega os dados da pessoa
-                ModConsultor modConsultor = new ModConsultor();
+                ModVendedor modVendedor = new ModVendedor();
 
-                modConsultor.setId(Integer.parseInt(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 0))));
-                modConsultor.setNome(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 1)));
-                modConsultor.setTelefone(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 2)));
-                modConsultor.setEmail(String.valueOf(tableConsultor.getValueAt(tableConsultor.getSelectedRow(), 3)));
+                modVendedor.setId(Integer.parseInt(String.valueOf(tableVendedor.getValueAt(tableVendedor.getSelectedRow(), 0))));
+                modVendedor.setNome(String.valueOf(tableVendedor.getValueAt(tableVendedor.getSelectedRow(), 1)));
+                modVendedor.setTelefone(String.valueOf(tableVendedor.getValueAt(tableVendedor.getSelectedRow(), 2)));
+                modVendedor.setEmail(String.valueOf(tableVendedor.getValueAt(tableVendedor.getSelectedRow(), 3)));
                 
-                DadosTemporarios.tempObject = (ModConsultor) modConsultor;
+                DadosTemporarios.tempObject = (ModVendedor) modVendedor;
 
-                CadConsultor cadConsultor = new CadConsultor();
-                cadConsultor.setVisible(true);
+                CadVendedor cadVendedor = new CadVendedor();
+                cadVendedor.setVisible(true);
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-    }//GEN-LAST:event_tableConsultorMouseClicked
+    }//GEN-LAST:event_tableVendedorMouseClicked
 
     /**
      * @param args the command line arguments
@@ -242,20 +242,21 @@ public class ListConsultor extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListConsultor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListConsultor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListConsultor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListConsultor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListConsultor().setVisible(true);
+                new ListVendedor().setVisible(true);
             }
         });
     }
@@ -264,7 +265,7 @@ public class ListConsultor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jcbBuscar;
     private javax.swing.JComboBox<String> jcbTipoFiltro;
-    private javax.swing.JTable tableConsultor;
+    private javax.swing.JTable tableVendedor;
     private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }

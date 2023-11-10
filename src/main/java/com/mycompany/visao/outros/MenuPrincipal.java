@@ -10,8 +10,8 @@ import com.mycompany.ferramentas.Formularios;
 import com.mycompany.sistemaiq_gyn.SistemaIQ_GYN;
 import com.mycompany.visao.cliente.CadCliente;
 import com.mycompany.visao.cliente.ListCliente;
-import com.mycompany.visao.consultor.CadConsultor;
-import com.mycompany.visao.consultor.ListConsultor;
+import com.mycompany.visao.vendedor.CadVendedor;
+import com.mycompany.visao.vendedor.ListVendedor;
 import com.mycompany.visao.instituto.CadInstituto;
 import com.mycompany.visao.instituto.ListInstituto;
 import com.mycompany.visao.pedido.ListPedido;
@@ -244,17 +244,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miConsultaInstitutoActionPerformed
 
     private void miCadastroConsultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroConsultorActionPerformed
-        if (Formularios.cadConsultor == null)
-            Formularios.cadConsultor = new CadConsultor();
+        if (Formularios.cadVendedor == null)
+            Formularios.cadVendedor = new CadVendedor();
         
-        Formularios.cadConsultor.setVisible(true);
+        Formularios.cadVendedor.setVisible(true);
     }//GEN-LAST:event_miCadastroConsultorActionPerformed
 
     private void miConsultaConsultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaConsultorActionPerformed
-        if (Formularios.listConsultor == null)
-            Formularios.listConsultor = new ListConsultor();
+        if (Formularios.listVendedor == null)
+            Formularios.listVendedor = new ListVendedor();
         
-        Formularios.listConsultor.setVisible(true);
+        Formularios.listVendedor.setVisible(true);
     }//GEN-LAST:event_miConsultaConsultorActionPerformed
 
     private void miCadastroClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroClienteActionPerformed

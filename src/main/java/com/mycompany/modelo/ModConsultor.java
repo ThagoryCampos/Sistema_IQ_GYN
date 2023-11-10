@@ -11,12 +11,13 @@ package com.mycompany.modelo;
 public class ModConsultor {
     private int id;
     private String nome;
-    private String telefone;
-    private String email;
+    private String dataInicio;
+    private String dataTermino;
+    private double preco;
 
     @Override
     public String toString() {
-        return "ModConsultor{" + "id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email + '}';
+        return "ModConsultor{" + "id=" + id + ", nome=" + nome + ", dataInicio=" + dataInicio + ", dataTermino=" + dataTermino + ", preco=" + preco + '}';
     }
 
     public int getId() {
@@ -35,23 +36,31 @@ public class ModConsultor {
         this.nome = nome;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getDataInicio() {
+        return dataInicio;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setDataInicio(String dataInicio) {
+        this.dataInicio = dataInicio;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDataTermino() {
+        return dataTermino;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDataTermino(String dataTermino) {
+        this.dataTermino = dataTermino;
     }
 
-    public ModConsultor(){
+    public double getPreco() {
+        return preco;
     }
-    
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public ModConsultor() {
+    }
+
 }

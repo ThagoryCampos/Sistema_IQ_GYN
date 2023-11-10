@@ -14,16 +14,17 @@ import java.sql.ResultSet;
 public class DaoConsultor extends BancoDeDadosMySql{
     String sql;
     
-    public Boolean inserir(int id, String nome, String telefone, String email){
+    public Boolean inserir(int id, String nome, String dataInicio, String dataTermino, double preco){
         try{
-            sql = "INSERT INTO CONSULTOR(ID, NOME, TELEFONE, EMAIL) VALUES (?, ?, ?, ?)";
+            sql = "INSERT INTO TABLECONSULTOR (ID, NOME, DATAINICIO, DATATERMINO, PRECO) VALUES (?, ?, ?, ?, )";
             
             setStatement(getConexao().prepareStatement(sql));
             
             getStatement().setInt(1, id);
             getStatement().setString(2, nome);
-            getStatement().setString(3, telefone);
-            getStatement().setString(4, email);
+            getStatement().setString(3, dataInicio);
+            getStatement().setString(4, dataTermino);
+            getStatement().setDouble(5, preco);
             
             getStatement().executeUpdate();
             
@@ -34,16 +35,17 @@ public class DaoConsultor extends BancoDeDadosMySql{
         }
     }
     
-    public Boolean alterar(int id, String nome, String telefone, String email){
+    public Boolean alterar(int id, String nome, String dataInicio, String dataTermino, double preco){
         try{
-            sql = "UPDATE CONSULTOR SET NOME = ?, TELEFONE = ?, EMAIL = ? WHERE ID = ?";
+            sql = "UPDATE TABLECONSULTOR SET NOME = ?, TELEFONE = ?, EMAIL = ? WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setInt(4, id);
+            getStatement().setInt(5, id);
             getStatement().setString(1, nome);
-            getStatement().setString(2, telefone);
-            getStatement().setString(3, email);
+             getStatement().setString(2, dataInicio);
+            getStatement().setString(3, dataTermino);
+            getStatement().setDouble(4, preco);
             
             getStatement().executeUpdate();
             
@@ -56,7 +58,7 @@ public class DaoConsultor extends BancoDeDadosMySql{
     
     public Boolean excluir(int id){
         try{
-            sql = "DELETE FROM CONSULTOR WHERE ID = ?";
+            sql = "DELETE FROM TABLECONSULTOR WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -71,82 +73,11 @@ public class DaoConsultor extends BancoDeDadosMySql{
         }
     }
     
-    
-    public ResultSet listarTodos(){
-        try{
-            sql =
-                "SELECT                       "+
-                "   ID AS ID,                 "+
-                "   NOME AS NOME,             "+
-                "   TELEFONE AS TELEFONE,     "+
-                "   EMAIL AS EMAIL            "+
-                "FROM                         "+
-                "   CONSULTOR                 "+
-                "ORDER BY 1                   ";
-            
-            setStatement(getConexao().prepareStatement(sql));
-            
-            setResultado(getStatement().executeQuery());
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return getResultado();
-    }
-    
-    public ResultSet listarPorId(int pId){
-        try{
-            sql = 
-                "SELECT                          "+
-                "   ID AS ID,                    "+
-                "   NOME AS NOME,                "+
-                "   TELEFONE AS TELEFONE,        "+
-                "   EMAIL AS EMAIL               "+
-                "FROM                            "+
-                "   CONSULTOR CON                "+
-                "WHERE ID = ?                    "+
-                "ORDER BY 1                      ";
-            
-            setStatement(getConexao().prepareStatement(sql));
-            
-            getStatement().setInt(1, pId);
-            
-            setResultado(getStatement().executeQuery());
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return getResultado();
-    }
-    
-    
-    public ResultSet listarPorNome(String pNome){
-        try{
-            sql = 
-                "SELECT                          "+
-                "   ID AS ID,                    "+
-                "   NOME AS NOME,                "+
-                "   TELEFONE AS TELEFONE,        "+
-                "   EMAIL AS EMAIL               "+
-                "FROM                            "+
-                "   CONSULTOR CON                "+
-                "WHERE CON.NOME LIKE ?           "+
-                "ORDER BY 1                      ";
-            
-            setStatement(getConexao().prepareStatement(sql));
-            
-            getStatement().setString(1, pNome + "%");
-            
-            setResultado(getStatement().executeQuery());
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return getResultado();
-    }
-    
     public int buscarProximoId(){
         int id = 0;
         
         try{
-            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM CONSULTOR";
+            sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM TABLECONSULTOR";
             
             setStatement(getConexao().prepareStatement(sql));
             

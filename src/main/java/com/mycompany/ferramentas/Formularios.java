@@ -18,7 +18,10 @@ public class Formularios {
     
     //Consultor
     public static JFrame cadConsultor;
-    public static JFrame listConsultor;
+        
+    //Vendedor
+    public static JFrame cadVendedor;
+    public static JFrame listVendedor;
     
     //Instituto
     public static JFrame cadInstituto;

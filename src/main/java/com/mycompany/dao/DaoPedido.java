@@ -15,31 +15,62 @@ import java.sql.ResultSet;
 public class DaoPedido extends BancoDeDadosMySql{
     private String sql;
     
-    public Boolean inserir(int id, String data, int numeroPedido, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, int idConsultor, double total, double subTotalDespesas, double subTotalLiquido){
+    public Boolean inserir(int id, String data, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, int idConsultor, double total, double subTotalDespesas, double subTotalLiquido){
         try{
-            sql = "INSERT INTO PEDIDO (ID, DATA, NUMEROPEDIDO, VENDEDOR, IDINSTITUTO, IDCLIENTE, NUMEROPROJETO, ESCOPOPROJETO, PRAZO, FORMAPAGAMENTO, VALORPROJETO, CUSTOFIXO, CUSTOADVERSO, IDCONSULTOR, TOTAL, SUBTOTALDESPESAS, SUBTOTALLIQUIDO ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, )";
+            sql = "INSERT INTO PEDIDO (ID, DATA, VENDEDOR, IDINSTITUTO, IDCLIENTE, NUMEROPROJETO, ESCOPOPROJETO, PRAZO, FORMAPAGAMENTO, VALORPROJETO, CUSTOFIXO, CUSTOADVERSO, IDCONSULTOR, TOTAL, SUBTOTALDESPESAS, SUBTOTALLIQUIDO ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, )";
             
             setStatement(getConexao().prepareStatement(sql));
             
             getStatement().setInt(1, id);
             getStatement().setString(2, data);
-            getStatement().setInt(3, numeroPedido);
-            getStatement().setString(4, vendedor);
-            getStatement().setInt(5, idInstituto);
-            getStatement().setInt(6, idCliente);
-            getStatement().setInt(7, numeroProjeto);
-            getStatement().setString(8, escopoProjeto);
-            getStatement().setString(9, prazo);
-            getStatement().setString(10, formaPagamento);
-            getStatement().setDouble(11, valorProjeto);
-            getStatement().setDouble(12, custoFixo);
-            getStatement().setDouble(13, custoAdverso);
-            getStatement().setInt(14, idConsultor);
-            getStatement().setDouble(15, total);
-            getStatement().setDouble(16, subTotalDespesas);
-            getStatement().setDouble(17, subTotalLiquido);
+            getStatement().setString(3, vendedor);
+            getStatement().setInt(4, idInstituto);
+            getStatement().setInt(5, idCliente);
+            getStatement().setInt(6, numeroProjeto);
+            getStatement().setString(7, escopoProjeto);
+            getStatement().setString(8, prazo);
+            getStatement().setString(9, formaPagamento);
+            getStatement().setDouble(10, valorProjeto);
+            getStatement().setDouble(11, custoFixo);
+            getStatement().setDouble(12, custoAdverso);
+            getStatement().setInt(13, idConsultor);
+            getStatement().setDouble(14, total);
+            getStatement().setDouble(15, subTotalDespesas);
+            getStatement().setDouble(16, subTotalLiquido);
             
-            getStatement().executeQuery();
+            getStatement().executeUpdate();
+            
+            return true;            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+      public Boolean alterar(int id, String data, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, int idConsultor, double total, double subTotalDespesas, double subTotalLiquido){
+        try{
+            sql = "UPDATE PEDIDO SET DATA = ?, VENDEDOR = ?, IDINSTITUTO = ?, IDCLIENTE = ?, NUMEROPROJETO = ?, ESCOPOPROJETO = ?, PRAZO = ?, FORMAPAGAMENTO = ?, VALORPROJETO = ?, CUSTOFIXO = ?, CUSTOADVERSO = ?, IDCONSULTOR = ?, TOTAL = ?, SUBTOTALDESPESAS = ?, SUBTOTALLIQUIDO  = ? WHERE ID = ?";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setInt(16, id);
+            getStatement().setString(1, data);
+            getStatement().setString(2, vendedor);
+            getStatement().setInt(3, idInstituto);
+            getStatement().setInt(4, idCliente);
+            getStatement().setInt(5, numeroProjeto);
+            getStatement().setString(6, escopoProjeto);
+            getStatement().setString(7, prazo);
+            getStatement().setString(8, formaPagamento);
+            getStatement().setDouble(9, valorProjeto);
+            getStatement().setDouble(10, custoFixo);
+            getStatement().setDouble(11, custoAdverso);
+            getStatement().setInt(12, idConsultor);
+            getStatement().setDouble(13, total);
+            getStatement().setDouble(14, subTotalDespesas);
+            getStatement().setDouble(15, subTotalLiquido);
+            
+            getStatement().executeUpdate();
             
             return true;            
         }catch(Exception e){
@@ -71,7 +102,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     " SELECT                                       "+
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
-                    "   PED.NUMEROPEDIDO AS PEDIDO Nº,             "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
@@ -109,7 +139,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     " SELECT                                       "+
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
-                    "   PED.NUMEROPEDIDO AS PEDIDO Nº,             "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
@@ -151,7 +180,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     " SELECT                                       "+
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
-                    "   PED.NUMEROPEDIDO AS PEDIDO Nº,             "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
@@ -193,7 +221,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     " SELECT                                       "+
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
-                    "   PED.NUMEROPEDIDO AS PEDIDO Nº,             "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
@@ -235,7 +262,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     " SELECT                                       "+
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
-                    "   PED.NUMEROPEDIDO AS PEDIDO Nº,             "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+

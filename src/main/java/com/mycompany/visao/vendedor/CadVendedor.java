@@ -2,32 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.visao.instituto;
+package com.mycompany.visao.vendedor;
 
 import com.mycompany.dao.DaoVendedor;
-import com.mycompany.dao.DaoInstituto;
 import com.mycompany.ferramentas.Constantes;
-import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
-import com.mycompany.modelo.ModInstituto;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModVendedor;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author thagory.8187
+ * @author Thagory
  */
-public class CadInstituto extends javax.swing.JFrame {
+public class CadVendedor extends javax.swing.JFrame {
 
     /**
-     * Creates new form CadInstituto
+     * Creates new form CadVendedor
      */
-    public CadInstituto() {
+    public CadVendedor() {
         initComponents();
         
         if(!existeDadosTemporarios()){
-            DaoInstituto daoInstituto = new DaoInstituto();
+            DaoVendedor daoVendedor = new DaoVendedor();
             
-            int id = daoInstituto.buscarProximoId();
+            int id = daoVendedor.buscarProximoId();
             if(id > 0){
                 tfId.setText(String.valueOf(id));
             }
@@ -40,77 +39,80 @@ public class CadInstituto extends javax.swing.JFrame {
         }
         
         setLocationRelativeTo(null);
-        
         tfId.setEnabled(false);
+        
+        
     }
     
-    
     private Boolean existeDadosTemporarios(){
-        if(DadosTemporarios.tempObject instanceof ModInstituto){
-            int id = ((ModInstituto) DadosTemporarios.tempObject).getId();
-            String cnpj = ((ModInstituto) DadosTemporarios.tempObject).getCnpj();
-            String empresa = ((ModInstituto) DadosTemporarios.tempObject).getEmpresa();
+        if(DadosTemporarios.tempObject instanceof ModVendedor){
+            int id = ((ModVendedor) DadosTemporarios.tempObject).getId();
+            String nome = ((ModVendedor) DadosTemporarios.tempObject).getNome();
+            String telefone = ((ModVendedor) DadosTemporarios.tempObject).getTelefone();
+            String email = ((ModVendedor) DadosTemporarios.tempObject).getEmail();
             
             tfId.setText(String.valueOf(id));
-            tfCnpj.setText(cnpj);
-            tfEmpresa.setText(empresa);
+            tfNome.setText(nome);
+            tfTelefone.setText(telefone);
+            tfEmail.setText(email);
             
             DadosTemporarios.tempObject = null;
-            
             return true;
         }else
             return false;
     }
     
     private void inserir(){
-        DaoInstituto daoInstituto = new DaoInstituto();
+        DaoVendedor daoVendedor = new DaoVendedor();
         
-        if(daoInstituto.inserir(Integer.parseInt(tfId.getText()), tfCnpj.getText(), tfEmpresa.getText())){
-            JOptionPane.showMessageDialog(null, "Instituto inserido com sucesso!");
+        if(daoVendedor.inserir(Integer.parseInt(tfId.getText()), tfNome.getText(), tfTelefone.getText(), tfEmail.getText())){
+            JOptionPane.showMessageDialog(null, "Vendedor salvo com sucesso!" );
             
             tfId.setText("");
-            tfCnpj.setText("");
-            tfEmpresa.setText("");
+            tfNome.setText("");
+            tfTelefone.setText("");
+            tfEmail.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível inserir o instituto!");
+            JOptionPane.showMessageDialog(null, "Não foi possivel salvar o vendedor!" );
         }
     }
     
     private void alterar(){
-        DaoInstituto daoInstituto = new DaoInstituto();
+        DaoVendedor daoVendedor = new DaoVendedor();
         
-        if(daoInstituto.alterar(Integer.parseInt(tfId.getText()),tfCnpj.getText(), tfEmpresa.getText())){
-            JOptionPane.showMessageDialog(null, "Instituto alterado com sucesso!");
+        if(daoVendedor.alterar(Integer.parseInt(tfId.getText()), tfNome.getText(), tfTelefone.getText(), tfEmail.getText())){
+            JOptionPane.showMessageDialog(null, "Vendedor alterado com sucesso!");
             
             tfId.setText("");
-            tfCnpj.setText("");
-            tfEmpresa.setText("");
+            tfNome.setText("");
+            tfTelefone.setText("");
+            tfEmail.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possível alterar o Instituto!");
+            JOptionPane.showMessageDialog(null, "Não foi possivel alterar o vendedor!");
         }
-        ((ListInstituto)Formularios.listInstituto).listarTodos();
-    }
-    
-    private void excluir(){
-         DaoInstituto daoInstituto = new DaoInstituto();
-        
-        if (daoInstituto.excluir(Integer.parseInt(tfId.getText()))){
-            JOptionPane.showMessageDialog(null, "Instituto " + tfEmpresa.getText() + " excluido com sucesso!");
-            
-            tfId.setText("");
-            tfCnpj.setText("");
-            tfEmpresa.setText("");
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "Não foi possivel excluir o instituto!");
-        }
-        
-        ((ListInstituto) Formularios.listInstituto).listarTodos();
+        ((ListVendedor) Formularios.listVendedor).listarTodos();
         
         dispose();
     }
     
-    
+    private void excluir(){
+        DaoVendedor daoVendedor = new DaoVendedor();
+        
+        if(daoVendedor.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "Vendedor" + tfNome.getText() + " excluido com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            tfTelefone.setText("");
+            tfEmail.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possivel excluir o vendedor!");
+        }
+        
+        ((ListVendedor) Formularios.listVendedor).listarTodos();
+        
+        dispose();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,18 +126,30 @@ public class CadInstituto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfId = new javax.swing.JTextField();
-        tfEmpresa = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        tfEmail = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tfTelefone = new javax.swing.JFormattedTextField();
         btnSalvar = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        tfCnpj = new javax.swing.JFormattedTextField();
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("ID");
 
-        jLabel2.setText("Empresa");
+        jLabel2.setText("NOME");
+
+        jLabel3.setText("TELEFONE");
+
+        jLabel4.setText("E-MAIL");
+
+        try {
+            tfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -143,14 +157,6 @@ public class CadInstituto extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-
-        jLabel6.setText("CNPJ");
-
-        try {
-            tfCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -165,47 +171,47 @@ public class CadInstituto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(tfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(323, 323, 323))
-                    .addComponent(tfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 12, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(tfId)
+                            .addComponent(jLabel2)
+                            .addComponent(tfNome, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(tfEmail)
+                            .addComponent(tfTelefone)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(btnSalvar)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnExcluir)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnExcluir))
-                .addGap(76, 76, 76))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,33 +227,30 @@ public class CadInstituto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-                DaoInstituto daoInstituto = new DaoInstituto();
-       
-        if (btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
+        DaoVendedor daoVendedor = new DaoVendedor();
+        
+        if(btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
             inserir();
             
-            tfId.setText(String.valueOf(daoInstituto.buscarProximoId()));
+            tfId.setText(String.valueOf(daoVendedor.buscarProximoId()));
         }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
             alterar();
-            ((ListInstituto) Formularios.listInstituto).listarTodos();
+            ((ListVendedor) Formularios.listVendedor).listarTodos();
             dispose();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int escolha = 
-                JOptionPane.showConfirmDialog(
-                        null, 
-                        "Deseja realmente excluir a empresa " + tfEmpresa.getText() + "?");
-        
+        int escolha  =
+                JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o vendedor " + tfNome.getText() + "?");
         if(escolha == JOptionPane.YES_OPTION)
             excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -269,20 +272,21 @@ public class CadInstituto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadInstituto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadInstituto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadInstituto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadInstituto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadInstituto().setVisible(true);
+                new CadVendedor().setVisible(true);
             }
         });
     }
@@ -292,10 +296,12 @@ public class CadInstituto extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JFormattedTextField tfCnpj;
-    private javax.swing.JTextField tfEmpresa;
+    private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfNome;
+    private javax.swing.JFormattedTextField tfTelefone;
     // End of variables declaration//GEN-END:variables
 }
