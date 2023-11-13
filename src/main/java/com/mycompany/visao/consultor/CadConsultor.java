@@ -24,25 +24,25 @@ public class CadConsultor extends javax.swing.JFrame {
     public CadConsultor() {
         initComponents();
         
-        if(!existeDadosTemporarios()){
-            DaoConsultor daoConsultor = new DaoConsultor();
-            
-            int id = daoConsultor.buscarProximoId();
-            if(id > 0){
-                tfId.setText(String.valueOf(id));
-            }
-            
-            btnSalvar.setText(Constantes.BTN_SALVAR_TEXT);
-            btnExcluir.setVisible(false);
-        }else{
-            btnSalvar.setText(Constantes.BTN_ALTERAR_TEXT);
-            btnExcluir.setVisible(true);
-        }
+//        if(!existeDadosTemporarios()){
+//            DaoConsultor daoConsultor = new DaoConsultor();
+//            
+//            int id = daoConsultor.buscarProximoId();
+//            if(id > 0){
+//                tfId.setText(String.valueOf(id));
+//            }
+//            
+//            btnSalvar.setText(Constantes.BTN_SALVAR_TEXT);
+//            btnExcluir.setVisible(false);
+//        }else{
+//            btnSalvar.setText(Constantes.BTN_ALTERAR_TEXT);
+//            btnExcluir.setVisible(true);
+//        }
+//        
+//        setLocationRelativeTo(null);
+//        tfId.setEnabled(false);
         
-        setLocationRelativeTo(null);
-        tfId.setEnabled(false);
-        
-        
+        tfId.setText(String.valueOf(DadosTemporarios.linhas));
     }
     
     private Boolean existeDadosTemporarios(){
@@ -157,7 +157,7 @@ public class CadConsultor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        btnSalvar.setText("Salvar");
+        btnSalvar.setText("Incluir");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -264,17 +264,17 @@ public class CadConsultor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        DaoConsultor daoConsultor = new DaoConsultor();
-        
-        if(btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
-            inserir();
-            
-            tfId.setText(String.valueOf(daoConsultor.buscarProximoId()));
-        }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
-            alterar();
-//            ((ListVendedor) Formularios.listConsultor).listarTodos();
-            dispose();
-        }
+//        DaoConsultor daoConsultor = new DaoConsultor();
+//        
+//        if(btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
+//            inserir();
+//            
+//            tfId.setText(String.valueOf(daoConsultor.buscarProximoId()));
+//        }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
+//            alterar();
+////            ((ListVendedor) Formularios.listConsultor).listarTodos();
+//            dispose();
+//        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

@@ -16,6 +16,10 @@ public class Formularios {
     public static JFrame cadCliente;
     public static JFrame listCliente;
     
+    //Forma de Pagamento
+    public static JFrame cadFormaPagamento;
+    public static JFrame listFormaPagamento;
+        
     //Consultor
     public static JFrame cadConsultor;
         

@@ -89,6 +89,11 @@ public class TelaLogin extends javax.swing.JDialog {
                 btnEntrarActionPerformed(evt);
             }
         });
+        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEntrarKeyPressed(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
@@ -217,6 +222,10 @@ public class TelaLogin extends javax.swing.JDialog {
         Formularios.telaAlteracaoSenha.setModal(true);
         Formularios.telaAlteracaoSenha.setVisible(true);
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
+        
+    }//GEN-LAST:event_btnEntrarKeyPressed
 
     /**
      * @param args the command line arguments

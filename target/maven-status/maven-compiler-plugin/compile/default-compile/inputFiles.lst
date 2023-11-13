@@ -3,11 +3,13 @@ C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\co
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\ferramentas\DadosTemporarios.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\modelo\ModCliente.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\ferramentas\Constantes.java
+C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\dao\DaoFormaPagamento.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\consultor\CadConsultor.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\vendedor\ListVendedor.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\modelo\ModVendedor.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\instituto\ListInstituto.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\dao\DaoConsultor.java
+C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\formaPagamento\ListFormaPagamento.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\sistemaiq_gyn\SistemaIQ_GYN.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\outros\TelaAlteracaoSenha.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\dao\DaoInstituto.java
@@ -28,4 +30,6 @@ C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\co
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\modelo\ModInstituto.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\dao\DaoCliente.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\pedido\ListPedido.java
+C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\modelo\ModFormaPagamento.java
 C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\cliente\CadCliente.java
+C:\Users\thagory.8187\Documents\NetBeansProjects\Sistema_IQ_GYN\src\main\java\com\mycompany\visao\formaPagamento\CadFormaPagamento.java

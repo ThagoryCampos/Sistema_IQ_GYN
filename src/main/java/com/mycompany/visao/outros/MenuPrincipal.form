@@ -43,6 +43,14 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miCadFormaPagamento">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Forma de Pagamento"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miCadFormaPagamentoActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miCadastroPedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pedido"/>
@@ -91,6 +99,14 @@
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miConsultaFormaPagamento">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Forma de Pagamento"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miConsultaFormaPagamentoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miConsultaPedidos">
               <Properties>

@@ -10,6 +10,8 @@ import com.mycompany.ferramentas.Formularios;
 import com.mycompany.sistemaiq_gyn.SistemaIQ_GYN;
 import com.mycompany.visao.cliente.CadCliente;
 import com.mycompany.visao.cliente.ListCliente;
+import com.mycompany.visao.formaPagamento.CadFormaPagamento;
+import com.mycompany.visao.formaPagamento.ListFormaPagamento;
 import com.mycompany.visao.vendedor.CadVendedor;
 import com.mycompany.visao.vendedor.ListVendedor;
 import com.mycompany.visao.instituto.CadInstituto;
@@ -78,6 +80,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miCadastroConsultor = new javax.swing.JMenuItem();
         miCadastroInstituto = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        miCadFormaPagamento = new javax.swing.JMenuItem();
         miCadastroPedido = new javax.swing.JMenuItem();
         miConsultaEstadoCivil = new javax.swing.JMenu();
         miConsultaUsuario = new javax.swing.JMenuItem();
@@ -85,6 +88,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miConsultaConsultor = new javax.swing.JMenuItem();
         miConsultaInstituto = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        miConsultaFormaPagamento = new javax.swing.JMenuItem();
         miConsultaPedidos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,6 +135,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mnCadastro.add(miCadastroInstituto);
         mnCadastro.add(jSeparator3);
 
+        miCadFormaPagamento.setText("Forma de Pagamento");
+        miCadFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadFormaPagamentoActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(miCadFormaPagamento);
+
         miCadastroPedido.setText("Pedido");
         miCadastroPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,6 +187,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         miConsultaEstadoCivil.add(miConsultaInstituto);
         miConsultaEstadoCivil.add(jSeparator2);
+
+        miConsultaFormaPagamento.setText("Forma de Pagamento");
+        miConsultaFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultaFormaPagamentoActionPerformed(evt);
+            }
+        });
+        miConsultaEstadoCivil.add(miConsultaFormaPagamento);
 
         miConsultaPedidos.setText("Pedidos");
         miConsultaPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -285,6 +305,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
             Formularios.cadPedido.setVisible(true);
     }//GEN-LAST:event_miCadastroPedidoActionPerformed
 
+    private void miCadFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadFormaPagamentoActionPerformed
+        if(Formularios.cadFormaPagamento == null)
+            Formularios.cadFormaPagamento = new CadFormaPagamento();
+        
+        Formularios.cadFormaPagamento.setVisible(true);
+    }//GEN-LAST:event_miCadFormaPagamentoActionPerformed
+
+    private void miConsultaFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaFormaPagamentoActionPerformed
+        if(Formularios.listFormaPagamento == null)
+            Formularios.listFormaPagamento = new ListFormaPagamento();
+        
+        Formularios.listFormaPagamento.setVisible(true);
+    }//GEN-LAST:event_miConsultaFormaPagamentoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,6 +361,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem miCadFormaPagamento;
     private javax.swing.JMenuItem miCadastroCliente;
     private javax.swing.JMenuItem miCadastroConsultor;
     private javax.swing.JMenuItem miCadastroInstituto;
@@ -335,6 +370,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miConsultaCliente;
     private javax.swing.JMenuItem miConsultaConsultor;
     private javax.swing.JMenu miConsultaEstadoCivil;
+    private javax.swing.JMenuItem miConsultaFormaPagamento;
     private javax.swing.JMenuItem miConsultaInstituto;
     private javax.swing.JMenuItem miConsultaPedidos;
     private javax.swing.JMenuItem miConsultaUsuario;

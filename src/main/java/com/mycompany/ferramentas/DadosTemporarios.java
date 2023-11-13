@@ -17,4 +17,7 @@ public class DadosTemporarios {
     public static int idUsuarioLogado;
     public static String usuarioLogado;
     
+    //Número de linhas tabela consultor
+    public static int linhas;
+    
 }

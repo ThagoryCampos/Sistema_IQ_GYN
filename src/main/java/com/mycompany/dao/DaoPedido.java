@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 public class DaoPedido extends BancoDeDadosMySql{
     private String sql;
     
-    public Boolean inserir(int id, String data, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, int idConsultor, double total, double subTotalDespesas, double subTotalLiquido){
+    public Boolean inserir(int id, String data, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, double total, double subTotalDespesas, double subTotalLiquido){
         try{
             sql = "INSERT INTO PEDIDO (ID, DATA, VENDEDOR, IDINSTITUTO, IDCLIENTE, NUMEROPROJETO, ESCOPOPROJETO, PRAZO, FORMAPAGAMENTO, VALORPROJETO, CUSTOFIXO, CUSTOADVERSO, IDCONSULTOR, TOTAL, SUBTOTALDESPESAS, SUBTOTALLIQUIDO ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, )";
             
@@ -33,10 +33,9 @@ public class DaoPedido extends BancoDeDadosMySql{
             getStatement().setDouble(10, valorProjeto);
             getStatement().setDouble(11, custoFixo);
             getStatement().setDouble(12, custoAdverso);
-            getStatement().setInt(13, idConsultor);
-            getStatement().setDouble(14, total);
-            getStatement().setDouble(15, subTotalDespesas);
-            getStatement().setDouble(16, subTotalLiquido);
+            getStatement().setDouble(13, total);
+            getStatement().setDouble(14, subTotalDespesas);
+            getStatement().setDouble(15, subTotalLiquido);
             
             getStatement().executeUpdate();
             
@@ -47,13 +46,13 @@ public class DaoPedido extends BancoDeDadosMySql{
         }
     }
     
-      public Boolean alterar(int id, String data, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, int idConsultor, double total, double subTotalDespesas, double subTotalLiquido){
+      public Boolean alterar(int id, String data, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, double total, double subTotalDespesas, double subTotalLiquido){
         try{
-            sql = "UPDATE PEDIDO SET DATA = ?, VENDEDOR = ?, IDINSTITUTO = ?, IDCLIENTE = ?, NUMEROPROJETO = ?, ESCOPOPROJETO = ?, PRAZO = ?, FORMAPAGAMENTO = ?, VALORPROJETO = ?, CUSTOFIXO = ?, CUSTOADVERSO = ?, IDCONSULTOR = ?, TOTAL = ?, SUBTOTALDESPESAS = ?, SUBTOTALLIQUIDO  = ? WHERE ID = ?";
+            sql = "UPDATE PEDIDO SET DATA = ?, VENDEDOR = ?, IDINSTITUTO = ?, IDCLIENTE = ?, NUMEROPROJETO = ?, ESCOPOPROJETO = ?, PRAZO = ?, FORMAPAGAMENTO = ?, VALORPROJETO = ?, CUSTOFIXO = ?, CUSTOADVERSO = ?, TOTAL = ?, SUBTOTALDESPESAS = ?, SUBTOTALLIQUIDO  = ? WHERE ID = ?";
             
             setStatement(getConexao().prepareStatement(sql));
             
-            getStatement().setInt(16, id);
+            getStatement().setInt(15, id);
             getStatement().setString(1, data);
             getStatement().setString(2, vendedor);
             getStatement().setInt(3, idInstituto);
@@ -65,10 +64,9 @@ public class DaoPedido extends BancoDeDadosMySql{
             getStatement().setDouble(9, valorProjeto);
             getStatement().setDouble(10, custoFixo);
             getStatement().setDouble(11, custoAdverso);
-            getStatement().setInt(12, idConsultor);
-            getStatement().setDouble(13, total);
-            getStatement().setDouble(14, subTotalDespesas);
-            getStatement().setDouble(15, subTotalLiquido);
+            getStatement().setDouble(12, total);
+            getStatement().setDouble(13, subTotalDespesas);
+            getStatement().setDouble(14, subTotalLiquido);
             
             getStatement().executeUpdate();
             
@@ -111,7 +109,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VALORPROJETO AS VALOR PROJETO,         "+
                     "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
                     "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
-                    "   CON.IDCONSULTOR AS CONSULTOR,              "+
                     "   PED.TOTAL AS TOTAL,                        "+
                     "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
                     "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
@@ -148,7 +145,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VALORPROJETO AS VALOR PROJETO,         "+
                     "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
                     "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
-                    "   CON.IDCONSULTOR AS CONSULTOR,              "+
                     "   PED.TOTAL AS TOTAL,                        "+
                     "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
                     "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
@@ -189,7 +185,6 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VALORPROJETO AS VALOR PROJETO,         "+
                     "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
                     "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
-                    "   CON.IDCONSULTOR AS CONSULTOR,              "+
                     "   PED.TOTAL AS TOTAL,                        "+
                     "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
                     "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
