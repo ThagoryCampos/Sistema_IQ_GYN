@@ -928,11 +928,11 @@ public class CadPedido extends javax.swing.JFrame {
             String dataTermino = ((ModConsultor) DadosTemporarios.tempObject).getDataTermino();
             String preco = String.valueOf(((ModConsultor) DadosTemporarios.tempObject).getPreco());
             
-            tableConsultor.setValueAt(id, 0, 0);
-            tableConsultor.setValueAt(nome, 0, 1);
-            tableConsultor.setValueAt(dataInicio, 0, 2);
-            tableConsultor.setValueAt(dataTermino, 0, 3);
-            tableConsultor.setValueAt(preco, 0, 4);
+            tableConsultor.setValueAt(id, DadosTemporarios.linhas -1, 0);
+            tableConsultor.setValueAt(nome, DadosTemporarios.linhas -1, 1);
+            tableConsultor.setValueAt(dataInicio, DadosTemporarios.linhas -1, 2);
+            tableConsultor.setValueAt(dataTermino, DadosTemporarios.linhas -1, 3);
+            tableConsultor.setValueAt(preco, DadosTemporarios.linhas -1, 4);
             
         }
     }
