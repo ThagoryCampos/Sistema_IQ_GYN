@@ -231,7 +231,7 @@ public class ListFormaPagamento extends javax.swing.JFrame {
             break;
             case 2:
             ListarPorDescricao(tfFiltro.getText());
-            
+            break;
         }
     }//GEN-LAST:event_jcbBuscarActionPerformed
 

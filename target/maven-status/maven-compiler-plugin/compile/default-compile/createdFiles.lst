@@ -1,4 +1,5 @@
 com\mycompany\dao\DaoFormaPagamento.class
+com\mycompany\visao\pedido\ListPedido$2.class
 com\mycompany\visao\outros\MenuPrincipal$7.class
 com\mycompany\modelo\ModUsuario.class
 com\mycompany\visao\cliente\ListCliente$4.class
@@ -27,7 +28,6 @@ com\mycompany\visao\formaPagamento\CadFormaPagamento.class
 com\mycompany\visao\pedido\CadPedido.class
 com\mycompany\visao\pedido\CadPedido$4.class
 com\mycompany\dao\DaoCliente.class
-com\mycompany\visao\outros\TelaLogin$6.class
 com\mycompany\visao\formaPagamento\ListFormaPagamento.class
 com\mycompany\visao\outros\TelaAlteracaoSenha$2.class
 com\mycompany\visao\instituto\ListInstituto.class
@@ -38,6 +38,7 @@ com\mycompany\visao\cliente\ListCliente$2.class
 com\mycompany\dao\DaoUsuario.class
 com\mycompany\visao\formaPagamento\ListFormaPagamento$1.class
 com\mycompany\visao\outros\MenuPrincipal$5.class
+com\mycompany\visao\pedido\ListPedido$4.class
 com\mycompany\visao\instituto\ListInstituto$1.class
 com\mycompany\visao\pedido\CadPedido$5.class
 com\mycompany\visao\pedido\ListPedido.class
@@ -63,6 +64,7 @@ com\mycompany\dao\DaoInstituto.class
 com\mycompany\visao\pedido\ListPedido$1.class
 com\mycompany\visao\outros\TelaLogin.class
 com\mycompany\visao\usuario\CadUsuario$2.class
+com\mycompany\visao\pedido\CadPedido$10.class
 com\mycompany\visao\vendedor\ListVendedor$1.class
 com\mycompany\ferramentas\DadosTemporarios.class
 com\mycompany\modelo\ModPedido.class
@@ -87,12 +89,14 @@ com\mycompany\visao\consultor\CadConsultor$3.class
 com\mycompany\modelo\ModVendedor.class
 com\mycompany\visao\outros\MenuPrincipal$2.class
 com\mycompany\visao\formaPagamento\CadFormaPagamento$1.class
+com\mycompany\visao\pedido\ListPedido$3.class
 com\mycompany\visao\pedido\CadPedido$2.class
 com\mycompany\visao\consultor\CadConsultor.class
 com\mycompany\visao\instituto\CadInstituto$1.class
 com\mycompany\visao\vendedor\CadVendedor$3.class
 com\mycompany\visao\vendedor\ListVendedor$3.class
 com\mycompany\dao\DaoPedido.class
+com\mycompany\visao\pedido\CadPedido$9.class
 com\mycompany\visao\outros\MenuPrincipal$1.class
 com\mycompany\visao\outros\TelaAlteracaoSenha$3.class
 com\mycompany\visao\instituto\ListInstituto$4.class

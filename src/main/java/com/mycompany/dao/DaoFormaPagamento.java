@@ -94,7 +94,7 @@ public class DaoFormaPagamento extends BancoDeDadosMySql{
                 "   DESCRICAO AS DESCRICAO        "+
                 " FROM                            "+
                 "   FPAGAMENTO FPA                "+
-                " WHERE FOR.ID = ?                "+
+                " WHERE FPA.ID = ?                "+
                 " ORDER BY 1                      ";
             
             setStatement(getConexao().prepareStatement(sql));
@@ -116,7 +116,7 @@ public class DaoFormaPagamento extends BancoDeDadosMySql{
                 "   DESCRICAO AS DESCRICAO        "+
                 " FROM                            "+
                 "   FPAGAMENTO FPA                "+
-                " WHERE FOR.DESCRICAO LIKE ?      "+
+                " WHERE FPA.DESCRICAO LIKE ?      "+
                 " ORDER BY 1                      ";
             
             setStatement(getConexao().prepareStatement(sql));

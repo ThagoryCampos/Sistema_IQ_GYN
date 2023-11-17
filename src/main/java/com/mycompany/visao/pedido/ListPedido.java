@@ -4,6 +4,16 @@
  */
 package com.mycompany.visao.pedido;
 
+import com.mycompany.dao.DaoCliente;
+import com.mycompany.dao.DaoConsultor;
+import com.mycompany.dao.DaoInstituto;
+import com.mycompany.dao.DaoPedido;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModConsultor;
+import com.mycompany.modelo.ModPedido;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author thagory.8187
@@ -15,6 +25,185 @@ public class ListPedido extends javax.swing.JFrame {
      */
     public ListPedido() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+        
+        listarTodos();
+    }
+    
+    public void listarTodos(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePedido.getModel();
+            
+            tablePedido.setModel(defaultTableModel);
+            
+            DaoPedido daoPedido = new DaoPedido();
+            
+            ResultSet resultSet = daoPedido.listarTodos();
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String data = resultSet.getString(2);
+                String vendedor = resultSet.getString(3);
+                String idInstituto = resultSet.getString(4);
+                String idCliente = resultSet.getString(5);
+                String numeroProjeto = resultSet.getString(6);
+                String escopoProjeto = resultSet.getString(7);
+                String prazo = resultSet.getString(8);
+                String formaPagamento = resultSet.getString(9);
+                String valorProjeto = resultSet.getString(10);
+                String custoFixo = resultSet.getString(11);
+                String custoAdverso = resultSet.getString(12);
+                String total = resultSet.getString(13);
+                String subTotalDespesas = resultSet.getString(14);
+                String subTotalLiquido = resultSet.getString(5);
+                
+                defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorId(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePedido.getModel();
+            
+            tablePedido.setModel(defaultTableModel);
+            
+            DaoPedido daoPedido = new DaoPedido();
+            
+            ResultSet resultSet = daoPedido.listarPorId(Integer.parseInt(tfFiltro.getText()));
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String data = resultSet.getString(2);
+                String vendedor = resultSet.getString(3);
+                String idInstituto = resultSet.getString(4);
+                String idCliente = resultSet.getString(5);
+                String numeroProjeto = resultSet.getString(6);
+                String escopoProjeto = resultSet.getString(7);
+                String prazo = resultSet.getString(8);
+                String formaPagamento = resultSet.getString(9);
+                String valorProjeto = resultSet.getString(10);
+                String custoFixo = resultSet.getString(11);
+                String custoAdverso = resultSet.getString(12);
+                String total = resultSet.getString(13);
+                String subTotalDespesas = resultSet.getString(14);
+                String subTotalLiquido = resultSet.getString(5);
+                
+                defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorNumeroPedido(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePedido.getModel();
+            
+            tablePedido.setModel(defaultTableModel);
+            
+            DaoPedido daoPedido = new DaoPedido();
+            
+            ResultSet resultSet = daoPedido.listarPorNumeroPedido(Integer.parseInt(tfFiltro.getText()));
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String data = resultSet.getString(2);
+                String vendedor = resultSet.getString(3);
+                String idInstituto = resultSet.getString(4);
+                String idCliente = resultSet.getString(5);
+                String numeroProjeto = resultSet.getString(6);
+                String escopoProjeto = resultSet.getString(7);
+                String prazo = resultSet.getString(8);
+                String formaPagamento = resultSet.getString(9);
+                String valorProjeto = resultSet.getString(10);
+                String custoFixo = resultSet.getString(11);
+                String custoAdverso = resultSet.getString(12);
+                String total = resultSet.getString(13);
+                String subTotalDespesas = resultSet.getString(14);
+                String subTotalLiquido = resultSet.getString(5);
+                
+                defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorInstituto(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePedido.getModel();
+            
+            tablePedido.setModel(defaultTableModel);
+            
+            DaoPedido daoPedido = new DaoPedido();
+            
+            ResultSet resultSet = daoPedido.listarPorInstituto(Integer.parseInt(tfFiltro.getText()));
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String data = resultSet.getString(2);
+                String vendedor = resultSet.getString(3);
+                String idInstituto = resultSet.getString(4);
+                String idCliente = resultSet.getString(5);
+                String numeroProjeto = resultSet.getString(6);
+                String escopoProjeto = resultSet.getString(7);
+                String prazo = resultSet.getString(8);
+                String formaPagamento = resultSet.getString(9);
+                String valorProjeto = resultSet.getString(10);
+                String custoFixo = resultSet.getString(11);
+                String custoAdverso = resultSet.getString(12);
+                String total = resultSet.getString(13);
+                String subTotalDespesas = resultSet.getString(14);
+                String subTotalLiquido = resultSet.getString(5);
+                
+                defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listarPorCliente(){
+        try{
+            DefaultTableModel defaultTableModel = (DefaultTableModel) tablePedido.getModel();
+            
+            tablePedido.setModel(defaultTableModel);
+            
+            DaoPedido daoPedido = new DaoPedido();
+            
+            ResultSet resultSet = daoPedido.listarPorCliente(Integer.parseInt(tfFiltro.getText()));
+            
+            defaultTableModel.setRowCount(0);
+            while (resultSet.next()){
+                String id = resultSet.getString(1);
+                String data = resultSet.getString(2);
+                String vendedor = resultSet.getString(3);
+                String idInstituto = resultSet.getString(4);
+                String idCliente = resultSet.getString(5);
+                String numeroProjeto = resultSet.getString(6);
+                String escopoProjeto = resultSet.getString(7);
+                String prazo = resultSet.getString(8);
+                String formaPagamento = resultSet.getString(9);
+                String valorProjeto = resultSet.getString(10);
+                String custoFixo = resultSet.getString(11);
+                String custoAdverso = resultSet.getString(12);
+                String total = resultSet.getString(13);
+                String subTotalDespesas = resultSet.getString(14);
+                String subTotalLiquido = resultSet.getString(5);
+                
+                defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -26,21 +215,170 @@ public class ListPedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jcbTipoFiltro = new javax.swing.JComboBox<>();
+        tfFiltro = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablePedido = new javax.swing.JTable();
+        jcbBuscar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "RUA", "CEP", "NÚM. RESIDÊNCIA", "NOME", "SOBRENOME", "GENERO", "TELEFONE", "EMAIL", "ESTADO CIVIL" }));
+
+        tablePedido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "CIDADE", "RUA", "CEP", "NÚM. RESIDENCIA", "NOME", "SOBRENOME", "GENERO", "TELEFONE", "EMAIL", "ESTADO CIVIL"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablePedido.getTableHeader().setReorderingAllowed(false);
+        tablePedido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePedidoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablePedido);
+
+        jcbBuscar.setText("Buscar");
+        jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfFiltro))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jcbBuscar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbTipoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jcbBuscar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tablePedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePedidoMouseClicked
+        try{
+            if (evt.getClickCount() == 2){
+                //Pega os dados da pessoa
+                ModPedido modPedido = new ModPedido();
+
+                modPedido.setId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 0))));
+                modPedido.setData(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 5)));
+                modPedido.setNumeroProjeto(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 6))));
+                modPedido.setEscopoProjeto(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 7)));
+                modPedido.setPrazo(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 8)));
+                modPedido.setFormaPagamento(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9)));
+                modPedido.setValorProjeto(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setCustoFixo(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setCustoAdverso(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setTotal(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setSubTotalDespesas(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setSubTotalLiquido(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+
+                //
+                DaoInstituto daoInstituto = new DaoInstituto();
+                ResultSet resultSet = daoInstituto.listarPorId(Integer.parseInt(tablePedido.getValueAt(tablePedido.getSelectedRow(), 0).toString()));
+
+                int idInstituto = -1;
+                while(resultSet.next())
+                idInstituto = resultSet.getInt("IDINSTITUTO");
+
+                modPedido.setIdInstituto(idInstituto);
+                //
+
+                //
+                DaoCliente daoCliente = new DaoCliente();
+                resultSet = daoCliente.listarPorId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 10))));
+
+                int idCliente = -1;
+                while(resultSet.next())
+                idCliente = resultSet.getInt("ID");
+
+                modPedido.setIdCliente(idCliente);
+                //
+                
+                //
+                DaoConsultor daoConsultor = new DaoConsultor();
+//                resultSet = daoConsultor.(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 10))));
+
+                int idConsultor = -1;
+                while(resultSet.next())
+                idConsultor = resultSet.getInt("ID");
+
+                modPedido.setIdCliente(idConsultor);
+                //
+
+              
+
+               
+
+                DadosTemporarios.tempObject = (ModPedido) modPedido;
+                
+
+                CadPedido cadPedido = new CadPedido();
+                cadPedido.setVisible(true);
+            }
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+        }
+    }//GEN-LAST:event_tablePedidoMouseClicked
+
+    private void jcbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbBuscarActionPerformed
+        switch (jcbTipoFiltro.getSelectedIndex()){
+            case 0:
+                listarTodos();
+                break;
+            case 1:
+                listarPorId();
+                break;
+            case 2:
+                listarPorNumeroPedido();
+                break;
+            case 3:
+                listarPorInstituto();
+                break;
+            case 4:
+                listarPorCliente();
+                break;
+        }
+    }//GEN-LAST:event_jcbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +416,10 @@ public class ListPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jcbBuscar;
+    private javax.swing.JComboBox<String> jcbTipoFiltro;
+    private javax.swing.JTable tablePedido;
+    private javax.swing.JTextField tfFiltro;
     // End of variables declaration//GEN-END:variables
 }

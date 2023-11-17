@@ -103,15 +103,15 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
-                    "   PED.NUMEROPROJETO AS PROJETO Nº,           "+
+                    "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
-                    "   PED.FORMAPAGAMENTO AS FORMA PAGTO,         "+
-                    "   PED.VALORPROJETO AS VALOR PROJETO,         "+
-                    "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
-                    "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
+                    "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
+                    "   PED.VALORPROJETO AS VALORPROJETO,          "+
+                    "   PED.CUSTOFIXO AS CUSTOFIXO,                "+
+                    "   PED.CUSTOADVERSO AS CUSTOADVERSO,          "+
                     "   PED.TOTAL AS TOTAL,                        "+
-                    "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
-                    "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
+                    "   PED.SUBTOTALDESPESAS AS SUBTOTALDESPESAS,  "+
+                    "   PED.SUBTOTALLIQUIDO AS SUBTOTALLIQUIDO     "+
                     "FROM                                          "+
                     "   PEDIDO PED                                 "+
                     "JOIN INSTITUTO INS ON                         "+
@@ -139,15 +139,15 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
-                    "   PED.NUMEROPROJETO AS PROJETO Nº,           "+
+                    "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
-                    "   PED.FORMAPAGAMENTO AS FORMA PAGTO,         "+
-                    "   PED.VALORPROJETO AS VALOR PROJETO,         "+
-                    "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
-                    "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
+                    "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
+                    "   PED.VALORPROJETO AS VALORPROJETO,          "+
+                    "   PED.CUSTOFIXO AS CUSTOFIXO,                "+
+                    "   PED.CUSTOADVERSO AS CUSTOADVERSO,          "+
                     "   PED.TOTAL AS TOTAL,                        "+
-                    "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
-                    "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
+                    "   PED.SUBTOTALDESPESAS AS SUBTOTALDESPESAS,  "+
+                    "   PED.SUBTOTALLIQUIDO AS SUBTOTALLIQUIDO     "+
                     " FROM                                         "+
                     "   PEDIDO PED                                 "+
                     " JOIN INSTITUTO INS ON                        "+
@@ -179,15 +179,15 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
-                    "   PED.NUMEROPROJETO AS PROJETO Nº,           "+
+                    "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
-                    "   PED.FORMAPAGAMENTO AS FORMA PAGTO,         "+
-                    "   PED.VALORPROJETO AS VALOR PROJETO,         "+
-                    "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
-                    "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
+                    "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
+                    "   PED.VALORPROJETO AS VALORPROJETO,          "+
+                    "   PED.CUSTOFIXO AS CUSTOFIXO,                "+
+                    "   PED.CUSTOADVERSO AS CUSTOADVERSO,          "+
                     "   PED.TOTAL AS TOTAL,                        "+
-                    "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
-                    "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
+                    "   PED.SUBTOTALDESPESAS AS SUBTOTALDESPESAS,  "+
+                    "   PED.SUBTOTALLIQUIDO AS SUBTOTALLIQUIDO     "+
                     "FROM                                          "+
                     "   PEDIDO PED                                 "+
                     "JOIN INSTITUTO INS ON                         "+
@@ -219,16 +219,15 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
-                    "   PED.NUMEROPROJETO AS PROJETO Nº,           "+
+                    "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
-                    "   PED.FORMAPAGAMENTO AS FORMA PAGTO,         "+
-                    "   PED.VALORPROJETO AS VALOR PROJETO,         "+
-                    "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
-                    "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
-                    "   CON.IDCONSULTOR AS CONSULTOR,              "+
+                    "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
+                    "   PED.VALORPROJETO AS VALORPROJETO,          "+
+                    "   PED.CUSTOFIXO AS CUSTOFIXO,                "+
+                    "   PED.CUSTOADVERSO AS CUSTOADVERSO,          "+
                     "   PED.TOTAL AS TOTAL,                        "+
-                    "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
-                    "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
+                    "   PED.SUBTOTALDESPESAS AS SUBTOTALDESPESAS,  "+
+                    "   PED.SUBTOTALLIQUIDO AS SUBTOTALLIQUIDO     "+
                     "FROM                                          "+
                     "   PEDIDO PED                                 "+
                     "JOIN INSTITUTO INS ON                         "+
@@ -260,16 +259,15 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
                     "   INS.IDINSTITUTO AS INSTITUTO,              "+
                     "   CLI.IDCLIENTE AS CLIENTE,                  "+
-                    "   PED.NUMEROPROJETO AS PROJETO Nº,           "+
+                    "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
-                    "   PED.FORMAPAGAMENTO AS FORMA PAGTO,         "+
-                    "   PED.VALORPROJETO AS VALOR PROJETO,         "+
-                    "   PED.CUSTOFIXO AS CUSTO FIXO,               "+
-                    "   PED.CUSTOADVERSO AS CUSTO ADVERSO,         "+
-                    "   CON.IDCONSULTOR AS CONSULTOR,              "+
+                    "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
+                    "   PED.VALORPROJETO AS VALORPROJETO,          "+
+                    "   PED.CUSTOFIXO AS CUSTOFIXO,                "+
+                    "   PED.CUSTOADVERSO AS CUSTOADVERSO,          "+
                     "   PED.TOTAL AS TOTAL,                        "+
-                    "   PED.SUBTOTALDESPESAS AS SUB TOTAL DESPESAS,"+
-                    "   PED.SUBTOTALLIQUIDO AS SUB TOTAL LIQUIDO   "+
+                    "   PED.SUBTOTALDESPESAS AS SUBTOTALDESPESAS,  "+
+                    "   PED.SUBTOTALLIQUIDO AS SUBTOTALLIQUIDO     "+
                     "FROM                                          "+
                     "   PEDIDO PED                                 "+
                     "JOIN INSTITUTO INS ON                         "+

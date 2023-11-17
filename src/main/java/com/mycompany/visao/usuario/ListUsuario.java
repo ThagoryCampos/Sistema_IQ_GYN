@@ -236,7 +236,7 @@ public class ListUsuario extends javax.swing.JFrame {
             break;
             case 2:
             ListarPorNome(tfFiltro.getText());
-            
+            break;
         }
     }//GEN-LAST:event_jcbBuscarActionPerformed
 

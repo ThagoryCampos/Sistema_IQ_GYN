@@ -10,6 +10,7 @@ import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.Formularios;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.modelo.ModConsultor;
+import com.mycompany.visao.pedido.CadPedido;
 import javax.swing.JOptionPane;
 
 /**
@@ -272,9 +273,21 @@ public class CadConsultor extends javax.swing.JFrame {
 //            tfId.setText(String.valueOf(daoConsultor.buscarProximoId()));
 //        }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
 //            alterar();
-////            ((ListVendedor) Formularios.listConsultor).listarTodos();
+//            ((ListVendedor) Formularios.listConsultor).listarTodos();
 //            dispose();
 //        }
+
+        ModConsultor consultor = new ModConsultor();
+        
+        consultor.setId(Integer.parseInt(tfId.getText()));
+        consultor.setNome(tfNome.getText());
+        consultor.setDataInicio(tfDataInicio.getText());
+        consultor.setDataTermino(tfDataTermino.getText());
+        consultor.setPreco(Double.parseDouble(tfPreco.getText()));
+        
+        DadosTemporarios.tempObject = (ModConsultor) consultor;
+        
+        ((CadPedido) Formularios.cadPedido).insereConsultor();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
