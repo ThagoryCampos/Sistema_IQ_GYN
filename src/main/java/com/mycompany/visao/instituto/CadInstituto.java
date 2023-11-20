@@ -229,7 +229,7 @@ public class CadInstituto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-                DaoInstituto daoInstituto = new DaoInstituto();
+        DaoInstituto daoInstituto = new DaoInstituto();
        
         if (btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
             inserir();

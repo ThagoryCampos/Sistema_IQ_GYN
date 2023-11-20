@@ -10,6 +10,7 @@ import com.mycompany.dao.DaoUsuario;
 import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -92,6 +93,11 @@ public class TelaLogin extends javax.swing.JDialog {
                 btnEntrarActionPerformed(evt);
             }
         });
+        btnEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnEntrarKeyPressed(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
@@ -105,6 +111,11 @@ public class TelaLogin extends javax.swing.JDialog {
         });
 
         pfSenha.setFont(new java.awt.Font("Sitka Small", 0, 14)); // NOI18N
+        pfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pfSenhaKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -176,7 +187,36 @@ public class TelaLogin extends javax.swing.JDialog {
     }//GEN-LAST:event_tfUsuarioActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-         try{
+        login();
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Formularios.telaLogin = null;
+        
+        if(!isLogado)
+            System.exit(0);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        if (Formularios.telaAlteracaoSenha == null)
+            Formularios.telaAlteracaoSenha = new TelaAlteracaoSenha();
+
+        Formularios.telaAlteracaoSenha.setModal(true);
+        Formularios.telaAlteracaoSenha.setVisible(true);
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void btnEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnEntrarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            login();
+    }//GEN-LAST:event_btnEntrarKeyPressed
+
+    private void pfSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfSenhaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+        login();
+    }//GEN-LAST:event_pfSenhaKeyPressed
+
+    private void login(){
+        try{
             if(tfUsuario.getText().equals("") || String.valueOf(pfSenha.getPassword()).equals(""))
                 throw new Exception();
             
@@ -208,23 +248,8 @@ public class TelaLogin extends javax.swing.JDialog {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, Constantes.USUARIO_SENHA_INVALIDOS);
         }
-    }//GEN-LAST:event_btnEntrarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Formularios.telaLogin = null;
-        
-        if(!isLogado)
-            System.exit(0);
-    }//GEN-LAST:event_formWindowClosed
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        if (Formularios.telaAlteracaoSenha == null)
-            Formularios.telaAlteracaoSenha = new TelaAlteracaoSenha();
-
-        Formularios.telaAlteracaoSenha.setModal(true);
-        Formularios.telaAlteracaoSenha.setVisible(true);
-    }//GEN-LAST:event_jLabel3MouseClicked
-
+    }
+    
     /**
      * @param args the command line arguments
      */

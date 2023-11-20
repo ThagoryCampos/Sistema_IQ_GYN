@@ -8,6 +8,7 @@ import com.mycompany.dao.DaoUsuario;
 import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
@@ -68,12 +69,22 @@ public class TelaAlteracaoSenha extends javax.swing.JDialog {
         jLabel4.setText("Confirmação de senha");
 
         pfConfirmacaoSenha.setFont(new java.awt.Font("Sitka Small", 0, 14)); // NOI18N
+        pfConfirmacaoSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pfConfirmacaoSenhaKeyPressed(evt);
+            }
+        });
 
         btnConfirmar.setFont(new java.awt.Font("Sitka Small", 1, 18)); // NOI18N
         btnConfirmar.setText("Confirmar");
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarActionPerformed(evt);
+            }
+        });
+        btnConfirmar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnConfirmarKeyPressed(evt);
             }
         });
 
@@ -145,6 +156,10 @@ public class TelaAlteracaoSenha extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        confirmarSenha();
+    }//GEN-LAST:event_btnConfirmarActionPerformed
+    
+    private void confirmarSenha(){
         try{
             DaoUsuario daoUsuario = new DaoUsuario();
             
@@ -176,13 +191,21 @@ public class TelaAlteracaoSenha extends javax.swing.JDialog {
         }catch(Exception e){
             
         }
-        
-        
-    }//GEN-LAST:event_btnConfirmarActionPerformed
-
+    }
+    
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
             Formularios.telaAlteracaoSenha = null;
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnConfirmarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnConfirmarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            confirmarSenha();
+    }//GEN-LAST:event_btnConfirmarKeyPressed
+
+    private void pfConfirmacaoSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfConfirmacaoSenhaKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            confirmarSenha();
+    }//GEN-LAST:event_pfConfirmacaoSenhaKeyPressed
     
     private boolean campoSenhaVazio(String senha){
         boolean isVazio = true;

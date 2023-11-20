@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Thagory
  */
-public class CadConsultor extends javax.swing.JFrame {
+public class CadConsultor extends javax.swing.JDialog {
 
     /**
      * Creates new form CadConsultor
@@ -40,8 +40,8 @@ public class CadConsultor extends javax.swing.JFrame {
 //            btnExcluir.setVisible(true);
 //        }
 //        
-//        setLocationRelativeTo(null);
-//        tfId.setEnabled(false);
+        setLocationRelativeTo(null);
+        tfId.setEnabled(false);
         
         tfId.setText(String.valueOf(DadosTemporarios.linhas));
     }
@@ -66,58 +66,58 @@ public class CadConsultor extends javax.swing.JFrame {
             return false;
     }
     
-    private void inserir(){
-        DaoConsultor daoConsultor = new DaoConsultor();
-        
-        if(daoConsultor.inserir(Integer.parseInt(tfId.getText()), tfNome.getText(), tfDataInicio.getText(), tfDataTermino.getText(), Double.parseDouble(tfPreco.getText()))){
-            JOptionPane.showMessageDialog(null, "Consultor salvo com sucesso!" );
-            
-            tfId.setText("");
-            tfNome.setText("");
-            tfDataInicio.setText("");
-            tfDataTermino.setText("");
-            tfPreco.setText("");
-        }else{
-            JOptionPane.showMessageDialog(null, "Não foi possivel salvar o consultor!" );
-        }
-    }
+//    private void inserir(){
+//        DaoConsultor daoConsultor = new DaoConsultor();
+//        
+//        if(daoConsultor.inserir(Integer.parseInt(tfId.getText()), tfNome.getText(), tfDataInicio.getText(), tfDataTermino.getText(), Double.parseDouble(tfPreco.getText()))){
+//            JOptionPane.showMessageDialog(null, "Consultor salvo com sucesso!" );
+//            
+//            tfId.setText("");
+//            tfNome.setText("");
+//            tfDataInicio.setText("");
+//            tfDataTermino.setText("");
+//            tfPreco.setText("");
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Não foi possivel salvar o consultor!" );
+//        }
+//    }
     
-    private void alterar(){
-        DaoConsultor daoConsultor = new DaoConsultor();
-        
-        if(daoConsultor.alterar(Integer.parseInt(tfId.getText()), tfNome.getText(), tfDataInicio.getText(), tfDataTermino.getText(), Double.parseDouble(tfPreco.getText()))){
-            JOptionPane.showMessageDialog(null, "Consultor alterado com sucesso!");
-            
-            tfId.setText("");
-            tfNome.setText("");
-            tfDataInicio.setText("");
-            tfDataTermino.setText("");
-            tfPreco.setText("");
-        }else{
-            JOptionPane.showMessageDialog(null, "Não foi possivel alterar o consultor!");
-        }
-                
-        dispose();
-    }
+//    private void alterar(){
+//        DaoConsultor daoConsultor = new DaoConsultor();
+//        
+//        if(daoConsultor.alterar(Integer.parseInt(tfId.getText()), tfNome.getText(), tfDataInicio.getText(), tfDataTermino.getText(), Double.parseDouble(tfPreco.getText()))){
+//            JOptionPane.showMessageDialog(null, "Consultor alterado com sucesso!");
+//            
+//            tfId.setText("");
+//            tfNome.setText("");
+//            tfDataInicio.setText("");
+//            tfDataTermino.setText("");
+//            tfPreco.setText("");
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Não foi possivel alterar o consultor!");
+//        }
+//                
+//        dispose();
+//    }
     
-    private void excluir(){
-        DaoConsultor daoConsultor = new DaoConsultor();
-        
-        if(daoConsultor.excluir(Integer.parseInt(tfId.getText()))){
-            JOptionPane.showMessageDialog(null, "Consultor" + tfNome.getText() + " excluido com sucesso!");
-            
-            tfId.setText("");
-            tfNome.setText("");
-            tfDataInicio.setText("");
-            tfDataTermino.setText("");
-            tfPreco.setText("");
-        }else{
-            JOptionPane.showMessageDialog(null, "Não foi possivel excluir o consultor!");
-        }
-//        ((ListVendedor) Formularios.listConsultor).listarTodos();
-        
-        dispose();
-    }
+//    private void excluir(){
+//        DaoConsultor daoConsultor = new DaoConsultor();
+//        
+//        if(daoConsultor.excluir(Integer.parseInt(tfId.getText()))){
+//            JOptionPane.showMessageDialog(null, "Consultor" + tfNome.getText() + " excluido com sucesso!");
+//            
+//            tfId.setText("");
+//            tfNome.setText("");
+//            tfDataInicio.setText("");
+//            tfDataTermino.setText("");
+//            tfPreco.setText("");
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Não foi possivel excluir o consultor!");
+//        }
+////        ((ListVendedor) Formularios.listConsultor).listarTodos();
+//        
+//        dispose();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -140,11 +140,13 @@ public class CadConsultor extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         tfDataTermino = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
-        tfPreco = new javax.swing.JFormattedTextField();
+        tfPreco = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("ID");
+
+        tfId.setEditable(false);
 
         jLabel2.setText("NOME");
 
@@ -179,8 +181,6 @@ public class CadConsultor extends javax.swing.JFrame {
         }
 
         jLabel5.setText("Data Termino");
-
-        tfPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -265,18 +265,19 @@ public class CadConsultor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-//        DaoConsultor daoConsultor = new DaoConsultor();
+        DaoConsultor daoConsultor = new DaoConsultor();
 //        
 //        if(btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
 //            inserir();
 //            
-//            tfId.setText(String.valueOf(daoConsultor.buscarProximoId()));
+////            tfId.setText(String.valueOf(daoConsultor.buscarProximoId()));
 //        }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
 //            alterar();
 //            ((ListVendedor) Formularios.listConsultor).listarTodos();
 //            dispose();
 //        }
 
+        
         ModConsultor consultor = new ModConsultor();
         
         consultor.setId(Integer.parseInt(tfId.getText()));
@@ -287,14 +288,27 @@ public class CadConsultor extends javax.swing.JFrame {
         
         DadosTemporarios.tempObject = (ModConsultor) consultor;
         
+        tfId.setText("");
+        tfNome.setText("");
+        tfDataInicio.setText("");
+        tfDataTermino.setText("");
+        tfPreco.setText("");
+        
         ((CadPedido) Formularios.cadPedido).insereConsultor();
+        ((CadPedido) Formularios.cadPedido).somarPrecos();
+        ((CadPedido) Formularios.cadPedido).subTotalDespesas();
+        ((CadPedido) Formularios.cadPedido).subTotalLiquido();
+        
+        dispose();
+        
+        Formularios.cadConsultor = null;
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int escolha  =
-                JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o consultor " + tfNome.getText() + "?");
-        if(escolha == JOptionPane.YES_OPTION)
-            excluir();
+//        int escolha  =
+//                JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o consultor " + tfNome.getText() + "?");
+//        if(escolha == JOptionPane.YES_OPTION)
+//            excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
@@ -348,6 +362,6 @@ public class CadConsultor extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField tfDataTermino;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JFormattedTextField tfPreco;
+    private javax.swing.JTextField tfPreco;
     // End of variables declaration//GEN-END:variables
 }

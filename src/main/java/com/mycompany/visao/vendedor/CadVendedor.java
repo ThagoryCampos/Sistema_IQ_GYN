@@ -9,6 +9,7 @@ import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.Formularios;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.modelo.ModVendedor;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -143,6 +144,12 @@ public class CadVendedor extends javax.swing.JFrame {
 
         jLabel3.setText("TELEFONE");
 
+        tfEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfEmailKeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("E-MAIL");
 
         try {
@@ -155,6 +162,11 @@ public class CadVendedor extends javax.swing.JFrame {
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
+            }
+        });
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyPressed(evt);
             }
         });
 
@@ -235,6 +247,10 @@ public class CadVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        salvarVendedor();
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void salvarVendedor(){
         DaoVendedor daoVendedor = new DaoVendedor();
         
         if(btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
@@ -245,15 +261,26 @@ public class CadVendedor extends javax.swing.JFrame {
             alterar();
             ((ListVendedor) Formularios.listVendedor).listarTodos();
             dispose();
+            ((ListVendedor) Formularios.listVendedor).listarTodos();
         }
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
+    }
+    
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int escolha  =
                 JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o vendedor " + tfNome.getText() + "?");
         if(escolha == JOptionPane.YES_OPTION)
             excluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            salvarVendedor();
+    }//GEN-LAST:event_btnSalvarKeyPressed
+
+    private void tfEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfEmailKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+            salvarVendedor();
+    }//GEN-LAST:event_tfEmailKeyPressed
 
     /**
      * @param args the command line arguments

@@ -79,6 +79,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miCadastroCliente = new javax.swing.JMenuItem();
         miCadastroConsultor = new javax.swing.JMenuItem();
         miCadastroInstituto = new javax.swing.JMenuItem();
+        miCadastroVendedor = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         miCadFormaPagamento = new javax.swing.JMenuItem();
         miCadastroPedido = new javax.swing.JMenuItem();
@@ -87,6 +88,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         miConsultaCliente = new javax.swing.JMenuItem();
         miConsultaConsultor = new javax.swing.JMenuItem();
         miConsultaInstituto = new javax.swing.JMenuItem();
+        miConsultaVendedor = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         miConsultaFormaPagamento = new javax.swing.JMenuItem();
         miConsultaPedidos = new javax.swing.JMenuItem();
@@ -133,6 +135,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         mnCadastro.add(miCadastroInstituto);
+
+        miCadastroVendedor.setText("Vendedor");
+        miCadastroVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadastroVendedorActionPerformed(evt);
+            }
+        });
+        mnCadastro.add(miCadastroVendedor);
         mnCadastro.add(jSeparator3);
 
         miCadFormaPagamento.setText("Forma de Pagamento");
@@ -186,6 +196,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         miConsultaEstadoCivil.add(miConsultaInstituto);
+
+        miConsultaVendedor.setText("Vendedor");
+        miConsultaVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConsultaVendedorActionPerformed(evt);
+            }
+        });
+        miConsultaEstadoCivil.add(miConsultaVendedor);
         miConsultaEstadoCivil.add(jSeparator2);
 
         miConsultaFormaPagamento.setText("Forma de Pagamento");
@@ -245,7 +263,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void miConsultaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaUsuarioActionPerformed
         if (Formularios.listUsuario == null)
             Formularios.listUsuario = new ListUsuario();
-        
+        ((ListUsuario)Formularios.listUsuario).listarTodos();
         Formularios.listUsuario.setVisible(true);
     }//GEN-LAST:event_miConsultaUsuarioActionPerformed
 
@@ -259,7 +277,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void miConsultaInstitutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaInstitutoActionPerformed
         if (Formularios.listInstituto == null)
             Formularios.listInstituto = new ListInstituto();
-        
+        ((ListInstituto)Formularios.listInstituto).listarTodos();
         Formularios.listInstituto.setVisible(true);
     }//GEN-LAST:event_miConsultaInstitutoActionPerformed
 
@@ -273,7 +291,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void miConsultaConsultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaConsultorActionPerformed
         if (Formularios.listVendedor == null)
             Formularios.listVendedor = new ListVendedor();
-        
+        ((ListVendedor)Formularios.listVendedor).listarTodos();
         Formularios.listVendedor.setVisible(true);
     }//GEN-LAST:event_miConsultaConsultorActionPerformed
 
@@ -287,14 +305,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void miConsultaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaClienteActionPerformed
         if (Formularios.listCliente == null)
             Formularios.listCliente = new ListCliente();
-        
+        ((ListCliente)Formularios.listCliente).listarTodos();
         Formularios.listCliente.setVisible(true);
     }//GEN-LAST:event_miConsultaClienteActionPerformed
 
     private void miConsultaPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaPedidosActionPerformed
         if (Formularios.listPedido == null)
             Formularios.listPedido = new ListPedido();
-        
+        ((ListPedido)Formularios.listPedido).listarTodos();
         Formularios.listPedido.setVisible(true);
     }//GEN-LAST:event_miConsultaPedidosActionPerformed
 
@@ -315,9 +333,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void miConsultaFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaFormaPagamentoActionPerformed
         if(Formularios.listFormaPagamento == null)
             Formularios.listFormaPagamento = new ListFormaPagamento();
-        
+        ((ListFormaPagamento)Formularios.listFormaPagamento).listarTodos();
         Formularios.listFormaPagamento.setVisible(true);
     }//GEN-LAST:event_miConsultaFormaPagamentoActionPerformed
+
+    private void miConsultaVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConsultaVendedorActionPerformed
+        if(Formularios.listVendedor == null)
+            Formularios.listVendedor = new ListVendedor();
+        ((ListVendedor)Formularios.listVendedor).listarTodos();
+        Formularios.listVendedor.setVisible(true);
+    }//GEN-LAST:event_miConsultaVendedorActionPerformed
+
+    private void miCadastroVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroVendedorActionPerformed
+        if(Formularios.cadVendedor == null)
+            Formularios.cadVendedor = new CadVendedor();
+        
+        Formularios.cadVendedor.setVisible(true);
+    }//GEN-LAST:event_miCadastroVendedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -367,6 +399,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCadastroInstituto;
     private javax.swing.JMenuItem miCadastroPedido;
     private javax.swing.JMenuItem miCadastroUsuario;
+    private javax.swing.JMenuItem miCadastroVendedor;
     private javax.swing.JMenuItem miConsultaCliente;
     private javax.swing.JMenuItem miConsultaConsultor;
     private javax.swing.JMenu miConsultaEstadoCivil;
@@ -374,6 +407,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miConsultaInstituto;
     private javax.swing.JMenuItem miConsultaPedidos;
     private javax.swing.JMenuItem miConsultaUsuario;
+    private javax.swing.JMenuItem miConsultaVendedor;
     private javax.swing.JMenu mnCadastro;
     // End of variables declaration//GEN-END:variables
 }

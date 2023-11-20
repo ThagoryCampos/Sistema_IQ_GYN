@@ -9,7 +9,6 @@ import com.mycompany.dao.DaoConsultor;
 import com.mycompany.dao.DaoInstituto;
 import com.mycompany.dao.DaoPedido;
 import com.mycompany.ferramentas.DadosTemporarios;
-import com.mycompany.modelo.ModConsultor;
 import com.mycompany.modelo.ModPedido;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
@@ -227,17 +226,17 @@ public class ListPedido extends javax.swing.JFrame {
 
         tablePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "CIDADE", "RUA", "CEP", "NÚM. RESIDENCIA", "NOME", "SOBRENOME", "GENERO", "TELEFONE", "EMAIL", "ESTADO CIVIL"
+                "ID", "DATA", "NUMERO", "ESCOPO", "PRAZO", "FORMA PAGTO", "VALOR PROJETO", "CUSTO FIXO", "CUSTO ADVERSO", "TOTAL", "SUB TOTAL DESPESAS", "SUB TOTAL LIQUIDO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -300,21 +299,21 @@ public class ListPedido extends javax.swing.JFrame {
                 ModPedido modPedido = new ModPedido();
 
                 modPedido.setId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 0))));
-                modPedido.setData(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 5)));
-                modPedido.setNumeroProjeto(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 6))));
-                modPedido.setEscopoProjeto(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 7)));
-                modPedido.setPrazo(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 8)));
-                modPedido.setFormaPagamento(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9)));
-                modPedido.setValorProjeto(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
-                modPedido.setCustoFixo(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
-                modPedido.setCustoAdverso(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setData(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 1)));
+                modPedido.setNumeroProjeto(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 2))));
+                modPedido.setEscopoProjeto(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 3)));
+                modPedido.setPrazo(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 4)));
+                modPedido.setFormaPagamento(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 5)));
+                modPedido.setValorProjeto(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 6))));
+                modPedido.setCustoFixo(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 7))));
+                modPedido.setCustoAdverso(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 8))));
                 modPedido.setTotal(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
-                modPedido.setSubTotalDespesas(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
-                modPedido.setSubTotalLiquido(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setSubTotalDespesas(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 10))));
+                modPedido.setSubTotalLiquido(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 11))));
 
                 //
                 DaoInstituto daoInstituto = new DaoInstituto();
-                ResultSet resultSet = daoInstituto.listarPorId(Integer.parseInt(tablePedido.getValueAt(tablePedido.getSelectedRow(), 0).toString()));
+                ResultSet resultSet = daoInstituto.listarPorId(Integer.parseInt(tablePedido.getValueAt(tablePedido.getSelectedRow(), 12).toString()));
 
                 int idInstituto = -1;
                 while(resultSet.next())
@@ -325,7 +324,7 @@ public class ListPedido extends javax.swing.JFrame {
 
                 //
                 DaoCliente daoCliente = new DaoCliente();
-                resultSet = daoCliente.listarPorId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 10))));
+                resultSet = daoCliente.listarPorId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 13))));
 
                 int idCliente = -1;
                 while(resultSet.next())
@@ -334,21 +333,6 @@ public class ListPedido extends javax.swing.JFrame {
                 modPedido.setIdCliente(idCliente);
                 //
                 
-                //
-                DaoConsultor daoConsultor = new DaoConsultor();
-//                resultSet = daoConsultor.(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 10))));
-
-                int idConsultor = -1;
-                while(resultSet.next())
-                idConsultor = resultSet.getInt("ID");
-
-                modPedido.setIdCliente(idConsultor);
-                //
-
-              
-
-               
-
                 DadosTemporarios.tempObject = (ModPedido) modPedido;
                 
 

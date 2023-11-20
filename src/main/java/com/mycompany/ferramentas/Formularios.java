@@ -21,7 +21,7 @@ public class Formularios {
     public static JFrame listFormaPagamento;
         
     //Consultor
-    public static JFrame cadConsultor;
+    public static JDialog cadConsultor;
     public static JFrame listConsultor;
         
     //Vendedor

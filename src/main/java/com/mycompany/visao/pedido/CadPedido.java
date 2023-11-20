@@ -9,18 +9,20 @@ import com.mycompany.dao.DaoFormaPagamento;
 import com.mycompany.dao.DaoVendedor;
 import com.mycompany.dao.DaoInstituto;
 import com.mycompany.dao.DaoPedido;
+import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModConsultor;
 import com.mycompany.modelo.ModPedido;
 import com.mycompany.visao.consultor.CadConsultor;
-import com.mycompany.visao.instituto.*;
+import com.mycompany.visao.instituto.ListInstituto;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
+import java.util.Locale;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.DefaultCellEditor;
 import javax.swing.table.DefaultTableModel;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 
 /**
@@ -34,6 +36,23 @@ public class CadPedido extends javax.swing.JFrame {
      */
     public CadPedido() {
         initComponents();
+        
+         if(!existeDadosTemporarios()){
+            DaoPedido daoPedido = new DaoPedido();
+            
+            int id = daoPedido.buscarProximoId();
+            if(id > 0){
+                tfId.setText(String.valueOf(id));
+            }
+            
+            btnSalvar.setText(Constantes.BTN_SALVAR_TEXT);
+            btnExcluir.setVisible(false);
+        }else{
+            btnSalvar.setText(Constantes.BTN_ALTERAR_TEXT);
+            btnExcluir.setVisible(true);
+        }
+        setLocationRelativeTo(null);
+        tfId.setEnabled(false);
         
         carregaEmpresa();
         carregaInstituto();
@@ -57,7 +76,15 @@ public class CadPedido extends javax.swing.JFrame {
         
         tfCelular.setEditable(false);
         tfTelefone.setEditable(false);
+        
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
+        defaultTableModel.setRowCount(0);
    }
+    
+    private String formatarMoeda(Double valor) {
+        NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        return formatoMoeda.format(valor);
+    }
     
     private Boolean existeDadosTemporarios(){
         if(DadosTemporarios.tempObject instanceof ModPedido){
@@ -90,9 +117,10 @@ public class CadPedido extends javax.swing.JFrame {
             tfValorProjeto.setText(String.valueOf(valorProjeto));
             tfCustoFixo.setText(String.valueOf(custoFixo));
             tfCustoAdverso.setText(String.valueOf(custoAdverso));
-            labelTotalCompra.setText(String.valueOf(total));
-            tfSubTotalDespesas.setText(String.valueOf(subTotalDespesas));
+            lblTotalCompra.setText(String.valueOf(total));
+            lblSubTotalDespesas.setText(String.valueOf(subTotalDespesas));
             lblSubTotalLiquido.setText(String.valueOf(subTotalLiquido));
+            
             
             int index = 0;
             for(int i = 0; i < jcbVendedor.getItemCount(); i++){
@@ -141,7 +169,7 @@ public class CadPedido extends javax.swing.JFrame {
     private void inserir(){
         DaoPedido daoPedido = new DaoPedido();
         
-        if (daoPedido.inserir(Integer.parseInt(tfId.getText()), tfData.getText(), tfVendedor.getText(), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(labelTotalCompra.getText()), Double.parseDouble(tfSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
+        if (daoPedido.inserir(Integer.parseInt(tfId.getText()), tfData.getText(), tfVendedor.getText(), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
             
             tfId.setText("");
@@ -156,8 +184,8 @@ public class CadPedido extends javax.swing.JFrame {
             tfValorProjeto.setText("");
             tfCustoFixo.setText("");
             tfCustoAdverso.setText("");
-            labelTotalCompra.setText("");
-            tfSubTotalDespesas.setText("");
+            lblTotalCompra.setText("");
+            lblSubTotalDespesas.setText("");
             lblSubTotalLiquido.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "Não foi possivél salvar o pedido!");
@@ -167,7 +195,7 @@ public class CadPedido extends javax.swing.JFrame {
     private void alterar(){
         DaoPedido daoPedido = new DaoPedido();
         
-        if (daoPedido.alterar(Integer.parseInt(tfId.getText()), tfData.getText(), tfVendedor.getText(), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(labelTotalCompra.getText()), Double.parseDouble(tfSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
+        if (daoPedido.alterar(Integer.parseInt(tfId.getText()), tfData.getText(), tfVendedor.getText(), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
             
             tfId.setText("");
@@ -182,8 +210,8 @@ public class CadPedido extends javax.swing.JFrame {
             tfValorProjeto.setText("");
             tfCustoFixo.setText("");
             tfCustoAdverso.setText("");
-            labelTotalCompra.setText("");
-            tfSubTotalDespesas.setText("");
+            lblTotalCompra.setText("");
+            lblSubTotalDespesas.setText("");
             lblSubTotalLiquido.setText("");
             
         }else{
@@ -203,21 +231,6 @@ public class CadPedido extends javax.swing.JFrame {
         
         dispose();
     }
-//    
-//    private boolean camposObrigatoriosPreenchidos(JTextField campos[]){
-//        boolean b = true;
-//        
-//        for(int i = 0; i < campos.length; i++){
-//            if(campos[i].getText().equals("")){
-//                JOptionPane.showMessageDialog(null, "O campo " + campos[i].getToolTipText() + " é obrigatório!");
-//                campos[i].requestFocus();
-//                b = false;
-//                break;
-//            }
-//        }
-//        
-//        return b;
-//    }
     
     private void carregaInstituto(){
         try{
@@ -334,11 +347,6 @@ public class CadPedido extends javax.swing.JFrame {
         }
     }
     
-    
-    
-    
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -385,7 +393,7 @@ public class CadPedido extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableConsultor = new javax.swing.JTable();
         jLabel24 = new javax.swing.JLabel();
-        labelTotalCompra = new javax.swing.JLabel();
+        lblTotalCompra = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
@@ -401,16 +409,21 @@ public class CadPedido extends javax.swing.JFrame {
         tfInstituto = new javax.swing.JTextField();
         tfEmpresa = new javax.swing.JTextField();
         tfFormaPagamento = new javax.swing.JTextField();
-        btnSalvar1 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        lblSubTotalLiquido = new javax.swing.JLabel();
+        btnExcluir = new javax.swing.JButton();
+        btnInserirConsultor = new javax.swing.JButton();
+        lblSubTotalDespesas = new javax.swing.JLabel();
         tfCustoAdverso = new javax.swing.JTextField();
         tfCustoFixo = new javax.swing.JTextField();
         tfValorProjeto = new javax.swing.JTextField();
-        tfSubTotalDespesas = new javax.swing.JTextField();
         tfPrazo = new javax.swing.JFormattedTextField();
+        lblSubTotalLiquido = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Data");
 
@@ -459,8 +472,6 @@ public class CadPedido extends javax.swing.JFrame {
 
         jLabel16.setText("Nº Projeto");
 
-        tfNumeroProjeto.setEditable(false);
-
         taEscopoProjeto.setColumns(20);
         taEscopoProjeto.setRows(5);
         jScrollPane1.setViewportView(taEscopoProjeto);
@@ -490,18 +501,23 @@ public class CadPedido extends javax.swing.JFrame {
             new String [] {
                 "Numero", "Nome", "Data Inicio", "Data Termino", "Preço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tableConsultor.setColumnSelectionAllowed(true);
         tableConsultor.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableConsultor);
         tableConsultor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        if (tableConsultor.getColumnModel().getColumnCount() > 0) {
-            tableConsultor.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         jLabel24.setText("Total");
 
-        labelTotalCompra.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblTotalCompra.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
 
         jLabel25.setText("Sub-Total Despesas");
 
@@ -559,34 +575,40 @@ public class CadPedido extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        btnSalvar1.setText("Excluir");
+        btnExcluir.setText("Excluir");
 
-        jButton1.setText("Inserir Consultor");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnInserirConsultor.setText("Inserir Consultor");
+        btnInserirConsultor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnInserirConsultorMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnInserirConsultor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnInserirConsultorActionPerformed(evt);
             }
         });
 
-        lblSubTotalLiquido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblSubTotalLiquido.setToolTipText("");
+        lblSubTotalDespesas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblSubTotalDespesas.setToolTipText("");
 
-        tfCustoAdverso.setEditable(false);
+        tfCustoAdverso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfCustoAdversoFocusLost(evt);
+            }
+        });
+
+        tfCustoFixo.setEditable(false);
+        tfCustoFixo.setEnabled(false);
+        tfCustoFixo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfCustoFixoFocusLost(evt);
+            }
+        });
 
         tfValorProjeto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfValorProjetoFocusLost(evt);
-            }
-        });
-
-        tfSubTotalDespesas.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfSubTotalDespesasFocusLost(evt);
             }
         });
 
@@ -595,6 +617,9 @@ public class CadPedido extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        lblSubTotalLiquido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblSubTotalLiquido.setToolTipText("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -698,14 +723,11 @@ public class CadPedido extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel18)
                                     .addComponent(jLabel19)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel26)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblSubTotalLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel26)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(tfCustoAdverso, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                                     .addComponent(tfValorProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                                     .addComponent(tfPrazo))
@@ -716,20 +738,26 @@ public class CadPedido extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel20)
                                             .addComponent(jLabel21)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(btnInserirConsultor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(tfCustoFixo))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25)
-                            .addComponent(tfSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel24)
                                 .addGap(169, 169, 169))
-                            .addComponent(labelTotalCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(166, 166, 166)
+                    .addComponent(lblSubTotalLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(551, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -824,30 +852,35 @@ public class CadPedido extends javax.swing.JFrame {
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnInserirConsultor)
                     .addComponent(tfCustoAdverso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelTotalCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel26)
-                    .addComponent(lblSubTotalLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnSalvar1))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel24)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addGap(32, 32, 32))
+                            .addComponent(lblTotalCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSalvar)
+                            .addComponent(btnExcluir)))
+                    .addComponent(lblSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(918, Short.MAX_VALUE)
+                    .addComponent(lblSubTotalLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(35, 35, 35)))
         );
 
-        lblSubTotalLiquido.getAccessibleContext().setAccessibleName("subTotalLiquidoProjeto");
+        lblSubTotalDespesas.getAccessibleContext().setAccessibleName("subTotalLiquidoProjeto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -881,7 +914,7 @@ public class CadPedido extends javax.swing.JFrame {
         recuperaEmpresas();
     }//GEN-LAST:event_jcbEmpresaItemStateChanged
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnInserirConsultorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInserirConsultorMouseClicked
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
         defaultTableModel.addRow(new Object[]{"","","","",""});
         
@@ -889,25 +922,97 @@ public class CadPedido extends javax.swing.JFrame {
         
         if (Formularios.cadConsultor == null)
             Formularios.cadConsultor = new CadConsultor();
-        
-        Formularios.cadConsultor.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
 
-    private void calculaTotalCompra(){
-        Double SubTotalDespesas = Double.parseDouble(tfSubTotalDespesas.getText());
-        Double ValorProjeto = Double.parseDouble(tfValorProjeto.getText());
-        Double total = ValorProjeto - SubTotalDespesas;
-        
-        DecimalFormat df = new DecimalFormat("#.##");
-        
-        String calculaTtlFormatado = df.format(total);
-        
-        lblSubTotalLiquido.setText(calculaTtlFormatado);
+        Formularios.cadConsultor.setModal(true);
+        Formularios.cadConsultor.setVisible(true);
+    }//GEN-LAST:event_btnInserirConsultorMouseClicked
+
+    public void subTotalDespesas(){
+        lblSubTotalDespesas.setText("R$0.00");
+//        Double custoAdverso = Double.parseDouble(tfCustoAdverso.getText());
+//        Double custoFixo = Double.parseDouble(tfCustoFixo.getText());
+//        Double totalConsultores = Double.parseDouble(lblTotalCompra.getText());
+//        Double total = custoAdverso + custoFixo + totalConsultores;
+//        
+//        DecimalFormat df = new DecimalFormat("#.##");
+//        
+//        String calculaTtlFormatado = df.format(total);
+//        
+//        lblSubTotalDespesas.setText(calculaTtlFormatado);
+        try {
+            // Obtenha os valores como Strings dos campos de texto
+            String strCustoAdverso = tfCustoAdverso.getText();
+            String strCustoFixo = tfCustoFixo.getText();
+            String strTotalConsultores = lblTotalCompra.getText();
+
+            // Converta as Strings para Double
+            Double custoAdverso = Double.parseDouble(strCustoAdverso);
+            Double custoFixo = Double.parseDouble(strCustoFixo);
+            Double totalConsultores = Double.parseDouble(strTotalConsultores);
+
+            // Calcule o total
+            Double total = custoAdverso + custoFixo + totalConsultores;
+
+            // Defina o formato de moeda brasileira (Real)
+            NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+            // Formate o valor total para o padrão desejado (R$###.###,##)
+            String totalFormatado = formatoMoeda.format(total);
+
+            // Atualize o componente de exibição (pode ser um JLabel, por exemplo)
+            lblSubTotalDespesas.setText(totalFormatado);
+        } catch (NumberFormatException e) {
+            // Trate exceções ao tentar converter as Strings para números
+            System.err.println("Erro ao converter valores: " + e.getMessage());
+        }
+                 
     }
     
-    private void custoAdverso(){
+    public void subTotalLiquido(){
+//        Double SubTotalDespesas = Double.parseDouble(lblSubTotalDespesas.getText());
+//        Double ValorProjeto = Double.parseDouble(tfValorProjeto.getText());
+//        Double total = ValorProjeto - SubTotalDespesas;
+//        
+//        DecimalFormat df = new DecimalFormat("#.##");
+//        
+//        String calculaTtlFormatado = df.format(total);
+//        
+//        lblSubTotalLiquido.setText(calculaTtlFormatado);
+
+       try {
+            // Obtenha os valores como Strings dos componentes
+            String strSubTotalDespesas = lblSubTotalDespesas.getText();
+            String strValorProjeto = tfValorProjeto.getText();
+
+            // Remove caracteres não numéricos e substitui a vírgula apenas se seguida por dígitos
+            String cleanedSubTotalDespesas = strSubTotalDespesas.replaceAll("[^\\d,]", "");
+            String cleanedValorProjeto = strValorProjeto.replaceAll("[^\\d,]", "");
+
+            // Converta as Strings para Double
+            Double subTotalDespesas = NumberFormat.getInstance(Locale.getDefault()).parse(cleanedSubTotalDespesas).doubleValue();
+            Double valorProjeto = NumberFormat.getInstance(Locale.getDefault()).parse(cleanedValorProjeto).doubleValue();
+
+            // Calcule o total
+            Double totalLiquido = valorProjeto - subTotalDespesas;
+
+            // Defina o formato de moeda brasileira (Real)
+            NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+            // Formate o valor total para o padrão desejado (R$###.###,##)
+            String totalLiquidoFormatado = formatoMoeda.format(totalLiquido);
+
+            // Atualize o componente de exibição (pode ser um JLabel, por exemplo)
+            lblSubTotalLiquido.setText(totalLiquidoFormatado);
+        } catch (NumberFormatException | ParseException e) {
+            // Trate exceções ao converter as Strings para números
+            System.err.println("Erro ao converter valores: " + e.getMessage());
+        }
+        
+    }
+        
+    private void custoFixo(){
         Double ValorProjeto = Double.parseDouble(tfValorProjeto.getText());
-        float porcentagem = 0.02f;
+        float porcentagem = 0.2f;
         
         Double custoAdverso = ValorProjeto * porcentagem;
         
@@ -915,50 +1020,92 @@ public class CadPedido extends javax.swing.JFrame {
         
         String custoAdvFormatado = df.format(custoAdverso);
         
-        tfCustoAdverso.setText(custoAdvFormatado);
+        tfCustoFixo.setText(custoAdvFormatado);
+             
     }
     
     public void insereConsultor(){
+    
         if(DadosTemporarios.tempObject != null){
-//            JOptionPane.showMessageDialog(null, ((ModConsultor) DadosTemporarios.tempObject).getNome());
-            
+    //            JOptionPane.showMessageDialog(null, ((ModConsultor) DadosTemporarios.tempObject).getNome());
+
             String id = String.valueOf(((ModConsultor) DadosTemporarios.tempObject).getId());
             String nome = ((ModConsultor) DadosTemporarios.tempObject).getNome();
             String dataInicio = ((ModConsultor) DadosTemporarios.tempObject).getDataInicio();
             String dataTermino = ((ModConsultor) DadosTemporarios.tempObject).getDataTermino();
             String preco = String.valueOf(((ModConsultor) DadosTemporarios.tempObject).getPreco());
-            
+
             tableConsultor.setValueAt(id, DadosTemporarios.linhas -1, 0);
             tableConsultor.setValueAt(nome, DadosTemporarios.linhas -1, 1);
             tableConsultor.setValueAt(dataInicio, DadosTemporarios.linhas -1, 2);
             tableConsultor.setValueAt(dataTermino, DadosTemporarios.linhas -1, 3);
             tableConsultor.setValueAt(preco, DadosTemporarios.linhas -1, 4);
-            
         }
     }
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-      
+        DaoPedido daoPedido = new DaoPedido();
+       
+        if (btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
+            inserir();
+            
+            tfId.setText(String.valueOf(daoPedido.buscarProximoId()));
+        }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
+            alterar();
+            ((ListPedido) Formularios.listPedido).listarTodos();
+            dispose();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jcbFormaPagamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbFormaPagamentoItemStateChanged
         recuperaFormaPagamento();
     }//GEN-LAST:event_jcbFormaPagamentoItemStateChanged
 
     private void tfValorProjetoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfValorProjetoFocusLost
-        calculaTotalCompra();
-        custoAdverso();
+        custoFixo();
+        somarPrecos();
+        subTotalDespesas();
+        subTotalLiquido();
     }//GEN-LAST:event_tfValorProjetoFocusLost
 
-    private void tfSubTotalDespesasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfSubTotalDespesasFocusLost
-        calculaTotalCompra();
-        custoAdverso();
-    }//GEN-LAST:event_tfSubTotalDespesasFocusLost
+    private void btnInserirConsultorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirConsultorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInserirConsultorActionPerformed
 
+    private void tfCustoFixoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCustoFixoFocusLost
+        custoFixo();
+        
+    }//GEN-LAST:event_tfCustoFixoFocusLost
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Formularios.cadPedido = null;
+    }//GEN-LAST:event_formWindowClosed
+
+    private void tfCustoAdversoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCustoAdversoFocusLost
+        insereConsultor();
+        somarPrecos();
+        subTotalDespesas();
+        subTotalLiquido();
+    }//GEN-LAST:event_tfCustoAdversoFocusLost
+        
+    public void somarPrecos() {
+        double soma = 0.0;
+        
+        for (int i = 0; i < tableConsultor.getRowCount(); i++) {
+            // Obtém o valor da coluna de preços na linha atual
+            String precoStr = (String) tableConsultor.getValueAt(i, 4);
+
+            // Converte o valor para um número (double)
+            double preco = Double.parseDouble(precoStr);
+
+            // Soma ao total
+            soma += preco;
+        }
+        
+        lblTotalCompra.setText(String.valueOf(soma));
+                
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -996,9 +1143,9 @@ public class CadPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnInserirConsultor;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnSalvar1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1033,8 +1180,9 @@ public class CadPedido extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcbFormaPagamento;
     private javax.swing.JComboBox<String> jcbInstituto;
     private javax.swing.JComboBox<String> jcbVendedor;
-    private javax.swing.JLabel labelTotalCompra;
+    private javax.swing.JLabel lblSubTotalDespesas;
     private javax.swing.JLabel lblSubTotalLiquido;
+    private javax.swing.JLabel lblTotalCompra;
     private javax.swing.JTextArea taEscopoProjeto;
     private javax.swing.JTable tableConsultor;
     private javax.swing.JFormattedTextField tfCelular;
@@ -1053,7 +1201,6 @@ public class CadPedido extends javax.swing.JFrame {
     private javax.swing.JTextField tfInstituto;
     private javax.swing.JTextField tfNumeroProjeto;
     private javax.swing.JFormattedTextField tfPrazo;
-    private javax.swing.JTextField tfSubTotalDespesas;
     private javax.swing.JFormattedTextField tfTelefone;
     private javax.swing.JTextField tfValorProjeto;
     private javax.swing.JTextField tfVendedor;

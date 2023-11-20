@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -172,15 +175,11 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="lblSubTotalLiquido" min="-2" pref="138" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel26" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="btnSalvar" min="-2" pref="133" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnSalvar1" min="-2" pref="133" max="-2" attributes="0"/>
+                                          <Component id="btnExcluir" min="-2" pref="133" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="tfCustoAdverso" alignment="0" pref="376" max="32767" attributes="0"/>
                                       <Component id="tfValorProjeto" alignment="0" pref="376" max="32767" attributes="0"/>
@@ -193,7 +192,7 @@
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jButton1" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
+                                              <Component id="btnInserirConsultor" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
@@ -204,19 +203,27 @@
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                              <Component id="tfSubTotalDespesas" alignment="0" min="-2" pref="376" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="labelTotalCompra" alignment="1" min="-2" pref="163" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblSubTotalDespesas" min="-2" pref="138" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="lblTotalCompra" min="-2" pref="163" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
+                  </Group>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                      <Component id="lblSubTotalLiquido" min="-2" pref="138" max="-2" attributes="0"/>
+                      <EmptySpace pref="551" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -333,32 +340,40 @@
                   <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnInserirConsultor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tfCustoAdverso" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="205" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jLabel24" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfSubTotalDespesas" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jLabel24" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lblTotalCompra" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="labelTotalCompra" alignment="1" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSubTotalLiquido" min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnSalvar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblSubTotalDespesas" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="918" max="32767" attributes="0"/>
+                      <Component id="lblSubTotalLiquido" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -485,9 +500,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfNumeroProjeto">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -558,11 +570,11 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="5" rowCount="0">
-                    <Column editable="true" title="Numero" type="java.lang.Object"/>
-                    <Column editable="true" title="Nome" type="java.lang.Object"/>
-                    <Column editable="true" title="Data Inicio" type="java.lang.Object"/>
-                    <Column editable="true" title="Data Termino" type="java.lang.Object"/>
-                    <Column editable="true" title="Pre&#xe7;o" type="java.lang.Object"/>
+                    <Column editable="false" title="Numero" type="java.lang.Object"/>
+                    <Column editable="false" title="Nome" type="java.lang.Object"/>
+                    <Column editable="false" title="Data Inicio" type="java.lang.Object"/>
+                    <Column editable="false" title="Data Termino" type="java.lang.Object"/>
+                    <Column editable="false" title="Pre&#xe7;o" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -572,7 +584,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -607,7 +619,7 @@
             <Property name="text" type="java.lang.String" value="Total"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="labelTotalCompra">
+        <Component class="javax.swing.JLabel" name="lblTotalCompra">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="36" style="0"/>
@@ -709,21 +721,21 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfFormaPagamento">
         </Component>
-        <Component class="javax.swing.JButton" name="btnSalvar1">
+        <Component class="javax.swing.JButton" name="btnExcluir">
           <Properties>
             <Property name="text" type="java.lang.String" value="Excluir"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnInserirConsultor">
           <Properties>
             <Property name="text" type="java.lang.String" value="Inserir Consultor"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnInserirConsultorMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInserirConsultorActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblSubTotalLiquido">
+        <Component class="javax.swing.JLabel" name="lblSubTotalDespesas">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="0"/>
@@ -735,20 +747,22 @@
           </AccessibilityProperties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfCustoAdverso">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-          </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfCustoAdversoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfCustoFixo">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfCustoFixoFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfValorProjeto">
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfValorProjetoFocusLost"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfSubTotalDespesas">
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tfSubTotalDespesasFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="tfPrazo">
@@ -756,6 +770,14 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="##/##/####" subtype="-1" type="5"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSubTotalLiquido">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="24" style="0"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
       </SubComponents>

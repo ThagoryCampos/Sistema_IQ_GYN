@@ -16,10 +16,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListVendedor extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form ListVendedor
      */
     public ListVendedor() {
+        listarTodos();
         initComponents();
         
         setLocationRelativeTo(null);
