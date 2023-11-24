@@ -15,7 +15,6 @@ import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModConsultor;
 import com.mycompany.modelo.ModPedido;
 import com.mycompany.visao.consultor.CadConsultor;
-import com.mycompany.visao.instituto.ListInstituto;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -35,6 +34,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 
 /**
@@ -72,11 +75,7 @@ public class CadPedido extends javax.swing.JFrame {
         carregaFormaPagamento();
         
         existeDadosTemporarios();
-//        calculaTotalCompra();
-//        custoAdverso();
-        SwingUtilities.invokeLater(() -> new ImprimirPagina());
-        
-      
+//      
         recuperaFormaPagamento();
         recuperaEmpresas();
         recuperaInstituto();
@@ -430,7 +429,6 @@ public class CadPedido extends javax.swing.JFrame {
         tfValorProjeto = new javax.swing.JTextField();
         tfPrazo = new javax.swing.JFormattedTextField();
         lblSubTotalLiquido = new javax.swing.JLabel();
-        btnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -635,13 +633,6 @@ public class CadPedido extends javax.swing.JFrame {
         lblSubTotalLiquido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblSubTotalLiquido.setToolTipText("");
 
-        btnImprimir.setText("Imprimir");
-        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout JPanelLayout = new javax.swing.GroupLayout(JPanel);
         JPanel.setLayout(JPanelLayout);
         JPanelLayout.setHorizontalGroup(
@@ -736,13 +727,14 @@ public class CadPedido extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tfFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(JPanelLayout.createSequentialGroup()
-                                .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jLabel26)
-                                    .addComponent(tfCustoAdverso, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                    .addComponent(tfValorProjeto, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                    .addComponent(tfPrazo))
+                                .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel18)
+                                        .addComponent(jLabel19)
+                                        .addComponent(jLabel26)
+                                        .addComponent(tfCustoAdverso, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                                        .addComponent(tfPrazo))
+                                    .addComponent(tfValorProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(91, 91, 91)
                                 .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jcbFormaPagamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -760,22 +752,19 @@ public class CadPedido extends javax.swing.JFrame {
                                     .addGroup(JPanelLayout.createSequentialGroup()
                                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 408, Short.MAX_VALUE)))
+                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(JPanelLayout.createSequentialGroup()
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(461, 461, 461)
                         .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel24)
                                 .addGap(169, 169, 169))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelLayout.createSequentialGroup()
-                                .addComponent(lblSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(lblTotalCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(JPanelLayout.createSequentialGroup()
                     .addGap(166, 166, 166)
@@ -864,13 +853,14 @@ public class CadPedido extends javax.swing.JFrame {
                         .addComponent(jcbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
+                    .addGroup(JPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfValorProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(JPanelLayout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfCustoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfValorProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(tfCustoFixo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -888,15 +878,14 @@ public class CadPedido extends javax.swing.JFrame {
                                 .addComponent(jLabel25)
                                 .addGap(32, 32, 32))
                             .addComponent(lblTotalCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(21, 21, 21)
+                        .addGap(16, 16, 16)
                         .addComponent(jLabel26)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSalvar)
-                            .addComponent(btnExcluir)
-                            .addComponent(btnImprimir)))
+                            .addComponent(btnExcluir)))
                     .addComponent(lblSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
             .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelLayout.createSequentialGroup()
                     .addContainerGap(918, Short.MAX_VALUE)
@@ -952,6 +941,26 @@ public class CadPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirConsultorMouseClicked
 
     public void subTotalDespesas(){
+        
+                // Adiciona um DocumentFilter para aceitar apenas números
+        ((AbstractDocument) tfValorProjeto.getDocument()).setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr)
+                    throws BadLocationException {
+                if (string.matches("[0-9]*")) {
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                    throws BadLocationException {
+                if (text.matches("[0-9]*")) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+        
         lblSubTotalDespesas.setText("R$0.00");
 //        Double custoAdverso = Double.parseDouble(tfCustoAdverso.getText());
 //        Double custoFixo = Double.parseDouble(tfCustoFixo.getText());
@@ -982,14 +991,13 @@ public class CadPedido extends javax.swing.JFrame {
 
             // Formate o valor total para o padrão desejado (R$###.###,##)
             String totalFormatado = formatoMoeda.format(total);
-
+            
             // Atualize o componente de exibição (pode ser um JLabel, por exemplo)
             lblSubTotalDespesas.setText(totalFormatado);
         } catch (NumberFormatException e) {
             // Trate exceções ao tentar converter as Strings para números
             System.err.println("Erro ao converter valores: " + e.getMessage());
-        }
-                 
+        }        
     }
     
     public void subTotalLiquido(){
@@ -1111,66 +1119,7 @@ public class CadPedido extends javax.swing.JFrame {
         subTotalDespesas();
         subTotalLiquido();
     }//GEN-LAST:event_tfCustoAdversoFocusLost
-
-    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
-        ImprimirPagina();
-    }//GEN-LAST:event_btnImprimirActionPerformed
-    public class ImprimirPagina extends JFrame {
-
-    private JPanel contentPanel;
-
-    public ImprimirPagina() {
-        setTitle("Imprimir Página");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JPanel panel = new JPanel();
-
-        JButton btnImprimir = new JButton("Imprimir");
-        btnImprimir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                imprimir();
-            }
-        });
-
-        panel.add(btnImprimir);
-        add(panel);
-
-        contentPanel = new JPanel();
-        contentPanel.add(new JButton("Botão de Exemplo"));
-        contentPanel.add(new JButton("Outro Botão"));
-        add(contentPanel);
-
-        setVisible(true);
-    }
-
-    private void imprimir() {
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-
-        printerJob.setPrintable(new Printable() {
-            @Override
-            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-                if (pageIndex > 0) {
-                    return Printable.NO_SUCH_PAGE;
-                }
-
-                Graphics2D g2d = (Graphics2D) graphics;
-                contentPanel.printAll(g2d);
-
-                return Printable.PAGE_EXISTS;
-            }
-        });
-
-        if (printerJob.printDialog()) {
-            try {
-                printerJob.print();
-            } catch (PrinterException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-}
+     
     
     public void somarPrecos() {
         double soma = 0.0;
@@ -1229,7 +1178,6 @@ public class CadPedido extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanel;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnImprimir;
     private javax.swing.JButton btnInserirConsultor;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
