@@ -941,26 +941,7 @@ public class CadPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirConsultorMouseClicked
 
     public void subTotalDespesas(){
-        
-                // Adiciona um DocumentFilter para aceitar apenas números
-        ((AbstractDocument) tfValorProjeto.getDocument()).setDocumentFilter(new DocumentFilter() {
-            @Override
-            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr)
-                    throws BadLocationException {
-                if (string.matches("[0-9]*")) {
-                    super.insertString(fb, offset, string, attr);
-                }
-            }
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
-                    throws BadLocationException {
-                if (text.matches("[0-9]*")) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
-        
+                           
         lblSubTotalDespesas.setText("R$0.00");
 //        Double custoAdverso = Double.parseDouble(tfCustoAdverso.getText());
 //        Double custoFixo = Double.parseDouble(tfCustoFixo.getText());
@@ -1048,9 +1029,10 @@ public class CadPedido extends javax.swing.JFrame {
         
         Double custoAdverso = ValorProjeto * porcentagem;
         
-        DecimalFormat df = new DecimalFormat("#.##");
+//        DecimalFormat df = new DecimalFormat("R$ #.##");
+        NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         
-        String custoAdvFormatado = df.format(custoAdverso);
+        String custoAdvFormatado = formatarMoeda(custoAdverso);
         
         tfCustoFixo.setText(custoAdvFormatado);
              
