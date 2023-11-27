@@ -26,6 +26,7 @@ public class ListPedido extends javax.swing.JFrame {
         initComponents();
         
         setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
         
         listarTodos();
     }
@@ -226,17 +227,17 @@ public class ListPedido extends javax.swing.JFrame {
 
         tablePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "DATA", "NUMERO", "ESCOPO", "PRAZO", "FORMA PAGTO", "VALOR PROJETO", "CUSTO FIXO", "CUSTO ADVERSO", "TOTAL", "SUB TOTAL DESPESAS", "SUB TOTAL LIQUIDO"
+                "ID", "DATA", "VENDEDOR", "INSTITUTO", "CLIENTE", "NUMERO PROJETO", "PRAZO", "FORMA PAGTO", "VALOR PROJETO", "CUSTO FIXO", "CUSTO ADVERSO", "TOTAL", "SUB TOTAL DESPESAS", "SUB TOTAL LIQUIDO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

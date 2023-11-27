@@ -17,7 +17,7 @@ public class DaoPedido extends BancoDeDadosMySql{
     
     public Boolean inserir(int id, String data, String vendedor, int idInstituto, int idCliente, int numeroProjeto, String escopoProjeto, String prazo, String formaPagamento, double valorProjeto, double custoFixo, double custoAdverso, double total, double subTotalDespesas, double subTotalLiquido){
         try{
-            sql = "INSERT INTO PEDIDO (ID, DATA, VENDEDOR, IDINSTITUTO, IDCLIENTE, NUMEROPROJETO, ESCOPOPROJETO, PRAZO, FORMAPAGAMENTO, VALORPROJETO, CUSTOFIXO, CUSTOADVERSO, IDCONSULTOR, TOTAL, SUBTOTALDESPESAS, SUBTOTALLIQUIDO ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, )";
+            sql = "INSERT INTO PEDIDO (ID, DATA, VENDEDOR, IDINSTITUTO, IDCLIENTE, NUMEROPROJETO, ESCOPOPROJETO, PRAZO, FORMAPAGAMENTO, VALORPROJETO, CUSTOFIXO, CUSTOADVERSO, TOTAL, SUBTOTALDESPESAS, SUBTOTALLIQUIDO ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -101,8 +101,8 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
-                    "   INS.IDINSTITUTO AS INSTITUTO,              "+
-                    "   CLI.IDCLIENTE AS CLIENTE,                  "+
+                    "   INS.ID AS IDINSTITUTO,                     "+
+                    "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
@@ -115,11 +115,11 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "FROM                                          "+
                     "   PEDIDO PED                                 "+
                     "JOIN INSTITUTO INS ON                         "+
-                    "   INS.ID = PED.IDINSTUTO                     "+
+                    "   INS.ID = PED.IDINSTITUTO                   "+
                     "JOIN CLIENTE CLI ON                           "+
                     "   CLI.ID = PED.IDCLIENTE                     "+
-                    "JOIN CONSULTOR CON ON                         "+
-                    "   CON.ID - PED.IDCONSULTOR                   ";
+                    " ORDER BY 1                                   ";
+                    
             
             setStatement(getConexao().prepareStatement(sql));
             
@@ -137,8 +137,8 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
-                    "   INS.IDINSTITUTO AS INSTITUTO,              "+
-                    "   CLI.IDCLIENTE AS CLIENTE,                  "+
+                    "   INS.ID AS IDINSTITUTO,                     "+
+                    "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
@@ -177,8 +177,8 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
-                    "   INS.IDINSTITUTO AS INSTITUTO,              "+
-                    "   CLI.IDCLIENTE AS CLIENTE,                  "+
+                    "   INS.ID AS IDINSTITUTO,                     "+
+                    "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
@@ -217,8 +217,8 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
-                    "   INS.IDINSTITUTO AS INSTITUTO,              "+
-                    "   CLI.IDCLIENTE AS CLIENTE,                  "+
+                    "   INS.ID AS IDINSTITUTO,                     "+
+                    "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
@@ -257,8 +257,8 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   PED.ID AS ID,                              "+
                     "   PED.DATA AS DATA,                          "+
                     "   PED.VENDEDOR AS VENDEDOR,                  "+
-                    "   INS.IDINSTITUTO AS INSTITUTO,              "+
-                    "   CLI.IDCLIENTE AS CLIENTE,                  "+
+                    "   INS.ID AS IDINSTITUTO,                     "+
+                    "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+

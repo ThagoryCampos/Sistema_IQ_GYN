@@ -112,7 +112,6 @@ public class CadPedido extends javax.swing.JFrame {
             Double valorProjeto = ((ModPedido) DadosTemporarios.tempObject).getValorProjeto();
             Double custoFixo = ((ModPedido) DadosTemporarios.tempObject).getCustoFixo();
             Double custoAdverso = ((ModPedido) DadosTemporarios.tempObject).getCustoAdverso();
-            int idConsultor = ((ModPedido) DadosTemporarios.tempObject).getIdConsultor();
             Double total = ((ModPedido) DadosTemporarios.tempObject).getTotal();
             Double subTotalDespesas = ((ModPedido) DadosTemporarios.tempObject).getSubTotalDespesas();
             Double subTotalLiquido = ((ModPedido) DadosTemporarios.tempObject).getSubTotalLiquido();
@@ -134,15 +133,15 @@ public class CadPedido extends javax.swing.JFrame {
             lblSubTotalLiquido.setText(String.valueOf(subTotalLiquido));
             
             
-            int index = 0;
-            for(int i = 0; i < jcbVendedor.getItemCount(); i++){
-                if(jcbVendedor.getItemAt(i).equals(idConsultor)){
-                    index = i;
-                    break;    
-                }
-            }
-            jcbVendedor.setSelectedIndex(index);
-            
+//            int index = 0;
+//            for(int i = 0; i < jcbVendedor.getItemCount(); i++){
+//                if(jcbVendedor.getItemAt(i).equals(idConsultor)){
+//                    index = i;
+//                    break;    
+//                }
+//            }
+//            jcbVendedor.setSelectedIndex(index);
+//            
             int index1 = 0;
             for(int i = 0; i < jcbInstituto.getItemCount(); i++){
                 if(jcbInstituto.getItemAt(i).equals(idInstituto)){
@@ -181,7 +180,7 @@ public class CadPedido extends javax.swing.JFrame {
     private void inserir(){
         DaoPedido daoPedido = new DaoPedido();
         
-        if (daoPedido.inserir(Integer.parseInt(tfId.getText()), tfData.getText(), tfVendedor.getText(), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
+        if (daoPedido.inserir(Integer.parseInt(tfId.getText()), tfData.getText(), String.valueOf(jcbVendedor.getSelectedItem()), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
             
             tfId.setText("");
@@ -200,7 +199,7 @@ public class CadPedido extends javax.swing.JFrame {
             lblSubTotalDespesas.setText("");
             lblSubTotalLiquido.setText("");
         }else{
-            JOptionPane.showMessageDialog(null, "Não foi possivél salvar o pedido!");
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar o pedido!");
         }   
     }
 //    
@@ -942,7 +941,8 @@ public class CadPedido extends javax.swing.JFrame {
 
     public void subTotalDespesas(){
                            
-        lblSubTotalDespesas.setText("R$0.00");
+        lblSubTotalDespesas.setText("0.00");
+//        tfCustoAdverso.setText("0.00");
 //        Double custoAdverso = Double.parseDouble(tfCustoAdverso.getText());
 //        Double custoFixo = Double.parseDouble(tfCustoFixo.getText());
 //        Double totalConsultores = Double.parseDouble(lblTotalCompra.getText());
@@ -954,27 +954,42 @@ public class CadPedido extends javax.swing.JFrame {
 //        
 //        lblSubTotalDespesas.setText(calculaTtlFormatado);
         try {
-            // Obtenha os valores como Strings dos campos de texto
-            String strCustoAdverso = tfCustoAdverso.getText();
-            String strCustoFixo = tfCustoFixo.getText();
-            String strTotalConsultores = lblTotalCompra.getText();
-
-            // Converta as Strings para Double
-            Double custoAdverso = Double.parseDouble(strCustoAdverso);
-            Double custoFixo = Double.parseDouble(strCustoFixo);
-            Double totalConsultores = Double.parseDouble(strTotalConsultores);
-
-            // Calcule o total
+            
+            if(tfCustoAdverso.getText().equals(""))
+                tfCustoAdverso.setText("0.0");
+                    
+            Double custoAdverso = Double.parseDouble(tfCustoAdverso.getText());
+            Double custoFixo = Double.parseDouble(tfCustoFixo.getText());
+            Double totalConsultores = Double.parseDouble(lblTotalCompra.getText());
             Double total = custoAdverso + custoFixo + totalConsultores;
 
-            // Defina o formato de moeda brasileira (Real)
-            NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+            DecimalFormat df = new DecimalFormat("#.##");
 
-            // Formate o valor total para o padrão desejado (R$###.###,##)
-            String totalFormatado = formatoMoeda.format(total);
+            String calculaTtlFormatado = df.format(total);
+
+            lblSubTotalDespesas.setText(calculaTtlFormatado);
             
-            // Atualize o componente de exibição (pode ser um JLabel, por exemplo)
-            lblSubTotalDespesas.setText(totalFormatado);
+            // Obtenha os valores como Strings dos campos de texto
+//            String strCustoAdverso = tfCustoAdverso.getText();
+//            String strCustoFixo = tfCustoFixo.getText();
+//            String strTotalConsultores = lblTotalCompra.getText();
+//
+//            // Converta as Strings para Double
+//            Double custoAdverso = Double.parseDouble(strCustoAdverso);
+//            Double custoFixo = Double.parseDouble(strCustoFixo);
+//            Double totalConsultores = Double.parseDouble(strTotalConsultores);
+//
+//            // Calcule o total
+//            Double total = custoAdverso + custoFixo + totalConsultores;
+//
+//            // Defina o formato de moeda brasileira (Real)
+//            NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+//
+//            // Formate o valor total para o padrão desejado (R$###.###,##)
+//            String totalFormatado = formatoMoeda.format(total);
+//            
+//            // Atualize o componente de exibição (pode ser um JLabel, por exemplo)
+//            lblSubTotalDespesas.setText(totalFormatado);
         } catch (NumberFormatException e) {
             // Trate exceções ao tentar converter as Strings para números
             System.err.println("Erro ao converter valores: " + e.getMessage());
@@ -993,30 +1008,41 @@ public class CadPedido extends javax.swing.JFrame {
 //        lblSubTotalLiquido.setText(calculaTtlFormatado);
 
        try {
+            Double SubTotalDespesas = Double.parseDouble(lblSubTotalDespesas.getText());
+            Double ValorProjeto = Double.parseDouble(tfValorProjeto.getText());
+            Double total = ValorProjeto - SubTotalDespesas;
+
+            DecimalFormat df = new DecimalFormat("#.##");
+
+            String calculaTtlFormatado = df.format(total);
+
+            lblSubTotalLiquido.setText(calculaTtlFormatado);
+
+           
             // Obtenha os valores como Strings dos componentes
-            String strSubTotalDespesas = lblSubTotalDespesas.getText();
-            String strValorProjeto = tfValorProjeto.getText();
-
-            // Remove caracteres não numéricos e substitui a vírgula apenas se seguida por dígitos
-            String cleanedSubTotalDespesas = strSubTotalDespesas.replaceAll("[^\\d,]", "");
-            String cleanedValorProjeto = strValorProjeto.replaceAll("[^\\d,]", "");
-
-            // Converta as Strings para Double
-            Double subTotalDespesas = NumberFormat.getInstance(Locale.getDefault()).parse(cleanedSubTotalDespesas).doubleValue();
-            Double valorProjeto = NumberFormat.getInstance(Locale.getDefault()).parse(cleanedValorProjeto).doubleValue();
-
-            // Calcule o total
-            Double totalLiquido = valorProjeto - subTotalDespesas;
-
-            // Defina o formato de moeda brasileira (Real)
-            NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-
-            // Formate o valor total para o padrão desejado (R$###.###,##)
-            String totalLiquidoFormatado = formatoMoeda.format(totalLiquido);
-
-            // Atualize o componente de exibição (pode ser um JLabel, por exemplo)
-            lblSubTotalLiquido.setText(totalLiquidoFormatado);
-        } catch (NumberFormatException | ParseException e) {
+//            String strSubTotalDespesas = lblSubTotalDespesas.getText();
+//            String strValorProjeto = tfValorProjeto.getText();
+//
+//            // Remove caracteres não numéricos e substitui a vírgula apenas se seguida por dígitos
+//            String cleanedSubTotalDespesas = strSubTotalDespesas.replaceAll("[^\\d,]", "");
+//            String cleanedValorProjeto = strValorProjeto.replaceAll("[^\\d,]", "");
+//
+//            // Converta as Strings para Double
+//            Double subTotalDespesas = NumberFormat.getInstance(Locale.getDefault()).parse(cleanedSubTotalDespesas).doubleValue();
+//            Double valorProjeto = NumberFormat.getInstance(Locale.getDefault()).parse(cleanedValorProjeto).doubleValue();
+//
+//            // Calcule o total
+//            Double totalLiquido = valorProjeto - subTotalDespesas;
+//
+//            // Defina o formato de moeda brasileira (Real)
+//            NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+//
+//            // Formate o valor total para o padrão desejado (R$###.###,##)
+//            String totalLiquidoFormatado = formatoMoeda.format(totalLiquido);
+//
+//            // Atualize o componente de exibição (pode ser um JLabel, por exemplo)
+//            lblSubTotalLiquido.setText(totalLiquidoFormatado);
+        } catch (NumberFormatException e) {
             // Trate exceções ao converter as Strings para números
             System.err.println("Erro ao converter valores: " + e.getMessage());
         }
@@ -1029,10 +1055,9 @@ public class CadPedido extends javax.swing.JFrame {
         
         Double custoAdverso = ValorProjeto * porcentagem;
         
-//        DecimalFormat df = new DecimalFormat("R$ #.##");
-        NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        DecimalFormat df = new DecimalFormat("#.##");
         
-        String custoAdvFormatado = formatarMoeda(custoAdverso);
+        String custoAdvFormatado = df.format(custoAdverso);
         
         tfCustoFixo.setText(custoAdvFormatado);
              
@@ -1118,7 +1143,6 @@ public class CadPedido extends javax.swing.JFrame {
         }
         
         lblTotalCompra.setText(String.valueOf(soma));
-                
     }
     
     /**

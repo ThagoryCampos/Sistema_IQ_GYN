@@ -21,7 +21,6 @@ public class ModPedido {
     private Double valorProjeto;
     private Double custoFixo;
     private Double custoAdverso;
-    private int idConsultor;
     private Double total;
     private Double subTotalDespesas;
     private Double subTotalLiquido;
@@ -125,14 +124,6 @@ public class ModPedido {
         this.custoAdverso = custoAdverso;
     }
 
-    public int getIdConsultor() {
-        return idConsultor;
-    }
-
-    public void setIdConsultor(int idConsultor) {
-        this.idConsultor = idConsultor;
-    }
-
     public Double getTotal() {
         return total;
     }
@@ -159,9 +150,8 @@ public class ModPedido {
 
     @Override
     public String toString() {
-        return "ModPedido{" + "id=" + id + ", data=" + data + ", vendedor=" + vendedor + ", idInstituto=" + idInstituto + ", idCliente=" + idCliente + ", numeroProjeto=" + numeroProjeto + ", escopoProjeto=" + escopoProjeto + ", prazo=" + prazo + ", formaPagamento=" + formaPagamento + ", valorProjeto=" + valorProjeto + ", custoFixo=" + custoFixo + ", custoAdverso=" + custoAdverso + ", idConsultor=" + idConsultor + ", total=" + total + ", subTotalDespesas=" + subTotalDespesas + ", subTotalLiquido=" + subTotalLiquido + '}';
+        return "ModPedido{" + "id=" + id + ", data=" + data + ", vendedor=" + vendedor + ", idInstituto=" + idInstituto + ", idCliente=" + idCliente + ", numeroProjeto=" + numeroProjeto + ", escopoProjeto=" + escopoProjeto + ", prazo=" + prazo + ", formaPagamento=" + formaPagamento + ", valorProjeto=" + valorProjeto + ", custoFixo=" + custoFixo + ", custoAdverso=" + custoAdverso + ", total=" + total + ", subTotalDespesas=" + subTotalDespesas + ", subTotalLiquido=" + subTotalLiquido + '}';
     }
-    
-    
+
     
 }
