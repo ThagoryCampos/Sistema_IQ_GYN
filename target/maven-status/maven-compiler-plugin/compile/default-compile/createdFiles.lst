@@ -4,6 +4,8 @@ com\mycompany\visao\outros\MenuPrincipal$7.class
 com\mycompany\modelo\ModUsuario.class
 com\mycompany\visao\cliente\ListCliente$4.class
 com\mycompany\visao\outros\TelaAlteracaoSenha.class
+com\mycompany\modelo\ModConsultorPedido.class
+com\mycompany\visao\pedido\CadPedido$14.class
 com\mycompany\visao\vendedor\ListVendedor.class
 com\mycompany\visao\consultor\CadConsultor$1.class
 com\mycompany\visao\instituto\CadInstituto$2.class
@@ -53,6 +55,7 @@ com\mycompany\visao\cliente\ListCliente$3.class
 com\mycompany\modelo\ModConsultor.class
 com\mycompany\visao\outros\MenuPrincipal$13.class
 com\mycompany\visao\pedido\CadPedido$6.class
+com\mycompany\visao\pedido\CadPedido$15.class
 com\mycompany\visao\outros\TelaLogin$4.class
 com\mycompany\visao\cliente\CadCliente$4.class
 com\mycompany\visao\cliente\CadCliente.class

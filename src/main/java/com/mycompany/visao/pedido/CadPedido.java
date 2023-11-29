@@ -13,6 +13,7 @@ import com.mycompany.ferramentas.Constantes;
 import com.mycompany.ferramentas.DadosTemporarios;
 import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModConsultor;
+import com.mycompany.modelo.ModConsultorPedido;
 import com.mycompany.modelo.ModPedido;
 import com.mycompany.visao.consultor.CadConsultor;
 import java.awt.Graphics;
@@ -52,6 +53,11 @@ public class CadPedido extends javax.swing.JFrame {
     public CadPedido() {
         initComponents();
         
+        carregaEmpresa();
+        carregaInstituto();
+        carregaVendedor();
+        carregaFormaPagamento();
+        
          if(!existeDadosTemporarios()){
             DaoPedido daoPedido = new DaoPedido();
             
@@ -69,10 +75,10 @@ public class CadPedido extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         tfId.setEnabled(false);
         
-        carregaEmpresa();
-        carregaInstituto();
-        carregaVendedor();
-        carregaFormaPagamento();
+//        carregaEmpresa();
+//        carregaInstituto();
+//        carregaVendedor();
+//        carregaFormaPagamento();
         
         existeDadosTemporarios();
 //      
@@ -81,10 +87,10 @@ public class CadPedido extends javax.swing.JFrame {
         recuperaInstituto();
         recuperaVendedor();
         
-        tfVendedor.setVisible(false);
-        tfInstituto.setVisible(false);
-        tfEmpresa.setVisible(false);
-        tfFormaPagamento.setVisible(false);
+//        tfVendedor.setVisible(false);
+//        tfInstituto.setVisible(false);
+//        tfEmpresa.setVisible(false);
+//        tfFormaPagamento.setVisible(false);
         
         tfCelular.setEditable(false);
         tfTelefone.setEditable(false);
@@ -142,6 +148,7 @@ public class CadPedido extends javax.swing.JFrame {
 //            }
 //            jcbVendedor.setSelectedIndex(index);
 //            
+            //Instituto
             int index1 = 0;
             for(int i = 0; i < jcbInstituto.getItemCount(); i++){
                 if(jcbInstituto.getItemAt(i).equals(idInstituto)){
@@ -151,7 +158,7 @@ public class CadPedido extends javax.swing.JFrame {
             }
             jcbInstituto.setSelectedIndex(index1);
             
-            
+            //Empresa
             int index2 = 0;
             for(int i = 0; i < jcbEmpresa.getItemCount(); i++){
                 if(jcbEmpresa.getItemAt(i).equals(idCliente)){
@@ -159,8 +166,9 @@ public class CadPedido extends javax.swing.JFrame {
                     break;    
                 }
             }
-            jcbInstituto.setSelectedIndex(index2);
+            jcbEmpresa.setSelectedIndex(index2);
             
+            //Forma de pagamento
             int index3 = 0;
             for(int i = 0; i < jcbFormaPagamento.getItemCount(); i++){
                 if(jcbFormaPagamento.getItemAt(i).equals(formaPagamento)){
@@ -170,7 +178,21 @@ public class CadPedido extends javax.swing.JFrame {
             }
             jcbFormaPagamento.setSelectedIndex(index3);
             
+            DefaultTableModel dtm = (DefaultTableModel) tableConsultor.getModel();
+            
+            
+            dtm.setRowCount(0);
+            for(int i = 0; i < DadosTemporarios.tempObjects.size(); i++){
+                int id1 = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getId();
+                int idPedido = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getIdPedido();
+                String nomeConsultor = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getNomeConsultor();
+                double valor = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getValor();
+                
+                dtm.addRow(new Object[] {id1, idPedido, nomeConsultor, valor});
+            }
+            
             DadosTemporarios.tempObject = null;
+            DadosTemporarios.tempObjects = null;
             
             return true;
         }else
@@ -181,23 +203,30 @@ public class CadPedido extends javax.swing.JFrame {
         DaoPedido daoPedido = new DaoPedido();
         
         if (daoPedido.inserir(Integer.parseInt(tfId.getText()), tfData.getText(), String.valueOf(jcbVendedor.getSelectedItem()), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
+            insereConsPedido();
+            
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
             
             tfId.setText("");
             tfData.setText("");
-            tfVendedor.setText("");
-            tfInstituto.setText("");
-            tfEmpresa.setText("");
+//            tfVendedor.setText("");
+//            tfInstituto.setText("");
+//            tfEmpresa.setText("");
             tfNumeroProjeto.setText("");
             taEscopoProjeto.setText("");
             tfPrazo.setText("");
-            tfFormaPagamento.setText("");
+//            tfFormaPagamento.setText("");
             tfValorProjeto.setText("");
             tfCustoFixo.setText("");
             tfCustoAdverso.setText("");
             lblTotalCompra.setText("");
             lblSubTotalDespesas.setText("");
             lblSubTotalLiquido.setText("");
+            
+            DefaultTableModel dtm = (DefaultTableModel) tableConsultor.getModel();
+            dtm.setRowCount(0);
+            
+            DadosTemporarios.tempObject = null;
         }else{
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o pedido!");
         }   
@@ -234,7 +263,7 @@ public class CadPedido extends javax.swing.JFrame {
         DaoPedido daoPedido = new DaoPedido();
         
         if(daoPedido.excluir(Integer.parseInt(tfId.getText())))
-            JOptionPane.showMessageDialog(null, "Pedido excluiro com sucesso!");
+            JOptionPane.showMessageDialog(null, "Pedido excluido com sucesso!");
         else
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o pedido!");
         
@@ -586,7 +615,18 @@ public class CadPedido extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        tfEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfEmpresaActionPerformed(evt);
+            }
+        });
+
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnInserirConsultor.setText("Inserir Consultor");
         btnInserirConsultor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -718,13 +758,13 @@ public class CadPedido extends javax.swing.JFrame {
                                 .addGap(234, 234, 234)
                                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfInstituto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(JPanelLayout.createSequentialGroup()
                                 .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1082,6 +1122,31 @@ public class CadPedido extends javax.swing.JFrame {
         }
     }
     
+    public void insereConsPedido(){
+        DaoVendedor daoVendedor = new DaoVendedor();
+        
+        int numLinhas = tableConsultor.getRowCount();
+        int idPedido = Integer.parseInt(tfId.getText());
+        String nomeConsultor = "";
+        double valor = 0.0;
+        
+        int ultimoIdConsultor = daoVendedor.buscarUltimoIdConsultor();
+        
+        for(int i = 0; i < numLinhas; i++){
+            nomeConsultor = String.valueOf(tableConsultor.getValueAt(i, 1));
+            valor = Double.parseDouble(String.valueOf(tableConsultor.getValueAt(i, 4)));
+            
+            daoVendedor.inserirConsultor(ultimoIdConsultor + i + 1, idPedido, nomeConsultor, valor);
+        }
+        
+//        if (daoVendedor.inserirConsultor(Integer.parseInt(s), SOMEBITS, ICONIFIED).ine
+//            
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Não foi possível salvar o pedido!");
+//        }   
+        
+    }
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         DaoPedido daoPedido = new DaoPedido();
        
@@ -1126,6 +1191,14 @@ public class CadPedido extends javax.swing.JFrame {
         subTotalDespesas();
         subTotalLiquido();
     }//GEN-LAST:event_tfCustoAdversoFocusLost
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void tfEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfEmpresaActionPerformed
      
     
     public void somarPrecos() {

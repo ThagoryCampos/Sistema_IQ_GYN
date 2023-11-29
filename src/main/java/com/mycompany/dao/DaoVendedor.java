@@ -34,6 +34,27 @@ public class DaoVendedor extends BancoDeDadosMySql{
         }
     }
     
+    public Boolean inserirConsultor(int id, int idPedido, String nomeConsultor, double valor){
+        try{
+            sql = "INSERT INTO CONSULTORESPEDIDO(ID, IDPEDIDO, NOME_CONSULTOR, VALOR) VALUES (?, ?, ?, ?)";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setInt(1, id);
+            getStatement().setInt(2, idPedido);
+            getStatement().setString(3, nomeConsultor);
+            getStatement().setDouble(4, valor);
+                        
+            getStatement().executeUpdate();
+            
+            return true;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        
+    }
+    
     public Boolean alterar(int id, String nome, String telefone, String email){
         try{
             sql = "UPDATE VENDEDOR SET NOME = ?, TELEFONE = ?, EMAIL = ? WHERE ID = ?";
@@ -117,6 +138,29 @@ public class DaoVendedor extends BancoDeDadosMySql{
         return getResultado();
     }
     
+    public ResultSet listarConsultoresPorIdPedido(int pIdPedido){
+        try{
+            sql = 
+                "SELECT                          "+
+                "   ID AS ID,                    "+
+                "   IDPEDIDO AS ID_PEDIDO,       "+
+                "   NOME_CONSULTOR AS NOME_CONSULTOR, "+
+                "   VALOR AS VALOR               "+
+                "FROM                            "+
+                "   CONSULTORESPEDIDO            "+
+                "WHERE IDPEDIDO = ?             "+
+                "   ORDER BY 1                   ";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setInt(1, pIdPedido);
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return getResultado();
+    }
     
     public ResultSet listarPorNome(String pNome){
         try{
@@ -147,6 +191,25 @@ public class DaoVendedor extends BancoDeDadosMySql{
         
         try{
             sql = "SELECT IFNULL(MAX(ID), 0) + 1 FROM VENDEDOR";
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            setResultado(getStatement().executeQuery());
+            
+            getResultado().next();
+            
+            id = getResultado().getInt(1);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
+    
+    public int buscarUltimoIdConsultor(){
+        int id = 0;
+        
+        try{
+            sql = "SELECT IFNULL(MAX(ID), 0) FROM CONSULTORESPEDIDO";
             
             setStatement(getConexao().prepareStatement(sql));
             

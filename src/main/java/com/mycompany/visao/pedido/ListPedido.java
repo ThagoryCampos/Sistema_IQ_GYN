@@ -8,9 +8,14 @@ import com.mycompany.dao.DaoCliente;
 import com.mycompany.dao.DaoConsultor;
 import com.mycompany.dao.DaoInstituto;
 import com.mycompany.dao.DaoPedido;
+import com.mycompany.dao.DaoVendedor;
 import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.modelo.ModCliente;
+import com.mycompany.modelo.ModConsultorPedido;
+import com.mycompany.modelo.ModInstituto;
 import com.mycompany.modelo.ModPedido;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,7 +62,7 @@ public class ListPedido extends javax.swing.JFrame {
                 String custoAdverso = resultSet.getString(12);
                 String total = resultSet.getString(13);
                 String subTotalDespesas = resultSet.getString(14);
-                String subTotalLiquido = resultSet.getString(5);
+                String subTotalLiquido = resultSet.getString(15);
                 
                 defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
             }
@@ -92,7 +97,7 @@ public class ListPedido extends javax.swing.JFrame {
                 String custoAdverso = resultSet.getString(12);
                 String total = resultSet.getString(13);
                 String subTotalDespesas = resultSet.getString(14);
-                String subTotalLiquido = resultSet.getString(5);
+                String subTotalLiquido = resultSet.getString(15);
                 
                 defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
             }
@@ -127,7 +132,7 @@ public class ListPedido extends javax.swing.JFrame {
                 String custoAdverso = resultSet.getString(12);
                 String total = resultSet.getString(13);
                 String subTotalDespesas = resultSet.getString(14);
-                String subTotalLiquido = resultSet.getString(5);
+                String subTotalLiquido = resultSet.getString(15);
                 
                 defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
             }
@@ -162,7 +167,7 @@ public class ListPedido extends javax.swing.JFrame {
                 String custoAdverso = resultSet.getString(12);
                 String total = resultSet.getString(13);
                 String subTotalDespesas = resultSet.getString(14);
-                String subTotalLiquido = resultSet.getString(5);
+                String subTotalLiquido = resultSet.getString(15);
                 
                 defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
             }
@@ -197,7 +202,7 @@ public class ListPedido extends javax.swing.JFrame {
                 String custoAdverso = resultSet.getString(12);
                 String total = resultSet.getString(13);
                 String subTotalDespesas = resultSet.getString(14);
-                String subTotalLiquido = resultSet.getString(5);
+                String subTotalLiquido = resultSet.getString(15);
                 
                 defaultTableModel.addRow(new Object[] {id, data,vendedor,idInstituto, idCliente, numeroProjeto, escopoProjeto, prazo, formaPagamento, valorProjeto, custoFixo, custoAdverso, total, subTotalDespesas, subTotalLiquido });
             }
@@ -227,17 +232,17 @@ public class ListPedido extends javax.swing.JFrame {
 
         tablePedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "DATA", "VENDEDOR", "INSTITUTO", "CLIENTE", "NUMERO PROJETO", "PRAZO", "FORMA PAGTO", "VALOR PROJETO", "CUSTO FIXO", "CUSTO ADVERSO", "TOTAL", "SUB TOTAL DESPESAS", "SUB TOTAL LIQUIDO"
+                "ID", "DATA", "VENDEDOR", "INSTITUTO", "CLIENTE", "NUMERO PROJETO", "ESCOPO PROJETO", "PRAZO", "FORMA PAGTO", "VALOR PROJETO", "CUSTO FIXO", "CUSTO ADVERSO", "TOTAL", "SUB TOTAL DESPESAS", "SUB TOTAL LIQUIDO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -251,6 +256,9 @@ public class ListPedido extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablePedido);
+        if (tablePedido.getColumnModel().getColumnCount() > 0) {
+            tablePedido.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         jcbBuscar.setText("Buscar");
         jcbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -301,41 +309,63 @@ public class ListPedido extends javax.swing.JFrame {
 
                 modPedido.setId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 0))));
                 modPedido.setData(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 1)));
-                modPedido.setNumeroProjeto(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 2))));
-                modPedido.setEscopoProjeto(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 3)));
-                modPedido.setPrazo(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 4)));
-                modPedido.setFormaPagamento(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 5)));
-                modPedido.setValorProjeto(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 6))));
-                modPedido.setCustoFixo(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 7))));
-                modPedido.setCustoAdverso(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 8))));
-                modPedido.setTotal(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
-                modPedido.setSubTotalDespesas(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 10))));
-                modPedido.setSubTotalLiquido(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 11))));
+                modPedido.setVendedor(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 2)));
+//                modPedido.setIdInstituto(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 3))));
+//                modPedido.setIdCliente(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 4))));
+                modPedido.setNumeroProjeto(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 5))));
+                modPedido.setEscopoProjeto(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 6)));
+                modPedido.setPrazo(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 7)));
+                modPedido.setFormaPagamento(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 8)));
+                modPedido.setValorProjeto(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 9))));
+                modPedido.setCustoFixo(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 10))));
+                modPedido.setCustoAdverso(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 11))));
+                modPedido.setTotal(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 12))));
+                modPedido.setSubTotalDespesas(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 13))));
+                modPedido.setSubTotalLiquido(Double.parseDouble(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 14))));
 
                 //
                 DaoInstituto daoInstituto = new DaoInstituto();
-                ResultSet resultSet = daoInstituto.listarPorId(Integer.parseInt(tablePedido.getValueAt(tablePedido.getSelectedRow(), 12).toString()));
-
+                ResultSet resultSet = daoInstituto.listarPorId(Integer.parseInt(tablePedido.getValueAt(tablePedido.getSelectedRow(), 3).toString()));
+                
+                ModInstituto modInstituto = new ModInstituto();
+                
                 int idInstituto = -1;
                 while(resultSet.next())
-                idInstituto = resultSet.getInt("IDINSTITUTO");
+                idInstituto = resultSet.getInt("ID");
 
-                modPedido.setIdInstituto(idInstituto);
+                modInstituto.setId(idInstituto);
                 //
 
                 //
                 DaoCliente daoCliente = new DaoCliente();
-                resultSet = daoCliente.listarPorId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 13))));
-
+                resultSet = daoCliente.listarPorId(Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 4))));
+                 
+                ModCliente modCliente = new ModCliente();
+                
                 int idCliente = -1;
                 while(resultSet.next())
                 idCliente = resultSet.getInt("ID");
 
-                modPedido.setIdCliente(idCliente);
+                modCliente.setId(idCliente);
                 //
                 
                 DadosTemporarios.tempObject = (ModPedido) modPedido;
+                DadosTemporarios.tempObject2 = (ModCliente) modCliente;
+                DadosTemporarios.tempObject3 = (ModInstituto) modInstituto;
+                    
+                int idPedido = Integer.parseInt(String.valueOf(tablePedido.getValueAt(tablePedido.getSelectedRow(), 0)));
+                resultSet = new DaoVendedor().listarConsultoresPorIdPedido(idPedido);
                 
+                DadosTemporarios.tempObjects = new ArrayList<>();
+                while(resultSet.next()){
+                    ModConsultorPedido modConsultorPedido = 
+                            new ModConsultorPedido( resultSet.getInt(1), 
+                                                    resultSet.getInt(2), 
+                                                    resultSet.getString(3), 
+                                                    resultSet.getDouble(4));
+                    
+                    DadosTemporarios.tempObjects.add(modConsultorPedido);
+                }
 
                 CadPedido cadPedido = new CadPedido();
                 cadPedido.setVisible(true);

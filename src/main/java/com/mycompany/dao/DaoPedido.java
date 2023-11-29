@@ -104,6 +104,7 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   INS.ID AS IDINSTITUTO,                     "+
                     "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
+                    "   PED.ESCOPOPROJETO AS ESCOPOPROJETO,        "+                    
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
                     "   PED.VALORPROJETO AS VALORPROJETO,          "+
@@ -140,6 +141,7 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   INS.ID AS IDINSTITUTO,                     "+
                     "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
+                    "   PED.ESCOPOPROJETO AS ESCOPOPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
                     "   PED.VALORPROJETO AS VALORPROJETO,          "+
@@ -180,6 +182,7 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   INS.ID AS IDINSTITUTO,                     "+
                     "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
+                    "   PED.ESCOPOPROJETO AS ESCOPOPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
                     "   PED.VALORPROJETO AS VALORPROJETO,          "+
@@ -220,6 +223,7 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   INS.ID AS IDINSTITUTO,                     "+
                     "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
+                    "   PED.ESCOPOPROJETO AS ESCOPOPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
                     "   PED.VALORPROJETO AS VALORPROJETO,          "+
@@ -260,6 +264,7 @@ public class DaoPedido extends BancoDeDadosMySql{
                     "   INS.ID AS IDINSTITUTO,                     "+
                     "   CLI.ID AS CLIENTE,                         "+
                     "   PED.NUMEROPROJETO AS NUMEROPROJETO,        "+
+                    "   PED.ESCOPOPROJETO AS ESCOPOPROJETO,        "+
                     "   PED.PRAZO AS PRAZO,                        "+
                     "   PED.FORMAPAGAMENTO AS FORMAPAGAMENTO,      "+
                     "   PED.VALORPROJETO AS VALORPROJETO,          "+
