@@ -317,7 +317,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miConsultaPedidosActionPerformed
 
     private void miCadastroPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastroPedidoActionPerformed
-        if (Formularios.cadPedido == null)
+            if (Formularios.cadPedido == null)
             Formularios.cadPedido = new CadPedido();
         
             Formularios.cadPedido.setVisible(true);

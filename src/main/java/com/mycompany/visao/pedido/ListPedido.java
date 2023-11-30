@@ -10,6 +10,7 @@ import com.mycompany.dao.DaoInstituto;
 import com.mycompany.dao.DaoPedido;
 import com.mycompany.dao.DaoVendedor;
 import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
 import com.mycompany.modelo.ModCliente;
 import com.mycompany.modelo.ModConsultorPedido;
 import com.mycompany.modelo.ModInstituto;
@@ -368,6 +369,7 @@ public class ListPedido extends javax.swing.JFrame {
                 }
 
                 CadPedido cadPedido = new CadPedido();
+                Formularios.cadPedido = cadPedido;
                 cadPedido.setVisible(true);
             }
         }catch(Exception e){
