@@ -46,6 +46,7 @@ public class TelaAlteracaoSenha extends javax.swing.JDialog {
         btnConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Alteração de Senha");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -53,18 +54,21 @@ public class TelaAlteracaoSenha extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Sitka Small", 1, 18)); // NOI18N
         jLabel1.setText("Usuário");
 
         tfNome.setFont(new java.awt.Font("Sitka Small", 0, 14)); // NOI18N
 
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Sitka Small", 1, 18)); // NOI18N
         jLabel3.setText("Nova senha");
 
         pfNovaSenha.setFont(new java.awt.Font("Sitka Small", 0, 14)); // NOI18N
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Sitka Small", 1, 18)); // NOI18N
         jLabel4.setText("Confirmação de senha");
 

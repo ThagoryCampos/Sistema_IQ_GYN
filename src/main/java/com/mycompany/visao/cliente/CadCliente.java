@@ -189,6 +189,7 @@ public class CadCliente extends javax.swing.JFrame{
         tfCelular = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Cliente");
 
         jLabel1.setText("ID");
 

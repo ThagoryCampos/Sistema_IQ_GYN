@@ -52,7 +52,7 @@ public class TelaLogin extends javax.swing.JDialog {
         pfSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Informe seu usuário e senha");
+        setTitle("Tela de Login");
         setBackground(new java.awt.Color(204, 204, 204));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

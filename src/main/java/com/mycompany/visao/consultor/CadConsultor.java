@@ -143,6 +143,7 @@ public class CadConsultor extends javax.swing.JDialog {
         tfPreco = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Consultor");
 
         jLabel1.setText("ID");
 

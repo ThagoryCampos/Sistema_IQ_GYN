@@ -208,6 +208,7 @@ public class ListCliente extends javax.swing.JFrame {
         jcbBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta Cliente");
 
         jcbTipoFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS", "ID", "EMPRESA", "CIDADE", "CNPJ" }));
 

@@ -136,6 +136,7 @@ public class CadFormaPagamento extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Forma de Pagamento");
 
         jLabel2.setText("Nome *");
 

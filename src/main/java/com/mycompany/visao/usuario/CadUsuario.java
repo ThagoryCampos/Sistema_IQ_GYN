@@ -139,6 +139,7 @@ public class CadUsuario extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Usuário");
 
         jLabel4.setText("Confirmação de Senha *");
 

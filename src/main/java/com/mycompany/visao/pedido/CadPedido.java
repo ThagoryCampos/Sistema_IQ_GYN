@@ -47,84 +47,101 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.MaskFormatter;
 
-
 /**
  *
  * @author thagory.8187
  */
 public class CadPedido extends javax.swing.JFrame {
 
+    MaskFormatter mfCustoFixo, mfCustoAdverso, mfTotal, mfSubTotalDespesas, mfSubTotalLiquido;
+
     /**
      * Creates new form CadInstituto
      */
     public CadPedido() {
-        
+        mascaraValores();
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        
+
         carregaEmpresa();
         carregaInstituto();
         carregaVendedor();
         carregaFormaPagamento();
-        
-                
-        if(!existeDadosTemporarios()){
+
+        if (!existeDadosTemporarios()) {
             DaoPedido daoPedido = new DaoPedido();
-            
+
             int id = daoPedido.buscarProximoId();
-            if(id > 0){
+            if (id > 0) {
                 tfId.setText(String.valueOf(id));
             }
-            
+
             btnSalvar.setText(Constantes.BTN_SALVAR_TEXT);
             btnExcluir.setVisible(false);
-        }else{
+        } else {
             btnSalvar.setText(Constantes.BTN_ALTERAR_TEXT);
             btnExcluir.setVisible(true);
         }
         setLocationRelativeTo(null);
         tfId.setEnabled(false);
-        
+
 //        carregaEmpresa();
 //        carregaInstituto();
 //        carregaVendedor();
 //        carregaFormaPagamento();
-        
         existeDadosTemporarios();
 //      
         recuperaFormaPagamento();
         recuperaEmpresas();
         recuperaInstituto();
         recuperaVendedor();
-        
+
         tfVendedor.setVisible(false);
         tfInstituto.setVisible(false);
         tfEmpresa.setVisible(false);
         tfFormaPagamento.setVisible(false);
-        
+
         tfCelular.setEditable(false);
         tfTelefone.setEditable(false);
-        
+
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
 //        defaultTableModel.setRowCount(0);
     }
-    
-//    private void mascaraValores(){
-//        try{
-//            mfCustoFixo = newMaskFormatter("R$##,##");
-//        }catch{(ParseException ex){
-//            System.outPritnln("Ocorreu um erro na criacao da mascara")
-//        }
-//        
-//    }
-    
+
+    private void mascaraValores() {
+        try {
+            mfCustoFixo = new MaskFormatter("R$##,##");
+        } catch (ParseException ex) {
+            System.out.println("Ocorreu um erro na criacao da mascara");
+        }
+
+        try {
+            mfCustoAdverso = new MaskFormatter("R$##,##");
+        } catch (ParseException ex) {
+            System.out.println("Ocorreu um erro na criacao da mascara");
+        }
+
+        try {
+            mfSubTotalDespesas = new MaskFormatter("R$##,##");
+        } catch (ParseException ex) {
+            System.out.println("Ocorreu um erro na criacao da mascara");
+        }
+
+        try {
+            mfSubTotalLiquido = new MaskFormatter("R$##,##");
+        } catch (ParseException ex) {
+            System.out.println("Ocorreu um erro na criacao da mascara");
+        }
+
+    }
+
     private String formatarMoeda(Double valor) {
         NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         return formatoMoeda.format(valor);
     }
-    
-    private Boolean existeDadosTemporarios(){
-        if(DadosTemporarios.tempObject instanceof ModPedido){
+
+    private Boolean existeDadosTemporarios() {
+        if (DadosTemporarios.tempObject instanceof ModPedido) {
             int id = ((ModPedido) DadosTemporarios.tempObject).getId();
             String data = ((ModPedido) DadosTemporarios.tempObject).getData();
             String vendedor = ((ModPedido) DadosTemporarios.tempObject).getVendedor();
@@ -140,7 +157,7 @@ public class CadPedido extends javax.swing.JFrame {
             Double total = ((ModPedido) DadosTemporarios.tempObject).getTotal();
             Double subTotalDespesas = ((ModPedido) DadosTemporarios.tempObject).getSubTotalDespesas();
             Double subTotalLiquido = ((ModPedido) DadosTemporarios.tempObject).getSubTotalLiquido();
-            
+
             tfId.setText(String.valueOf(id));
             tfData.setText(data);
             tfVendedor.setText(vendedor);
@@ -156,8 +173,7 @@ public class CadPedido extends javax.swing.JFrame {
             lblTotalCompra.setText(String.valueOf(total));
             lblSubTotalDespesas.setText(String.valueOf(subTotalDespesas));
             lblSubTotalLiquido.setText(String.valueOf(subTotalLiquido));
-            
-            
+
 //            int index = 0;
 //            for(int i = 0; i < jcbVendedor.getItemCount(); i++){
 //                if(jcbVendedor.getItemAt(i).equals(idConsultor)){
@@ -169,67 +185,65 @@ public class CadPedido extends javax.swing.JFrame {
 //            
             //Instituto
             int index1 = 0;
-            for(int i = 0; i < jcbInstituto.getItemCount(); i++){
-                if(jcbInstituto.getItemAt(i).equals(idInstituto)){
+            for (int i = 0; i < jcbInstituto.getItemCount(); i++) {
+                if (jcbInstituto.getItemAt(i).equals(idInstituto)) {
                     index1 = i;
-                    break;    
+                    break;
                 }
             }
             jcbInstituto.setSelectedIndex(index1);
-            
+
             //Empresa
             int index2 = 0;
-            for(int i = 0; i < jcbEmpresa.getItemCount(); i++){
-                if(jcbEmpresa.getItemAt(i).equals(idCliente)){
+            for (int i = 0; i < jcbEmpresa.getItemCount(); i++) {
+                if (jcbEmpresa.getItemAt(i).equals(idCliente)) {
                     index2 = i;
-                    break;    
+                    break;
                 }
             }
             jcbEmpresa.setSelectedIndex(index2);
-            
+
             //Forma de pagamento
             int index3 = 0;
-            for(int i = 0; i < jcbFormaPagamento.getItemCount(); i++){
-                if(jcbFormaPagamento.getItemAt(i).equals(formaPagamento)){
+            for (int i = 0; i < jcbFormaPagamento.getItemCount(); i++) {
+                if (jcbFormaPagamento.getItemAt(i).equals(formaPagamento)) {
                     index3 = i;
-                    break;    
+                    break;
                 }
             }
             jcbFormaPagamento.setSelectedIndex(index3);
-            
+
             DefaultTableModel dtm = (DefaultTableModel) tableConsultor.getModel();
-            
+
 //            tableConsultor.setModel(dtm);
-            
             dtm.setRowCount(0);
-            for(int i = 0; i < DadosTemporarios.tempObjects.size(); i++){
+            for (int i = 0; i < DadosTemporarios.tempObjects.size(); i++) {
                 int id1 = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getId();
                 int idPedido = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getIdPedido();
                 String nomeConsultor = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getNomeConsultor();
                 double valor = ((ModConsultorPedido) DadosTemporarios.tempObjects.get(i)).getValor();
-                
+
 //                JOptionPane.showMessageDialog(null, nomeConsultor);
-                
-                dtm.addRow(new Object[] {id1, nomeConsultor, "01/01/2023", "01/01/2023", valor});
+                dtm.addRow(new Object[]{id1, nomeConsultor, "01/01/2023", "01/01/2023", valor});
             }
-            
+
             DadosTemporarios.tempObject = null;
             DadosTemporarios.tempObjects = null;
-            
+
             return true;
-        }else
+        } else {
             return false;
+        }
     }
-    
-        
-    private void inserir(){
+
+    private void inserir() {
         DaoPedido daoPedido = new DaoPedido();
-        
-        if (daoPedido.inserir(Integer.parseInt(tfId.getText()), tfData.getText(), String.valueOf(jcbVendedor.getSelectedItem()), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
+
+        if (daoPedido.inserir(Integer.parseInt(tfId.getText()), tfData.getText(), String.valueOf(jcbVendedor.getSelectedItem()), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))) {
             insereConsPedido();
-            
+
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
-            
+
             tfId.setText("");
             tfData.setText("");
 //            tfVendedor.setText("");
@@ -245,22 +259,23 @@ public class CadPedido extends javax.swing.JFrame {
             lblTotalCompra.setText("");
             lblSubTotalDespesas.setText("");
             lblSubTotalLiquido.setText("");
-            
+
             DefaultTableModel dtm = (DefaultTableModel) tableConsultor.getModel();
             dtm.setRowCount(0);
-            
+
             DadosTemporarios.tempObject = null;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o pedido!");
-        }   
+        }
     }
 //    
-    private void alterar(){
+
+    private void alterar() {
         DaoPedido daoPedido = new DaoPedido();
-        
-        if (daoPedido.alterar(Integer.parseInt(tfId.getText()), tfData.getText(), tfVendedor.getText(), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))){
+
+        if (daoPedido.alterar(Integer.parseInt(tfId.getText()), tfData.getText(), tfVendedor.getText(), Integer.parseInt(tfInstituto.getText()), Integer.parseInt(tfEmpresa.getText()), Integer.parseInt(tfNumeroProjeto.getText()), taEscopoProjeto.getText(), tfData.getText(), tfFormaPagamento.getText(), Double.parseDouble(tfValorProjeto.getText()), Double.parseDouble(tfCustoFixo.getText()), Double.parseDouble(tfCustoAdverso.getText()), Double.parseDouble(lblTotalCompra.getText()), Double.parseDouble(lblSubTotalDespesas.getText()), Double.parseDouble(lblSubTotalLiquido.getText()))) {
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
-            
+
             tfId.setText("");
             tfData.setText("");
             tfVendedor.setText("");
@@ -276,124 +291,127 @@ public class CadPedido extends javax.swing.JFrame {
             lblTotalCompra.setText("");
             lblSubTotalDespesas.setText("");
             lblSubTotalLiquido.setText("");
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "Não foi possivél salvar o pedido!");
-        }   
+        }
     }
-    
-    private void excluir(){
+
+    private void excluir() {
         DaoPedido daoPedido = new DaoPedido();
-        
-        if(daoPedido.excluir(Integer.parseInt(tfId.getText())))
+
+        if (daoPedido.excluir(Integer.parseInt(tfId.getText()))) {
             JOptionPane.showMessageDialog(null, "Pedido excluido com sucesso!");
-        else
+        } else {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o pedido!");
-        
+        }
+
         ((ListPedido) Formularios.listPedido).listarTodos();
-        
+
         dispose();
     }
-    
-    private void carregaInstituto(){
-        try{
+
+    private void carregaInstituto() {
+        try {
             DaoInstituto daoInstituto = new DaoInstituto();
-            
+
             ResultSet resultSet = daoInstituto.listarTodos();
-         
-            while(resultSet.next())
+
+            while (resultSet.next()) {
                 jcbInstituto.addItem(resultSet.getString("EMPRESA"));
-       }catch(Exception e){
+            }
+        } catch (Exception e) {
             System.err.println(e.getMessage());
-       }
+        }
     }
-    
-    private void carregaVendedor(){
-        try{
+
+    private void carregaVendedor() {
+        try {
             DaoVendedor daoConsultor = new DaoVendedor();
-        
+
             ResultSet resultSet = daoConsultor.listarTodos();
-        
-            while(resultSet.next())
+
+            while (resultSet.next()) {
                 jcbVendedor.addItem(resultSet.getString("NOME"));
-        }catch(Exception e){
+            }
+        } catch (Exception e) {
             System.err.println(e.getMessage());
-        }    
+        }
     }
-    
-    private void carregaEmpresa(){
-        try{
+
+    private void carregaEmpresa() {
+        try {
             DaoCliente daoCliente = new DaoCliente();
-        
+
             ResultSet resultSet = daoCliente.listarTodos();
-        
-            while(resultSet.next()){
+
+            while (resultSet.next()) {
                 jcbEmpresa.addItem(resultSet.getString("EMPRESA"));
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
-    
-     private void carregaFormaPagamento(){
-        try{
+
+    private void carregaFormaPagamento() {
+        try {
             DaoFormaPagamento daoFormaPagamento = new DaoFormaPagamento();
-        
+
             ResultSet resultSet = daoFormaPagamento.listarTodos();
-        
-            while(resultSet.next()){
+
+            while (resultSet.next()) {
                 jcbFormaPagamento.addItem(resultSet.getString("DESCRICAO"));
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
-    
-    private void recuperaFormaPagamento(){
-        try{
+
+    private void recuperaFormaPagamento() {
+        try {
             DaoFormaPagamento daoFormaPagamento = new DaoFormaPagamento();
-            
+
             ResultSet resultSet = daoFormaPagamento.listarPorDescricao(jcbFormaPagamento.getSelectedItem().toString());
-            
+
             resultSet.next();
             tfFormaPagamento.setText(resultSet.getString("ID"));
-        }catch(Exception e ){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    private void recuperaInstituto(){
-        try{
+
+    private void recuperaInstituto() {
+        try {
             DaoInstituto daoInstituto = new DaoInstituto();
-            
+
             ResultSet resultSet = daoInstituto.listarPorEmpresa(jcbInstituto.getSelectedItem().toString());
-            
+
             resultSet.next();
             tfInstituto.setText(resultSet.getString("ID"));
-        }catch(Exception e ){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    private void recuperaVendedor(){
-        try{
+
+    private void recuperaVendedor() {
+        try {
             DaoVendedor daoConsultor = new DaoVendedor();
-            
+
             ResultSet resultSet = daoConsultor.listarPorNome(jcbVendedor.getSelectedItem().toString());
-            
+
             resultSet.next();
             tfEmpresa.setText(resultSet.getString("ID"));
-        }catch(Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
-    private void recuperaEmpresas(){
-        try{
+
+    private void recuperaEmpresas() {
+        try {
             DaoCliente daoCliente = new DaoCliente();
-            
+
             ResultSet resultSet = daoCliente.listarPorEmpresa(jcbEmpresa.getSelectedItem().toString());
-            
+
             resultSet.next();
             tfEmpresa.setText(resultSet.getString("ID"));
             tfCnpj.setText(resultSet.getString("CNPJ"));
@@ -404,12 +422,12 @@ public class CadPedido extends javax.swing.JFrame {
             tfTelefone.setText(resultSet.getString("TELEFONE"));
             tfEmail.setText(resultSet.getString("EMAIL"));
             tfCelular.setText(resultSet.getString("CELULAR"));
-           
-        }catch(Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -474,8 +492,8 @@ public class CadPedido extends javax.swing.JFrame {
         tfEmpresa = new javax.swing.JTextField();
         tfFormaPagamento = new javax.swing.JTextField();
         btnExcluir = new javax.swing.JButton();
-        btnInserirConsultor = new javax.swing.JButton();
         lblSubTotalDespesas = new javax.swing.JLabel();
+        btnInserirConsultor = new javax.swing.JButton();
         tfCustoAdverso = new javax.swing.JTextField();
         tfCustoFixo = new javax.swing.JTextField();
         tfValorProjeto = new javax.swing.JTextField();
@@ -483,6 +501,7 @@ public class CadPedido extends javax.swing.JFrame {
         lblSubTotalLiquido = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Pedido");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -671,6 +690,9 @@ public class CadPedido extends javax.swing.JFrame {
             }
         });
 
+        lblSubTotalDespesas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblSubTotalDespesas.setToolTipText("");
+
         btnInserirConsultor.setText("Inserir Consultor");
         btnInserirConsultor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -682,9 +704,6 @@ public class CadPedido extends javax.swing.JFrame {
                 btnInserirConsultorActionPerformed(evt);
             }
         });
-
-        lblSubTotalDespesas.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblSubTotalDespesas.setToolTipText("");
 
         tfCustoAdverso.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -800,11 +819,11 @@ public class CadPedido extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblSubTotalDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(461, 461, 461)
-                        .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelLayout.createSequentialGroup()
+                        .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(JPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel24)
                                 .addGap(169, 169, 169))
-                            .addComponent(lblTotalCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(JPanelLayout.createSequentialGroup()
                         .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(JPanelLayout.createSequentialGroup()
@@ -1013,19 +1032,20 @@ public class CadPedido extends javax.swing.JFrame {
 
     private void btnInserirConsultorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInserirConsultorMouseClicked
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
-        defaultTableModel.addRow(new Object[]{"","","","",""});
-        
+        defaultTableModel.addRow(new Object[]{"", "", "", "", ""});
+
         DadosTemporarios.linhas = defaultTableModel.getRowCount();
-        
-        if (Formularios.cadConsultor == null)
+
+        if (Formularios.cadConsultor == null) {
             Formularios.cadConsultor = new CadConsultor();
+        }
 
         Formularios.cadConsultor.setModal(true);
         Formularios.cadConsultor.setVisible(true);
     }//GEN-LAST:event_btnInserirConsultorMouseClicked
 
-    public void subTotalDespesas(){
-                           
+    public void subTotalDespesas() {
+
         lblSubTotalDespesas.setText("0.00");
 //        tfCustoAdverso.setText("0.00");
 //        Double custoAdverso = Double.parseDouble(tfCustoAdverso.getText());
@@ -1039,10 +1059,11 @@ public class CadPedido extends javax.swing.JFrame {
 //        
 //        lblSubTotalDespesas.setText(calculaTtlFormatado);
         try {
-            
-            if(tfCustoAdverso.getText().equals(""))
+
+            if (tfCustoAdverso.getText().equals("")) {
                 tfCustoAdverso.setText("0.0");
-                    
+            }
+
             Double custoAdverso = Double.parseDouble(tfCustoAdverso.getText());
             Double custoFixo = Double.parseDouble(tfCustoFixo.getText());
             Double totalConsultores = Double.parseDouble(lblTotalCompra.getText());
@@ -1053,7 +1074,7 @@ public class CadPedido extends javax.swing.JFrame {
             String calculaTtlFormatado = df.format(total);
 
             lblSubTotalDespesas.setText(calculaTtlFormatado);
-            
+
             // Obtenha os valores como Strings dos campos de texto
 //            String strCustoAdverso = tfCustoAdverso.getText();
 //            String strCustoFixo = tfCustoFixo.getText();
@@ -1078,10 +1099,10 @@ public class CadPedido extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             // Trate exceções ao tentar converter as Strings para números
             System.err.println("Erro ao converter valores: " + e.getMessage());
-        }        
+        }
     }
-    
-    public void subTotalLiquido(){
+
+    public void subTotalLiquido() {
 //        Double SubTotalDespesas = Double.parseDouble(lblSubTotalDespesas.getText());
 //        Double ValorProjeto = Double.parseDouble(tfValorProjeto.getText());
 //        Double total = ValorProjeto - SubTotalDespesas;
@@ -1092,7 +1113,7 @@ public class CadPedido extends javax.swing.JFrame {
 //        
 //        lblSubTotalLiquido.setText(calculaTtlFormatado);
 
-       try {
+        try {
             Double SubTotalDespesas = Double.parseDouble(lblSubTotalDespesas.getText());
             Double ValorProjeto = Double.parseDouble(tfValorProjeto.getText());
             Double total = ValorProjeto - SubTotalDespesas;
@@ -1103,7 +1124,6 @@ public class CadPedido extends javax.swing.JFrame {
 
             lblSubTotalLiquido.setText(calculaTtlFormatado);
 
-           
             // Obtenha os valores como Strings dos componentes
 //            String strSubTotalDespesas = lblSubTotalDespesas.getText();
 //            String strValorProjeto = tfValorProjeto.getText();
@@ -1131,27 +1151,27 @@ public class CadPedido extends javax.swing.JFrame {
             // Trate exceções ao converter as Strings para números
             System.err.println("Erro ao converter valores: " + e.getMessage());
         }
-        
+
     }
-        
-    private void custoFixo(){
+
+    private void custoFixo() {
         Double ValorProjeto = Double.parseDouble(tfValorProjeto.getText());
         float porcentagem = 0.2f;
-        
+
         Double custoAdverso = ValorProjeto * porcentagem;
-        
+
         DecimalFormat df = new DecimalFormat("#.##");
-        
+
         String custoAdvFormatado = df.format(custoAdverso);
-        
+
         tfCustoFixo.setText(custoAdvFormatado);
-             
+
     }
-    
-    public void insereConsultor(){
-    
-        if(DadosTemporarios.tempObject != null){
-    //            JOptionPane.showMessageDialog(null, ((ModConsultor) DadosTemporarios.tempObject).getNome());
+
+    public void insereConsultor() {
+
+        if (DadosTemporarios.tempObject != null) {
+            //            JOptionPane.showMessageDialog(null, ((ModConsultor) DadosTemporarios.tempObject).getNome());
 
             String id = String.valueOf(((ModConsultor) DadosTemporarios.tempObject).getId());
             String nome = ((ModConsultor) DadosTemporarios.tempObject).getNome();
@@ -1159,47 +1179,46 @@ public class CadPedido extends javax.swing.JFrame {
             String dataTermino = ((ModConsultor) DadosTemporarios.tempObject).getDataTermino();
             String preco = String.valueOf(((ModConsultor) DadosTemporarios.tempObject).getPreco());
 
-            tableConsultor.setValueAt(id, DadosTemporarios.linhas -1, 0);
-            tableConsultor.setValueAt(nome, DadosTemporarios.linhas -1, 1);
-            tableConsultor.setValueAt(dataInicio, DadosTemporarios.linhas -1, 2);
-            tableConsultor.setValueAt(dataTermino, DadosTemporarios.linhas -1, 3);
-            tableConsultor.setValueAt(preco, DadosTemporarios.linhas -1, 4);
+            tableConsultor.setValueAt(id, DadosTemporarios.linhas - 1, 0);
+            tableConsultor.setValueAt(nome, DadosTemporarios.linhas - 1, 1);
+            tableConsultor.setValueAt(dataInicio, DadosTemporarios.linhas - 1, 2);
+            tableConsultor.setValueAt(dataTermino, DadosTemporarios.linhas - 1, 3);
+            tableConsultor.setValueAt(preco, DadosTemporarios.linhas - 1, 4);
         }
     }
-    
-    public void insereConsPedido(){
+
+    public void insereConsPedido() {
         DaoVendedor daoVendedor = new DaoVendedor();
-        
+
         int numLinhas = tableConsultor.getRowCount();
         int idPedido = Integer.parseInt(tfId.getText());
         String nomeConsultor = "";
         double valor = 0.0;
-        
+
         int ultimoIdConsultor = daoVendedor.buscarUltimoIdConsultor();
-        
-        for(int i = 0; i < numLinhas; i++){
+
+        for (int i = 0; i < numLinhas; i++) {
             nomeConsultor = String.valueOf(tableConsultor.getValueAt(i, 1));
             valor = Double.parseDouble(String.valueOf(tableConsultor.getValueAt(i, 4)));
-            
+
             daoVendedor.inserirConsultor(ultimoIdConsultor + i + 1, idPedido, nomeConsultor, valor);
         }
-        
+
 //        if (daoVendedor.inserirConsultor(Integer.parseInt(s), SOMEBITS, ICONIFIED).ine
 //            
 //        }else{
 //            JOptionPane.showMessageDialog(null, "Não foi possível salvar o pedido!");
 //        }   
-        
     }
-    
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         DaoPedido daoPedido = new DaoPedido();
-       
-        if (btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT){
+
+        if (btnSalvar.getText() == Constantes.BTN_SALVAR_TEXT) {
             inserir();
-            
+
             tfId.setText(String.valueOf(daoPedido.buscarProximoId()));
-        }else if(btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT){
+        } else if (btnSalvar.getText() == Constantes.BTN_ALTERAR_TEXT) {
             alterar();
             ((ListPedido) Formularios.listPedido).listarTodos();
             dispose();
@@ -1223,7 +1242,7 @@ public class CadPedido extends javax.swing.JFrame {
 
     private void tfCustoFixoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCustoFixoFocusLost
         custoFixo();
-        
+
     }//GEN-LAST:event_tfCustoFixoFocusLost
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -1238,7 +1257,7 @@ public class CadPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCustoAdversoFocusLost
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void tfEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEmpresaActionPerformed
@@ -1247,16 +1266,15 @@ public class CadPedido extends javax.swing.JFrame {
 
     private void taEscopoProjetoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taEscopoProjetoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_TAB && !evt.isControlDown()) {
-                    evt.consume(); // Evita que o caractere de tabulação seja inserido no JTextArea
-                    KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
-                }
-         
+            evt.consume(); // Evita que o caractere de tabulação seja inserido no JTextArea
+            KeyboardFocusManager.getCurrentKeyboardFocusManager().focusNextComponent();
+        }
+
     }//GEN-LAST:event_taEscopoProjetoKeyPressed
-     
-    
+
     public void somarPrecos() {
         double soma = 0.0;
-        
+
         for (int i = 0; i < tableConsultor.getRowCount(); i++) {
             // Obtém o valor da coluna de preços na linha atual
             String precoStr = (String) tableConsultor.getValueAt(i, 4);
@@ -1267,10 +1285,10 @@ public class CadPedido extends javax.swing.JFrame {
             // Soma ao total
             soma += preco;
         }
-        
+
         lblTotalCompra.setText(String.valueOf(soma));
     }
-    
+
     /**
      * @param args the command line arguments
      */

@@ -137,6 +137,7 @@ public class CadVendedor extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Vendedor");
 
         jLabel1.setText("ID");
 
