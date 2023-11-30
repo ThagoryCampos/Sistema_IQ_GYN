@@ -58,6 +58,7 @@ public class CadPedido extends javax.swing.JFrame {
      * Creates new form CadInstituto
      */
     public CadPedido() {
+        
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         
@@ -65,7 +66,7 @@ public class CadPedido extends javax.swing.JFrame {
         carregaInstituto();
         carregaVendedor();
         carregaFormaPagamento();
-        createAndShowGUI();
+        
                 
         if(!existeDadosTemporarios()){
             DaoPedido daoPedido = new DaoPedido();
@@ -106,42 +107,16 @@ public class CadPedido extends javax.swing.JFrame {
         
         DefaultTableModel defaultTableModel = (DefaultTableModel) tableConsultor.getModel();
 //        defaultTableModel.setRowCount(0);
-   }
-    
-    private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Currency Text Field Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new FlowLayout());
-
-        try {
-            // Criar uma máscara para o formato R$
-            MaskFormatter mascara = new MaskFormatter("R$###,###,##0.00");
-            JFormattedTextField tfCustoFixo = new JFormattedTextField(mascara);
-            tfCustoFixo.setColumns(15);
-            tfCustoFixo.setValue(0.0);
-
-            JButton button = new JButton("Obter Valor");
-            button.addActionListener(e -> {
-                // Obter o valor formatado do campo
-                try {
-                    double valorDouble = ((Number) mascara.stringToValue(tfCustoFixo.getText())).doubleValue();
-                    System.out.println("Valor Digitado (double): " + valorDouble);
-                } catch (ParseException ex) {
-                    ex.printStackTrace();
-                }
-            });
-
-            frame.add(new JLabel("Custo Fixo:"));
-            frame.add(tfCustoFixo);
-            frame.add(button);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        frame.setSize(300, 150);
-        frame.setVisible(true);
     }
+    
+//    private void mascaraValores(){
+//        try{
+//            mfCustoFixo = newMaskFormatter("R$##,##");
+//        }catch{(ParseException ex){
+//            System.outPritnln("Ocorreu um erro na criacao da mascara")
+//        }
+//        
+//    }
     
     private String formatarMoeda(Double valor) {
         NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
